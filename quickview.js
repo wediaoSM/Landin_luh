@@ -120,83 +120,108 @@
   }
 
   // === abre modal a partir do card clicado ===
-function openFromTrigger(el) {
-  const title =
-    el.dataset.title ||
-    el.querySelector('.product-info h3')?.textContent?.trim() ||
-    el.querySelector('h3')?.textContent?.trim() ||
-    'Detalhes do produto';
+  function openFromTrigger(el) {
+    const title =
+      el.dataset.title ||
+      el.querySelector('.product-info h3')?.textContent?.trim() ||
+      el.querySelector('h3')?.textContent?.trim() ||
+      'Detalhes do produto';
 
-  let desc = el.dataset.desc ||
-    el.querySelector('.product-info p')?.textContent?.trim() ||
-    el.querySelector('p')?.textContent?.trim() ||
-    '';
+    let desc = el.dataset.desc ||
+      el.querySelector('.product-info p')?.textContent?.trim() ||
+      el.querySelector('p')?.textContent?.trim() ||
+      '';
 
-  let img = el.dataset.img || el.querySelector('img')?.src || null;
+    let img = el.dataset.img || el.querySelector('img')?.src || null;
 
-  // flags
-  const isPontoSlim = /ponto\s*slim/i.test(title) || el.dataset.product === 'ponto-slim';
-  const isAdesivoSlim = /adesivo\s*slim/i.test(title) || el.dataset.product === 'adesivo-slim';
+    // flags
+    const isPontoSlim = /ponto\s*slim/i.test(title) || el.dataset.product === 'ponto-slim';
+    const isAdesivoSlim = /adesivo\s*slim/i.test(title) || el.dataset.product === 'adesivo-slim';
+    // NOVO: Ponto Americano
+    const isPontoAmericano = /ponto\s*americano/i.test(title) || el.dataset.product === 'ponto-americano';
 
-  if (isPontoSlim) {
-    desc = `✨ Ponto Slim\n\nO Ponto Slim é um método indicado principalmente para cabelos cacheados.\nEle é feito com base e costura em tela, onde o cabelo natural fica solto, diferente do entrelace tradicional.\nEsse diferencial garante mais leveza, naturalidade e versatilidade no movimento dos fios.\nEspecial para cabelos cacheados (mas pode ser usado em outros tipos também)\nNão aperta e não agride a raiz\nEstrutura fina e discreta\nMais conforto e naturalidade`;
-    img = null;
-  } else if (isAdesivoSlim) {
-    desc = `✨ Adesivo Slim\n\nO Adesivo Slim é uma técnica moderna feita com fitas adesivas ultrafinas, ideais para quem busca alongamento e volume com naturalidade, conforto e leveza.\nAs fitas são imperceptíveis ao toque e não marcam na raiz.\n\n✅ Indicado para cabelos lisos e ondulados\n✅ Aplicação rápida e prática\n✅ Conforto no dia a dia\n✅ Naturalidade no acabamento`;
-    img = null;
+    if (isPontoSlim) {
+      desc = `✨ Ponto Slim
+
+O Ponto Slim é um método indicado principalmente para cabelos cacheados.
+Ele é feito com base e costura em tela, onde o cabelo natural fica solto, diferente do entrelace tradicional.
+Esse diferencial garante mais leveza, naturalidade e versatilidade no movimento dos fios.
+Especial para cabelos cacheados (mas pode ser usado em outros tipos também)
+Não aperta e não agride a raiz
+Estrutura fina e discreta
+Mais conforto e naturalidade`;
+      img = null;
+    } else if (isAdesivoSlim) {
+      desc = `✨ Adesivo Slim
+
+O Adesivo Slim é uma técnica moderna feita com fitas adesivas ultrafinas, ideais para quem busca alongamento e volume com naturalidade, conforto e leveza.
+As fitas são imperceptíveis ao toque e não marcam na raiz.
+
+✅ Indicado para cabelos lisos e ondulados
+✅ Aplicação rápida e prática
+✅ Conforto no dia a dia
+✅ Naturalidade no acabamento`;
+      img = null;
+    } else if (isPontoAmericano) {
+      // NOVO: texto do card 4 (Ponto Americano)
+      desc = `✨ O que é o Ponto Americano?
+
+O Ponto Americano é um método de alongamento em que a tela de cabelo é fixada ao natural através de uma costura fina e resistente.
+Ele garante um resultado natural, leve e confortável`;
+      img = null;
+    }
+
+    // passa info pro modal
+    openQuickView({ title, desc, img, opener: el, removeTitle: isPontoSlim || isAdesivoSlim || isPontoAmericano });
   }
 
-  // passa info pro modal
-  openQuickView({ title, desc, img, opener: el, removeTitle: isPontoSlim || isAdesivoSlim });
-}
+  // === monta e mostra modal ===
+  function openQuickView({ title, desc, img, opener, removeTitle = false }) {
+    const modal = document.getElementById('quickview');
+    if (!modal) return;
+    const titleEl = modal.querySelector('.quickview-title');
+    const bodyEl = modal.querySelector('.quickview-body');
 
-// === monta e mostra modal ===
-function openQuickView({ title, desc, img, opener, removeTitle = false }) {
-  const modal = document.getElementById('quickview');
-  if (!modal) return;
-  const titleEl = modal.querySelector('.quickview-title');
-  const bodyEl = modal.querySelector('.quickview-body');
+    // define título ou remove se precisar
+    if (removeTitle) {
+      titleEl.textContent = ''; // limpa completamente
+    } else {
+      titleEl.textContent = title || 'Detalhes do produto';
+    }
 
-  // define título ou remove se precisar
-  if (removeTitle) {
-    titleEl.textContent = ''; // limpa completamente
-  } else {
-    titleEl.textContent = title || 'Detalhes do produto';
+    // limpa corpo
+    bodyEl.innerHTML = '';
+
+    // adiciona imagem se tiver
+    if (img) {
+      const image = new Image();
+      image.src = img;
+      image.alt = title || '';
+      image.loading = 'lazy';
+      bodyEl.appendChild(image);
+    }
+
+    // adiciona descrição
+    if (desc) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'quickview-desc';
+      const paragraphs = desc.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+      wrapper.innerHTML = paragraphs
+        .map(p => p.replace(/\n/g, '<br>'))
+        .map(p => `<p>${p}</p>`)
+        .join('');
+      bodyEl.appendChild(wrapper);
+    }
+
+    lastFocused = opener || document.activeElement;
+
+    modal.setAttribute('aria-hidden', 'false');
+    modal.style.display = 'flex';
+    document.body.classList.add('modal-open');
+
+    const closeBtn = modal.querySelector('.quickview-close');
+    closeBtn?.focus({ preventScroll: true });
   }
-
-  // limpa corpo
-  bodyEl.innerHTML = '';
-
-  // adiciona imagem se tiver
-  if (img) {
-    const image = new Image();
-    image.src = img;
-    image.alt = title || '';
-    image.loading = 'lazy';
-    bodyEl.appendChild(image);
-  }
-
-  // adiciona descrição
-  if (desc) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'quickview-desc';
-    const paragraphs = desc.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
-    wrapper.innerHTML = paragraphs
-      .map(p => p.replace(/\n/g, '<br>'))
-      .map(p => `<p>${p}</p>`)
-      .join('');
-    bodyEl.appendChild(wrapper);
-  }
-
-  lastFocused = opener || document.activeElement;
-
-  modal.setAttribute('aria-hidden', 'false');
-  modal.style.display = 'flex';
-  document.body.classList.add('modal-open');
-
-  const closeBtn = modal.querySelector('.quickview-close');
-  closeBtn?.focus({ preventScroll: true });
-}
 
   function closeQuickView() {
     const modal = document.getElementById('quickview');

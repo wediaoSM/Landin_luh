@@ -143,7 +143,26 @@ p{color:rgba(255,250,245,0.95)}
 .card-image{position:relative;height:var(--card-height);border-radius:12px;background-size:cover;background-position:center;box-shadow:0 18px 40px rgba(0,0,0,0.48);overflow:hidden;transition:transform .36s cubic-bezier(0.2,0.9,0.3,1),box-shadow .36s,filter .36s}
 .card-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:12px;z-index:1}
 .card:hover .card-image{transform:translateY(-8px) scale(1.02);box-shadow:0 44px 110px rgba(0,0,0,0.6);filter:brightness(1.02)}
-.card.center .card-image{height:var(--card-center-height);border-radius:16px;transform:translateY(-18px);box-shadow:0 46px 130px rgba(0,0,0,0.62)}
+.card.center .card-image{height:var(--card-height);border-radius:12px;transform:none;box-shadow:0 18px 40px rgba(0,0,0,0.48)}
+
+/* Neutraliza o efeito fixo do card com .center */
+.card.center .card-image {
+  height: var(--card-height) !important;
+  border-radius: 12px !important;
+  transform: none !important;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.48) !important;
+}
+
+/* Novo: efeito aplicado dinamicamente ao card central visível */
+.card.is-center .card-image{
+  height: var(--card-center-height);
+  border-radius: 16px;
+  transform: translateY(-18px);
+  box-shadow: 0 46px 130px rgba(0,0,0,0.62);
+  transition: transform .28s cubic-bezier(0.2,0.9,0.3,1), box-shadow .28s ease, height .28s ease;
+}
+.card.is-center .card-caption h3 { font-size: 20px; }
+.card.is-center .card-caption p  { font-size: 14px; }
 
 .banners .card-image::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.02) 10%,rgba(0,0,0,0.08) 100%);z-index:2}
 .card-image::after{content:"";position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));border-radius:0 0 12px 12px;z-index:3;pointer-events:none}
@@ -490,9 +509,6 @@ a:visited { color: inherit; }
   /* ajustar botões nav do carrossel (se existirem) */
   .banners-nav { display: block !important; z-index: 6 !important; pointer-events: auto !important; }
   .banners-nav .b-nav { width: 40px !important; height: 40px !important; top: 50% !important; transform: translateY(-50%) !important; }
-
-  /* evita scroll horizontal global por 100vw */
-  html, body { overflow-x: hidden; }
 }
 
 /* === FINAL FIX: banners 400px (override de conflitos e desalinhamento) === */
@@ -604,8 +620,6 @@ a:visited { color: inherit; }
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
     scroll-snap-type: x mandatory !important;
-
-    /* centra o item com scroll-snap-align:center */
     scroll-padding-left: 50% !important;
     scroll-padding-right: 50% !important;
 
@@ -623,7 +637,6 @@ a:visited { color: inherit; }
     margin: 0 !important;
     scroll-snap-align: center !important;
     box-sizing: border-box !important;
-    min-width: 0 !important;
   }
 }
 /* ===== /OVERRIDE FINAL ≤420px ===== */
@@ -690,9 +703,10 @@ a:visited { color: inherit; }
     transform: translateX(-50%) !important;
     bottom: 10px !important;
     width: 92% !important;
+    text-align: center !important;
   }
 
-  /* setas do nav: visíveis e sobre o carrossel */
+  /* setas do nav do carrossel: visíveis e sobre o carrossel */
   .banners-nav {
     display: block !important;
     z-index: 20 !important;
@@ -924,6 +938,388 @@ a:visited { color: inherit; }
 
   /* pequenos ajustes de espaçamento geral */
   .banners-wrapper { margin-top: 18px !important; }
+}
+
+/* === CAROUSEL GLOBAL (desktop + mobile) === */
+/* Força o #mobile-banners a ser carrossel horizontal também no desktop */
+#mobile-banners {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 18px !important;
+  padding: 14px 12px !important;
+  overflow-x: auto !important;               /* scroll funcional */
+  -webkit-overflow-scrolling: touch !important;
+  scroll-snap-type: x mandatory !important;
+}
+
+/* Cards no desktop (~3 por tela). Mobile segue regras dos @media existentes */
+#mobile-banners .card {
+  flex: 0 0 32% !important;
+  max-width: 32% !important;
+  scroll-snap-align: center !important;
+  box-sizing: border-box !important;
+}
+
+/* Esconde a barra de scroll (somente setas visíveis) */
+#mobile-banners { 
+  -ms-overflow-style: none !important;  /* IE/Edge legado */
+  scrollbar-width: none !important;     /* Firefox */
+}
+#mobile-banners::-webkit-scrollbar {    /* Chrome/Safari/Edge */
+  display: none !important;
+  height: 0 !important;
+}
+
+/* === SETAS CENTRADAS SOBRE OS BANNERS (sempre visíveis) === */
+.banners-wrapper { position: relative !important; } /* ancora as setas */
+.banners-wrapper .banners-nav {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;                   /* cobre toda a área dos banners */
+  pointer-events: none !important;       /* eventos só nos botões */
+  z-index: 1000 !important;              /* acima das imagens e overlays */
+}
+
+/* Botões: centralizados verticalmente, encostados nas laterais */
+.banners-wrapper .banners-nav .b-nav {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 44px !important;
+  height: 44px !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  border-radius: 999px !important;
+  background: rgba(0,0,0,0.42) !important;
+  color: #fff !important;
+  font-size: 20px !important;
+  cursor: pointer !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.45) !important;
+  pointer-events: auto !important;       /* clique habilitado */
+}
+
+/* Lados (esquerda/direita) */
+.banners-wrapper .banners-nav .b-prev { left: 8px !important; right: auto !important; }
+.banners-wrapper .banners-nav .b-next { right: 8px !important; left: auto !important; }
+
+/* Tweak: em telas muito pequenas, usa botões um pouco menores */
+@media (max-width: 420px) {
+  .banners-wrapper .banners-nav .b-nav {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+/* Selo CTA “Saiba mais” nos banners (pill com gradiente) */
+.card .card-image { position: relative; /* ancora o selo */ }
+.card .card-cta{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1100;                     /* acima da imagem, abaixo/igual às setas */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+  color: #181415;                    /* contraste no gradiente */
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border: 1px solid rgba(255,255,255,0.22);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.38), 0 0 0 1px rgba(0,0,0,0.06) inset;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.25);
+  pointer-events: none;              /* não bloqueia o clique no card */
+  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+}
+.card .card-cta::before{
+  content: "↗";
+  font-weight: 900;
+  font-size: 12px;
+  color: #181415;
+  opacity: .9;
+}
+.card:hover .card-cta{
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.06) saturate(1.05);
+  box-shadow: 0 16px 44px rgba(0,0,0,0.45), 0 0 0 1px rgba(0,0,0,0.06) inset;
+}
+
+/* Mobile: menor e com respiro das bordas */
+@media (max-width: 420px){
+  .card .card-cta{
+    top: 8px;
+    right: 8px;
+    font-size: 11px;
+    padding: 6px 10px;
+    letter-spacing: .25px;
+  }
+  .card .card-cta::before{ font-size: 11px; }
+}
+
+/* === Destaque dinâmico sem tremor (mantém altura fixa) === */
+/* Override do antigo is-center: só pintura/transform, sem mudar layout */
+.card.is-center .card-image {
+  height: var(--card-height) !important;         /* altura fixa, sem reflow */
+  border-radius: 12px !important;
+  transform: translateY(-10px) scale(1.04) !important; /* efeito suave */
+  box-shadow: 0 36px 110px rgba(0,0,0,0.60) !important;
+  z-index: 5 !important;
+  will-change: transform;
+  transition: transform .22s cubic-bezier(.2,.9,.3,1), box-shadow .22s ease !important;
+}
+
+/* Evita “disputa” com hover: mantém o mesmo efeito quando central + hover */
+.card.is-center:hover .card-image {
+  transform: translateY(-10px) scale(1.04) !important;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.62) !important;
+}
+
+/* Mobile/Tablet: se quiser todos iguais, pode manter; caso contrário, com o transform não há tremor */
+@media (max-width: 900px){
+  .banners .card.is-center .card-image{
+    transform: translateY(-6px) scale(1.02) !important; /* mais sutil no mobile */
+    box-shadow: 0 26px 80px rgba(0,0,0,0.5) !important;
+  }
+}
+
+/* Nav das setas sem fundo/borda no container */
+.banners-wrapper .banners-nav {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+/* Setas: sem borda nativa, sem aparência do navegador e com fundo sutil */
+.banners-wrapper .banners-nav .b-nav {
+  border: 0 !important;
+  outline: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background-image: none !important;
+  /* visual mais leve (não sobrepõe a imagem) */
+  background: rgba(0,0,0,0.28) !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35) !important;
+  user-select: none !important;
+}
+
+/* Remove a borda interna padrão do Firefox */
+.banners-wrapper .banners-nav .b-nav::-moz-focus-inner {
+  border: 0 !important;
+}
+
+/* Hover/focus discretos (sem “aura” forte) */
+.banners-wrapper .banners-nav .b-nav:hover,
+.banners-wrapper .banners-nav .b-nav:focus-visible {
+  background: rgba(0,0,0,0.45) !important;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.45) !important;
+}
+
+/* Estado ativo com leve feedback */
+.banners-wrapper .banners-nav .b-nav:active {
+  transform: translateY(-50%) scale(0.98) !important;
+}
+
+/* Acessibilidade: foco visível, porém sutil (sem contorno agressivo) */
+.banners-wrapper .banners-nav .b-nav:focus-visible {
+  outline: none !important;
+  box-shadow: 0 10px 26px rgba(0,0,0,0.45) !important;
+}
+
+/* Mobile: mantém proporção e suavidade */
+@media (max-width: 420px) {
+  .banners-wrapper .banners-nav .b-nav {
+    background: rgba(0,0,0,0.26) !important;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.32) !important;
+  }
+  .banners-wrapper .banners-nav .b-nav:hover,
+  .banners-wrapper .banners-nav .b-nav:focus-visible {
+    background: rgba(0,0,0,0.4) !important;
+  }
+}
+
+/* Espaço extra entre os banners e a seção Sobre */
+#sobre {
+  margin-top: clamp(56px, 8vw, 120px) !important;
+}
+
+/* Tablets e menores: folga extra */
+@media (max-width: 768px) {
+  #sobre { margin-top: clamp(60px, 10vw, 140px) !important; }
+}
+
+/* Telefones pequenos: folga máxima */
+@media (max-width: 400px) {
+  #sobre { margin-top: clamp(48px, 12vw, 160px) !important; }
+}
+
+/* Reduz o tamanho da foto do Sobre (mais compacto e centralizado) */
+#sobre .about-image-portrait {
+  width: min(78%, 660px) !important;
+  max-width: 660px !important;
+  aspect-ratio: 4 / 5 !important;
+  height: auto !important;
+  min-height: 260px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@media (max-width: 768px) {
+  #sobre .about-image-portrait {
+    width: min(84%, 580px) !important;
+    max-width: 580px !important;
+    min-height: 220px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  #sobre .about-image-portrait {
+    width: 92% !important;
+    min-height: 200px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  #sobre .about-image-portrait {
+    width: 96% !important;
+    min-height: 180px !important;
+  }
+}
+
+/* FIX: legendas sempre visíveis acima das imagens (inclui quando .is-center) */
+.card .card-caption {
+  z-index: 60 !important;         /* acima do z-index da .card-image (até 5) */
+  pointer-events: none;           /* não bloqueia o clique no card */
+}
+
+/* Legibilidade melhor em fundos claros */
+.card .card-caption h3,
+.card .card-caption p {
+  text-shadow: 0 2px 8px rgba(0,0,0,0.65);
+}
+
+/* Em telas pequenas, mantém a prioridade */
+@media (max-width: 420px) {
+  .card .card-caption { z-index: 60 !important; }
+}
+
+/* Produtos: grid e cards consistentes */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch; /* cards ocupam mesma altura na linha */
+}
+
+@media (max-width: 900px) {
+  .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .products-grid { grid-template-columns: 1fr; }
+}
+
+/* Card base: coluna com ações presas embaixo */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(40, 32, 24, 0.86);
+  color: #f2f2f3;
+  border: 1.5px solid var(--accent);
+  border-radius: 14px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.22);
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Mídia com altura fixa (evita variar por proporção da imagem) */
+.product-card .product-media {
+  width: 100%;
+  height: 220px;
+  background: #111;
+  overflow: hidden;
+}
+.product-card .product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 600px) {
+  .product-card .product-media { height: 180px; }
+}
+
+/* Corpo do card com layout consistente */
+.product-card .product-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 14px 16px;
+  flex: 1 1 auto; /* ocupa o restante vertical */
+}
+
+/* Título/descrição: 2 linhas fixas (sem crescer) */
+.product-card .product-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;    /* limita a 2 linhas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: calc(1.25em * 2); /* reserva altura p/ 2 linhas */
+}
+.product-card .product-desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;    /* limita a 2 linhas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: calc(1.4em * 2);
+}
+
+/* Preços padronizados */
+.product-card .product-prices {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.product-card .product-prices .old-price {
+  text-decoration: line-through;
+  color: rgba(255,255,255,0.65);
+  font-weight: 700;
+}
+.product-card .product-prices .new-price {
+  color: var(--accent);
+  font-weight: 900;
+  font-size: 1.05rem;
+}
+
+/* Ações no rodapé do card */
+.product-card .product-actions {
+  margin-top: auto;          /* empurra para o fim */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.product-card .product-actions .btn-primary,
+.product-card .product-actions .btn-secondary {
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+  padding: 11px 0;
+}
+
+/* Hover sutil (sem deslocar altura) */
+.product-card:hover .product-media img {
+  transform: scale(1.02);
+  transition: transform .24s ease;
 }
 
 

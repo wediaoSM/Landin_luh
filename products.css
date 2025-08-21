@@ -913,3 +913,78 @@ body.modal-open { overflow: hidden; }
   margin-left: 6px;
   flex: 0 0 auto;
 }
+
+/* === Override rápido: força consistência de altura e truncagem de textos para evitar desalinhamento entre cards === */
+/* Garante que o grid alinhe os itens no topo e que os cards usem toda a altura disponível */
+.products-grid { align-items: start; }
+.product-card { display: flex; flex-direction: column; height: 100%; }
+
+/* Área de texto dentro do card: mantém estrutura em coluna e força altura mínima para consistência */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 124px; /* ajuste caso você queira cards mais altos/baixos */
+  box-sizing: border-box;
+}
+
+/* Título: até 2 linhas, recorta o excesso com ellipsis, e tem altura mínima para evitar variação */
+.product-info h3 {
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.18;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 44px; /* mantém a mesma altura mesmo em títulos curtos */
+  font-weight: 700;
+}
+
+/* Descrição: até 2 linhas, uniforme entre os cards */
+.product-info p {
+  font-size: 14px;
+  color: var(--muted, #bfbfbf);
+  margin: 0;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 36px;
+}
+
+/* Preço: mantém posição fixa, sem empurrar o botão */
+.product-price { margin-top: 2px; }
+
+/* Ações (botão) ficam sempre no final do card */
+.product-actions { margin-top: auto; }
+
+/* Força altura consistente do botão para aparência uniforme */
+.product-actions .btn-primary { height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+
+/* Pequenos ajustes responsivos — reduz alturas mínimas em telas pequenas */
+@media (max-width: 520px) {
+  .product-info { min-height: 100px; }
+  .product-info h3 { min-height: 40px; }
+  .product-info p { min-height: 32px; }
+  .product-actions .btn-primary { height: 40px; }
+}
+
+@media (max-width: 400px) {
+  .product-info { min-height: 88px; }
+  .product-info h3 { min-height: 36px; }
+  .product-info p { min-height: 28px; }
+  .product-actions .btn-primary { height: 36px; font-size: 13px; }
+}
+
+/* Opcional: força o mesmo tamanho de imagens (caso estejam vindo com proporções diferentes) */
+.product-image {
+  background-size: cover !important;
+  background-position: center center !important;
+  aspect-ratio: 1 / 1;
+  min-height: 160px; /* aumenta caso queira imagens maiores */
+}
+
+/* Evita que títulos ou preços quebrem o layout do botão em telas muito pequenas */
+.product-info, .product-card { box-sizing: border-box; max-width: 100%; }
