@@ -1,0 +1,1369 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Landing • Luciana Cunha</title>
+  <meta name="description"
+    content="Luciana Cunha — Especialista em Megahair. Atendimento personalizado e naturalidade." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.clean.css">
+  <!-- Performance e SEO -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Pré-conexão com WhatsApp para CTA mais rápido -->
+  <link rel="preconnect" href="https://wa.me">
+  <link rel="dns-prefetch" href="https://wa.me">
+  <meta name="theme-color" content="#0f0f10">
+  <meta name="format-detection" content="telephone=no">
+  <!-- Preload das imagens críticas -->
+  <link rel="preload" as="image" href="hero.jpg">
+  <link rel="preload" as="image" href="about.jpg">
+  <!-- Open Graph -->
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Landing • Luciana Cunha — Especialista em Megahair">
+  <meta property="og:description"
+    content="Atendimento individualizado, técnica e acabamento com aspecto natural — realçando sua beleza com leveza.">
+  <meta property="og:image" content="Imagens/collection.jpeg">
+  <meta property="og:image:alt" content="Transformações reais — antes e depois">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Landing • Luciana Cunha — Especialista em Megahair">
+  <meta name="twitter:description"
+    content="Atendimento individualizado, técnica e acabamento com aspecto natural — realçando sua beleza com leveza.">
+  <meta name="twitter:image" content="Imagens/collection.jpeg">
+  <link rel="icon" href="/favicon.ico">
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HairSalon",
+    "name": "Luciana Cunha",
+    "description": "Especialista em Megahair com atendimento individualizado e acabamento natural.",
+    "areaServed": "Ribeirão Preto, SP",
+    "telephone": "+55 16 99234-5492",
+    "image": "Imagens/collection.jpeg",
+    "sameAs": ["https://wa.me/5516992345492"],
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "telephone": "+55 16 99234-5492",
+      "contactType": "customer service",
+      "areaServed": "BR",
+      "availableLanguage": ["pt-BR"]
+    }]
+  }
+  </script>
+  <!-- Overrides para remover o “quadrado” e ajustar o hero -->
+  <style>
+    /* hero-main-block sem painel */
+    .hero-main-block {
+      background: none !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      margin: 0 0 24px 0 !important;
+      position: relative;
+      z-index: 2;
+      gap: 22px;
+    }
+
+    .hero-main-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Remove qualquer overlay do topo (podia parecer um “quadrado”) */
+    .hero::before {
+      display: none !important;
+    }
+
+    /* hero mais largo, sem reservar espaço à direita (sem “bloco vazio”) */
+    .hero-content {
+      position: relative;
+      max-width: min(calc(var(--max-width) + 240px), 1280px);
+      /* hero mais largo */
+      padding-right: clamp(140px, 22vw, 320px);
+      /* espaço para a bolha */
+      padding: 36px 12px 0;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    /* Texto com largura controlada para não “entrar” na bolha */
+    .hero-main-text {
+      max-width: 560px;
+    }
+
+    /* Bolha fixa à direita, fora do fluxo (não cria coluna/quadrado) */
+    .hero-visual {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      flex: 0 0 auto;
+      padding-right: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .bubble {
+      width: clamp(380px, 36vw, 540px);
+      height: clamp(380px, 36vw, 540px);
+      margin-right: 0;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+    }
+
+    /* Responsivo */
+    @media (max-width: 1100px) {
+      .hero-content {
+        padding-right: clamp(140px, 26vw, 360px);
+      }
+
+      .bubble {
+        width: clamp(320px, 34vw, 460px);
+        height: clamp(320px, 34vw, 460px);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-content {
+        padding-right: clamp(110px, 28vw, 300px);
+      }
+
+      .bubble {
+        width: clamp(280px, 42vw, 380px);
+        height: clamp(280px, 42vw, 380px);
+      }
+
+      .hero-main-block {
+        margin-left: 18px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      /* Empilha o destaque da loja */
+      .shop-hero-content {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .shop-hero-card {
+        order: 2;
+        width: 100%;
+      }
+
+      .shop-hero-text {
+        order: 1;
+      }
+
+      .shop-hero-ctas {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      /* Hero texto sem limite rígido */
+      .hero-main-text {
+        max-width: 100%;
+      }
+
+      /* Sobre: força 1 coluna para evitar aperto */
+      #sobre .about-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      /* Footer: colunas empilhadas */
+      .site-footer .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .site-footer .footer-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      /* Banners: cards mais estreitos e centralizados */
+      .banners .card {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .banners .card.center {
+        width: 75%;
+      }
+
+      /* Destaque da loja: 75% e centralizado no fluxo em coluna */
+      .shop-hero-content {
+        align-items: center;
+      }
+
+      .shop-hero-card {
+        width: 75% !important;
+        margin-left: auto;
+        margin-right: auto;
+        align-self: center;
+      }
+
+      /* Sobre: reduzir e centralizar a foto em ~25% */
+      #sobre .about-image-portrait {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        min-height: 0;
+        /* permite reduzir de fato, ignorando min-height anterior */
+      }
+    }
+
+    @media (max-width: 600px) {
+      #sobre .about-text-v2 {
+        padding: 14px 12px;
+      }
+
+      #sobre .about-text-v2 .lead,
+      #sobre .about-text-v2 p {
+        line-height: 1.8;
+      }
+    }
+
+    /* Contém a imagem do "quadrado" da seção Sobre (sem transbordar) */
+    #sobre .about-image-portrait {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 16px;
+      border: 1.5px solid rgba(201, 160, 99, 0.35);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      /* retrato, evita esticar/transbordar */
+      min-height: 360px;
+      /* fallback para navegadores sem aspect-ratio */
+      margin-top: 12px;
+    }
+
+    @media (max-width: 900px) {
+      #sobre .about-image-portrait {
+        aspect-ratio: 3 / 4;
+        min-height: 300px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      #sobre .about-image-portrait {
+        aspect-ratio: 16 / 10;
+        /* mais largo no mobile */
+        min-height: 220px;
+        margin-top: 22px;
+      }
+    }
+
+    /* Garante alinhamento e respiro entre imagem e card de texto */
+    #sobre .about-grid {
+      align-items: stretch;
+      gap: 18px;
+    }
+
+    /* Footer marrom translúcido */
+    .site-footer {
+      background: rgba(40, 32, 24, 0.86);
+      /* marrom, meia transparência */
+      color: #f2f2f3;
+      backdrop-filter: blur(2px) saturate(105%);
+      -webkit-backdrop-filter: blur(2px) saturate(105%);
+      border-top: 1px solid rgba(201, 160, 99, 0.28);
+      /* dourado suave */
+    }
+
+    .site-footer .muted {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .site-footer a {
+      color: rgba(255, 255, 255, 0.95);
+      text-decoration: none;
+      transition: color .18s ease, opacity .18s ease;
+    }
+
+    .site-footer a:hover,
+    .site-footer a:focus {
+      color: #ffffff;
+      opacity: 1;
+      outline: none;
+    }
+
+    .site-footer .sep {
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .site-footer .footer-grid,
+    .site-footer .footer-bottom {
+      /* garante contraste interno consistente */
+      color: inherit;
+    }
+
+    .site-footer .footer-list li {
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .site-footer .brand-badge-small {
+      /* ocultar selo LC no rodapé */
+      display: none !important;
+    }
+
+    .site-footer .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .site-footer {
+        background: rgba(40, 32, 24, 0.9);
+        /* um pouco mais sólida no mobile */
+      }
+    }
+
+    /* Banner de destaque da loja com o mesmo efeito do footer */
+    .shop-hero-card {
+      background: rgba(40, 32, 24, 0.86);
+      color: #f2f2f3;
+      border: 1px solid rgba(201, 160, 99, 0.28);
+      border-radius: 16px;
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(2px) saturate(105%);
+      -webkit-backdrop-filter: blur(2px) saturate(105%);
+      overflow: hidden;
+    }
+
+    /* vinheta leve sobre a imagem para unir com o fundo translúcido */
+    .shop-hero-card .shop-image {
+      position: relative;
+      /* garante que a imagem cubra bem */
+      background-size: cover !important;
+      background-position: center !important;
+    }
+
+    .shop-hero-card .shop-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(40, 32, 24, 0.18) 0%, rgba(40, 32, 24, 0.35) 100%);
+      pointer-events: none;
+    }
+
+    /* contraste dos textos dentro do card */
+    .shop-hero-card .shop-card-body h3 {
+      color: #fff;
+    }
+
+    .shop-hero-card .shop-prices .old-price {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .shop-hero-card .shop-prices .new-price {
+      color: #ffe7b3;
+    }
+
+    @media (max-width: 600px) {
+      .shop-hero-card {
+        background: rgba(40, 32, 24, 0.9);
+      }
+    }
+
+    /* Tablet: 768px */
+    @media (max-width: 768px) {
+      /* Empilha o destaque da loja */
+      .shop-hero-content {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .shop-hero-card {
+        order: 2;
+        width: 100%;
+      }
+
+      .shop-hero-text {
+        order: 1;
+      }
+
+      .shop-hero-ctas {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      /* Hero texto sem limite rígido */
+      .hero-main-text {
+        max-width: 100%;
+      }
+
+      /* Sobre: força 1 coluna para evitar aperto */
+      #sobre .about-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      /* Footer: colunas empilhadas */
+      .site-footer .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .site-footer .footer-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      /* Banners: cards mais estreitos e centralizados */
+      .banners .card {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .banners .card.center {
+        width: 75%;
+      }
+
+      /* Destaque da loja: 75% e centralizado no fluxo em coluna */
+      .shop-hero-content {
+        align-items: center;
+      }
+
+      .shop-hero-card {
+        width: 75% !important;
+        margin-left: auto;
+        margin-right: auto;
+        align-self: center;
+      }
+
+      /* Sobre: reduzir e centralizar a foto em ~25% */
+      #sobre .about-image-portrait {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        min-height: 0;
+        /* permite reduzir de fato, ignorando min-height anterior */
+      }
+    }
+
+    /* Mobile pequeno: 400px (iPhone) */
+    @media (max-width: 400px) {
+      /* CTAs do hero em coluna e full-width */
+      .hero-main-ctas {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .hero-main-ctas .btn-primary,
+      .hero-main-ctas .btn-secondary {
+        width: 100%;
+        text-align: center;
+      }
+
+      /* Card destaque loja centraliza textos */
+      .shop-hero-card .shop-card-body {
+        text-align: center;
+      }
+
+      .banners .card,
+      .banners .card.center {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .shop-hero-card {
+        width: 75% !important;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Sobre: manter redução e centralização no iPhone */
+      #sobre .about-image-portrait {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+        min-height: 0;
+      }
+    }
+
+    /* 400px: banners menores (centro bem reduzido) e texto do Sobre menor */
+    @media (max-width: 400px) {
+      /* Banners */
+      .banners .card.center {
+        width: 58% !important;
+      }
+
+      .banners .card {
+        width: 68% !important;
+      }
+
+      .banners .card .card-caption h3 {
+        font-size: 14px;
+      }
+
+      .banners .card .card-caption p {
+        font-size: 12px;
+      }
+
+      /* Sobre */
+      #sobre .about-text-v2 {
+        padding: 12px 10px;
+      }
+
+      #sobre .about-text-v2 h2 {
+        font-size: 1.22rem;
+      }
+
+      #sobre .about-text-v2 .lead,
+      #sobre .about-text-v2 p,
+      #sobre .about-text-v2 li {
+        font-size: .95rem;
+        line-height: 1.6;
+      }
+
+      #sobre .about-text-v2 h4 {
+        font-size: 1rem;
+      }
+    }
+
+    /* 360–390px: redução extra opcional dos banners */
+    @media (max-width: 390px) {
+      .banners .card.center {
+        width: 54% !important;
+      }
+
+      .banners .card {
+        width: 64% !important;
+      }
+    }
+
+  
+   
+    
+    /* ≤400px: ainda menores e iguais, com mais espaço entre eles */
+    @media (max-width: 400px) {
+      .banners {
+        gap: 24px;
+      }
+
+      .banners .card,
+      .banners .card.center {
+        width: 44% !important;
+        transform: none !important;
+      }
+
+      .banners .card .card-image {
+        aspect-ratio: 4 / 5;
+      }
+
+      .banners .card .card-image img {
+        object-fit: cover;
+      }
+
+      .banners .card .card-caption h3 {
+        font-size: 12px;
+      }
+
+      .banners .card .card-caption p {
+        font-size: 10.5px;
+      }
+    }
+
+    /* Sobre — mobile ≤768px: tipografia menor, 1 coluna e centralizado */
+    @media (max-width: 768px) {
+      #sobre { padding: 38px 0 30px; }
+      #sobre .about-grid { gap: 14px; }
+      #sobre .about-text-v2 {
+        width: 88%;
+        margin: 0 auto;
+      }
+      #sobre .about-text-v2 h2 { font-size: 1.25rem; }
+      #sobre .about-text-v2 .two-cols {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      #sobre .about-text-v2 .lead,
+      #sobre .about-text-v2 p,
+      #sobre .about-text-v2 li {
+        font-size: 0.95rem;
+        line-height: 1.65;
+      }
+      #sobre .about-image-portrait {
+        width: 88%;
+        margin: 0 auto;
+        height: auto;
+        min-height: 0;
+        margin-top: 16px;
+      }
+      #sobre .cta-row { margin-top: 12px !important; }
+    }
+
+    /* Sobre — mobile ≤400px: ainda menor e proporção de retrato */
+    @media (max-width: 400px) {
+      #sobre { padding: 28px 0 24px; }
+      #sobre .about-text-v2 { width: 86%; }
+      #sobre .about-text-v2 h2 { font-size: 1.1rem; }
+      #sobre .about-text-v2 h4 { font-size: 0.95rem; }
+      #sobre .about-text-v2 .lead,
+      #sobre .about-text-v2 p,
+      #sobre .about-text-v2 li {
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+      #sobre .about-image-portrait {
+        width: 86%;
+        aspect-ratio: 4 / 5;
+        min-height: 200px;
+        margin-top: 22px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      /* Banner promocional menor em 768px */
+      .shop-hero-card {
+        /* ...existing code... */
+        width: 60% !important; /* antes 75% */
+      }
+      .shop-hero-card .shop-image {
+        height: 120px !important; /* antes herdava 140px */
+      }
+
+      /* Sobre: imagem menor e mais “alta” (retrato) em 768px */
+      #sobre .about-image-portrait {
+        /* ...existing code... */
+        width: 60%;           /* antes 75% */
+        max-width: 360px;     /* limite para telas médias */
+        aspect-ratio: 4 / 5;  /* garante retrato e reduz altura total */
+        min-height: 0;        /* mantém redução real */
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#main">Pular para conteúdo</a>
+
+  <header class="hero" role="banner" aria-label="Topo da página">
+    <!-- NAVBAR fixa -->
+    <nav class="navbar" aria-label="Principal">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden="true">LC</div>
+        <div class="brand-title">Luciana Cunha</div>
+      </div>
+
+      <div class="nav-links">
+        <a href="#sobre">SOBRE</a>
+        <a href="#contato">CONTATO</a>
+      </div>
+    </nav>
+
+    <main id="main" class="hero-content container" tabindex="-1">
+      <!-- volta o bloco como antes -->
+      <section class="hero-main-block reveal" aria-labelledby="hero-title">
+        <div class="hero-main-text">
+          <h1 id="hero-title">
+            <span class="hero-highlight">Luciana Cunha</span>
+            <br>
+            <span class="hero-sub">Especialista em Megahair &amp; Naturalidade</span>
+          </h1>
+          <p class="hero-lead">
+            Atendimento individualizado, técnica avançada e acabamento com aspecto natural.<br>
+            Realce sua beleza com leveza, conforto e segurança.
+          </p>
+          <div class="hero-main-ctas">
+            <a href="#sobre" class="btn-primary">Ver Historia</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- HERO VISUAL à direita (coluna flex) -->
+      <div class="hero-visual reveal" aria-hidden="true">
+       
+      </div>
+    </main>
+  </header>
+
+  <!-- ADICIONADO: seção destacada de compra (colocada acima dos banners) -->
+  <section class="shop-hero container reveal" aria-labelledby="shop-hero-title">
+    <div class="shop-hero-content">
+      <div class="shop-hero-text">
+        <div class="accent-line" aria-hidden="true"></div>
+        <h2 id="shop-hero-title">Mega Hair • Escolha o seu</h2>
+        <p class="lead">Técnicas e materiais pensados para naturalidade, conforto e durabilidade. Conheça as opções e
+          agende sua avaliação.</p>
+
+        <ul class="shop-quicklist">
+          <li><strong>Ponto Slim</strong> — leveza e volume natural</li>
+          <li><strong>Adesivo Slim</strong> — acabamento invisível</li>
+          <li><strong>Transformações</strong> — pacotes personalizados</li>
+        </ul>
+
+        <div class="shop-hero-ctas">
+          <a href="produtos.html" class="btn-primary">Ver todos os produtos</a>
+          <!-- WhatsApp com mensagem pré-preenchida -->
+          <a href="https://wa.me/5516992345492?text=Ol%C3%A1%2C+gostaria+de+agendar+uma+avalia%C3%A7%C3%A3o+de+Mega+Hair."
+            class="btn-secondary" target="_blank" rel="noopener noreferrer">Tirar dúvidas no WhatsApp</a>
+        </div>
+      </div>
+
+      <aside class="shop-hero-card" aria-hidden="true">
+        <div class="shop-badge">Destaque</div>
+        <div class="shop-image" style="background-image: url('Imagens/pacote.jpg')" role="img"
+          aria-label="Promoção Mega Hair"></div>
+        <div class="shop-card-body">
+          <h3>Pacote Transformação</h3>
+          <div class="shop-prices">
+            <span class="old-price">R$ 1.199,00</span>
+            <span class="new-price">R$ 899,00</span>
+          </div>
+
+          <div class="shop-card-actions">
+            <button type="button" class="btn-secondary" id="open-transform-modal">Ver detalhes</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+
+  <!-- CAR 1 -->
+   
+<div class="banners-wrapper">
+  <div class="banners" id="mobile-banners" tabindex="0" aria-label="Galeria de banners">
+    <article class="card">
+      <div class="card-image">
+        <img src="Imagens/ponto-slim.jpeg" alt="Banner 1" />
+      </div>
+      <div class="card-caption compact">
+        <h3>Ponto Slim</h3>
+        <p>Técnicas que priorizam leveza e conforto</p>
+      </div>
+    </article>
+
+     <!-- CAR CENTER -->
+<article class="card center" data-gallery="transformacoes/foto1.jpeg,Imagens/transf-02.jpg,Imagens/transf-03.jpg">
+  <div class="card-image">
+    <img src="Imagens/transformacao.jpg" alt="Transformações Reais (thumb)" loading="lazy" />
+  </div>
+  <div class="card-caption compact">
+    <h3>Transformações Reais</h3>
+    <p>Antes e depois com naturalidade e movimento</p>
+  </div>
+</article>
+
+     <!-- CAR 3 -->
+    <article class="card">
+      <div class="card-image">
+        <img src="Imagens/adesivo-slim.jpeg" alt="Banner 3" />
+      </div>
+      <div class="card-caption compact">
+        <h3>Adesivo Slim</h3>
+        <p>Fixação discreta, acabamento elegante</p>
+      </div>
+    </article>
+
+    <!-- Adicione mais <article class="card"> conforme precisar -->
+  </div>
+
+  <!-- Navegação (setas) -->
+  <div class="banners-nav" aria-hidden="false">
+    <button class="b-nav b-prev" aria-label="Banner anterior">‹</button>
+    <button class="b-nav b-next" aria-label="Próximo banner">›</button>
+  </div>
+</div>
+
+
+  <!-- SOBRE: mantenho about como background (pra não mexer no CSS desta classe) -->
+  <section id="sobre" class="about container reveal" aria-labelledby="sobre-title">
+    <div class="about-grid">
+      <div class="about-image-portrait" aria-hidden="true" style="background-image:url('Imagens/teste.png')"></div>
+
+      <div class="about-text-v2">
+        <h2 id="sobre-title">Conheça a <span>Luciana</span></h2>
+        <p class="lead">Luciana Cunha é especialista em Megahair há mais de 16 anos, reconhecida por transformar não apenas cabelos, mas também autoestima e histórias de vida. Sua trajetória começou em meio a desafios — mãe solo aos 21 anos, sem profissão ou apoio, encontrou no megahair não só uma nova aparência, mas um novo sentido para viver.
+
+Aos 27 anos, após uma experiência marcante que resgatou sua própria confiança, decidiu transformar sua dor em propósito. Desde então, tornou-se referência por seu atendimento humanizado, técnica impecável e sensibilidade única para entender os desejos e inseguranças de cada cliente.
+
+Hoje, Luciana é mais do que uma profissional da beleza: é uma artista de fios e emoções, que resgata sorrisos, constrói confiança e ajuda mulheres a se reconhecerem no espelho. Sua marca, Luciana Cunha Megahair, representa sofisticação, acolhimento, modernidade e empoderamento — fio a fio.</p>
+
+        <div class="two-cols">
+          <div class="bio-block">
+            <h4>Abordagem</h4>
+            <p>Atendimento individualizado, planejamento por etapa e manutenção inteligente — resultado natural e fácil
+              manutenção.</p>
+          </div>
+          <div class="bio-block">
+            <h4>Compromisso</h4>
+            <p>Trabalho com materiais de qualidade, técnicas testadas e respeito ao fio natural. Seu conforto e
+              autoestima são prioridade.</p>
+          </div>
+        </div>
+
+        <div class="cta-row" style="margin-top:18px">
+          <a href="https://wa.me/5516992345492?text=Ol%C3%A1%2C+gostaria+de+agendar+uma+avalia%C3%A7%C3%A3o+de+Mega+Hair."
+            target="_blank" class="btn-primary" rel="noopener noreferrer">Agende Uma Avaliação</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé mais semântico e com “trust row” -->
+  <footer class="site-footer" role="contentinfo" aria-labelledby="footer-title">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div>
+          <h3 id="footer-title">Luciana Cunha</h3>
+          <p class="muted">Especialista em Megahair — resultado natural</p>
+        </div>
+        <div class="socials-row" aria-label="Redes sociais">
+          <a class="social-btn" href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <!-- Instagram -->
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor"
+                d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.3 2.4.6.6.3 1 .7 1.4 1.4.3.5.5 1.2.6 2.4.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.9-.6 2.4-.3.6-.7 1-1.4 1.4-.5.3-1.2.5-2.4.6-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.3-2.4-.6-.6-.3-1-.7-1.4-1.4-.3-.5-.5-1.2-.6-2.4C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.9.6-2.4.3-.6.7-1 1.4-1.4.5-.3 1.2-.5 2.4-.6C8.4 2.2 8.8 2.2 12 2.2m0 2c-3.1 0-3.5 0-4.7.1-1 0-1.6.2-2 .4-.5.2-.8.4-1.1.9-.2.3-.4.9-.4 2 0 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c0 1 .2 1.6.4 2 .2.5.4.8.9 1.1.3.2.9.4 2 .4 1.2 0 1.6.1 4.7.1s3.5 0 4.7-.1c1 0 1.6-.2 2-.4.5-.2.8-.4 1.1-.9.2-.3.4-.9.4-2 0-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c0-1-.2-1.6-.4-2-.2-.5-.4-.8-.9-1.1-.3-.2-.9-.4-2-.4-1.2 0-1.6-.1-4.7-.1m0 2.9a6.9 6.9 0 1 1 0 13.8 6.9 6.9 0 0 1 0-13.8m0 2a4.9 4.9 0 1 0 0 9.8 4.9 4.9 0 0 0 0-9.8m5.5-2.3a1.3 1.3 0 1 1 0 2.7 1.3 1.3 0 0 1 0-2.7" />
+            </svg>
+            <span class="sr-only">Instagram</span>
+          </a>
+          <a class="social-btn" href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <!-- Facebook -->
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor"
+                d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.8V12h2.6V9.8c0-2.6 1.6-4 3.9-4 1.1 0 2.3.2 2.3.2v2.5h-1.3c-1.3 0-1.7.8-1.7 1.6V12h2.9l-.5 2.9h-2.4v7A10 10 0 0 0 22 12" />
+            </svg>
+            <span class="sr-only">Facebook</span>
+          </a>
+          <a class="social-btn"
+            href="https://wa.me/5516992345492?text=Ol%C3%A1%2C+gostaria+de+agendar+uma+avalia%C3%A7%C3%A3o+de+Mega+Hair."
+            target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <!-- WhatsApp -->
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor"
+                d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2 .5 3.9 1.4 5.6L0 24l6.6-1.4A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.3-6.2-3.5-8.5zM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.8.8.8-3.7-.2-.4A10 10 0 1 1 12 22zm5.5-7.6c-.3-.2-1.7-.9-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-1-.9-1.5-1.9-1.7-2.2-.2-.3 0-.5.1-.7.134-.133.298-.347.447-.52.151-.173.201-.298.301-.497.099-.198.05-.372-.025-.52-.074-.148-.672-1.62-.921-2.218-.242-.583-.487-.503-.672-.513l-.573-.01c-.198 0-.52.074-.793.372s-1.04 1.017-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.4.2.7.2 1 .1.3-.1 1.8-.6 2.1-1.3.2-.6.2-1.1.2-1.3 0-.1-.3-.2-.6-.3z" />
+            </svg>
+            <span class="sr-only">WhatsApp</span>
+          </a>
+        </div>
+        <!-- Trust row: segurança + pagamentos -->
+        <div class="trust-row" aria-label="Selo de segurança e formas de pagamento">
+          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align:middle">
+            <path fill="currentColor"
+              d="M12 1a5 5 0 0 0-5 5v2H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5m0 2a3 3 0 0 1 3 3v2H9V6a3 3 0 0 1 3-3m-1 10h2v4h-2v-4z" />
+          </svg>
+          <span class="muted">Site seguro</span>
+       
+        </div>
+      </div>
+
+      <nav class="col">
+        <h4>Contato</h4>
+        <ul class="footer-list">
+          <li id="contato">Telefone: <a href="tel:+5516992345492">(16) 99234-5492</a></li>
+          <li>Email: <a href="mailto:contato@exemplo.com">contato@exemplo.com</a></li>
+          <li><span style="white-space:nowrap">Atendimento: Seg–Sáb • 9h–19h</span></li>
+          <li>Franca• SP</li>
+        </ul>
+      </nav>
+
+      <nav class="col">
+        <h4>Links</h4>
+        <ul class="footer-list">
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="produtos.html">Produtos</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-newsletter">
+        <h4>Receba dicas e novidades</h4>
+        <p id="newsletter-help" class="muted">Cuidados, manutenção e promoções no seu email.</p>
+        <form id="newsletter-form" class="newsletter-form" novalidate>
+          <label for="newsletter-email" class="sr-only">Seu email</label>
+          <input id="newsletter-email" type="email" placeholder="seu@email.com" required autocomplete="email"
+            inputmode="email" autocapitalize="off" spellcheck="false" aria-describedby="newsletter-help" />
+          <button type="submit" class="btn-primary">Quero receber</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>© <span id="year"></span> Luciana Cunha — Todos os direitos reservados.</div>
+      <div class="footer-bottom-right">
+        <a href="#" class="muted">Política de privacidade</a>
+        <span class="sep">•</span>
+        <a href="#" class="muted">Termos de uso</a>
+        <span class="sep">•</span>
+        <a href="#top" class="back-to-top" aria-label="Voltar ao topo">Voltar ao topo ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal de detalhes do Pacote Transformação -->
+  <div id="transform-modal" class="modal-overlay" aria-hidden="true" tabindex="-1" style="display:none;">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button type="button" class="modal-close" id="close-transform-modal" aria-label="Fechar">
+        <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align:middle">
+          <circle cx="12" cy="12" r="12" fill="#fbeedc"/>
+          <path d="M8 8l8 8M16 8l-8 8" stroke="#c9a063" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="modal-icon" aria-hidden="true">
+        <svg width="54" height="54" viewBox="0 0 24 24">
+          <defs>
+            <radialGradient id="gold-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffe7b3"/>
+              <stop offset="100%" stop-color="#c9a063"/>
+            </radialGradient>
+          </defs>
+          <circle cx="12" cy="12" r="12" fill="url(#gold-grad)"/>
+          <path d="M7 13l3 3 7-7" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 id="modal-title" style="color:#c9a063;font-family:'Inter',sans-serif;font-weight:800;font-size:1.45em;margin-bottom:10px;letter-spacing:0.5px;text-align:center;">Pacote Transformação</h2>
+      <p style="font-size:1.13em;color:#6a4c2b;margin-bottom:14px;text-align:center;">O pacote mais completo para renovar seu visual:</p>
+      <ul style="padding-left:18px;margin-bottom:18px;font-size:1.08em;">
+        <li><strong>Ponto Slim:</strong> aplicação leve e natural</li>
+        <li><strong>Adesivo Slim:</strong> acabamento invisível</li>
+        <li><strong>Consultoria personalizada</strong></li>
+        <li><strong>Manutenção inicial inclusa</strong></li>
+        <li><strong>Materiais premium</strong></li>
+        <li><strong>Antes e depois documentado</strong></li>
+      </ul>
+      <div class="modal-divider"></div>
+      <p style="color:#6a4c2b;font-size:1.07em;margin-bottom:22px;text-align:center;">
+        <span style="background:linear-gradient(90deg,#ffe7b3 60%,#fff8f2 100%);padding:2px 8px;border-radius:6px;">Ideal para quem busca mudança completa com naturalidade, conforto e segurança.</span>
+      </p>
+      <a href="https://wa.me/5516992345492?text=Ol%C3%A1%2C+quero+comprar+o+Pacote+Transforma%C3%A7%C3%A3o+de+Mega+Hair%21" class="btn-modalzap" target="_blank" rel="noopener noreferrer">Comprar pelo WhatsApp</a>
+    </div>
+    <style>
+      .modal-overlay {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(40,32,24,0.22); /* transparência mais suave */
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: modalFadeIn .25s;
+      }
+      @keyframes modalFadeIn {
+        from { opacity: 0;}
+        to { opacity: 1;}
+      }
+      .modal-content {
+        background: linear-gradient(135deg,#fff8f2 80%,#fbeedc 100%);
+        color: #222;
+        border-radius: 22px;
+        border: 2.5px solid #c9a063;
+        max-width: 390px;
+        width: 95vw;
+        padding: 48px 28px 32px 28px;
+        box-shadow: 0 12px 40px rgba(201,160,99,0.18), 0 2px 8px rgba(0,0,0,0.10);
+        position: relative;
+        font-family: 'Inter',sans-serif;
+        animation: modalIn .22s;
+        overflow: hidden;
+      }
+      @keyframes modalIn {
+        from { opacity: 0; transform: scale(.96);}
+        to { opacity: 1; transform: scale(1);}
+      }
+      .modal-close {
+        position: absolute;
+        top: 18px; right: 18px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 2;
+        transition: transform .15s;
+      }
+      .modal-close:hover { transform: scale(1.18);}
+      .modal-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 12px;
+        animation: iconPop .5s;
+      }
+      @keyframes iconPop {
+        0% { transform: scale(0.7);}
+        80% { transform: scale(1.08);}
+        100% { transform: scale(1);}
+      }
+      .modal-content ul {
+        margin: 0 0 12px 0;
+        color: #6a4c2b;
+        font-size: 1em;
+      }
+      .modal-content ul li {
+        margin-bottom: 7px;
+        padding-left: 0;
+      }
+      .modal-divider {
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg,#ffe7b3 0%,#c9a063 100%);
+        border-radius: 2px;
+        margin: 0 0 16px 0;
+        opacity: .5;
+      }
+      .btn-modalzap {
+        background: linear-gradient(90deg,#c9a063 60%,#ffe7b3 100%);
+        color: #fff;
+        border-radius: 8px;
+        border: none;
+        padding: 14px 0;
+        text-align: center;
+        font-weight: 700;
+        font-size: 1.13em;
+        box-shadow: 0 2px 8px rgba(201,160,99,0.10);
+        transition: background .18s, box-shadow .18s;
+        display: block;
+        text-decoration: none;
+        letter-spacing: 0.5px;
+        margin-top: 0;
+      }
+      .btn-modalzap:hover {
+        background: linear-gradient(90deg,#b48a5a 60%,#ffe7b3 100%);
+        box-shadow: 0 4px 16px rgba(201,160,99,0.18);
+        color: #fff;
+      }
+      .btn-secondary#open-transform-modal {
+        transition: background .18s, color .18s, box-shadow .18s;
+      }
+      .btn-secondary#open-transform-modal:hover,
+      .btn-secondary#open-transform-modal:focus {
+        background: #c9a063;
+        color: #fff;
+        box-shadow: 0 2px 8px rgba(201,160,99,0.12);
+        outline: none;
+      }
+      @media (max-width: 480px) {
+        .modal-content {
+          padding: 22px 8px 18px 8px;
+        }
+        .modal-close {
+          top: 8px; right: 8px;
+        }
+      }
+    </style>
+  </div>
+
+  <!-- BOTÃO FLUTUANTE WHATSAPP -->
+  <a class="whatsapp-btn"
+    href="https://wa.me/5516992345492?text=Ol%C3%A1%2C+gostaria+de+agendar+uma+avalia%C3%A7%C3%A3o+de+Mega+Hair."
+    target="_blank" rel="noopener noreferrer" aria-label="Abrir chat WhatsApp">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M20.52 3.48A11.91 11.91 0 0 0 12 0C5.373 0 .01 5.373.01 12 0 13.987.497 15.88 1.43 17.56L0 24l6.63-1.37A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12 0-3.2-1.26-6.15-3.48-8.52z"
+        fill="#fff" opacity="0.06" />
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.868-2.03-.968-.273-.099-.472-.148-.672.149-.198.297-.768.968-.942 1.168-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.884-.789-1.48-1.763-1.653-2.06-.173-.297-.018-.458.13-.607.134-.133.298-.347.447-.52.151-.173.201-.298.301-.497.099-.198.05-.372-.025-.52-.074-.148-.672-1.62-.921-2.218-.242-.583-.487-.503-.672-.513l-.573-.01c-.198 0-.52.074-.793.372s-1.04 1.017-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.4.2.7.2 1 .1.3-.1 1.8-.6 2.1-1.3.2-.6.2-1.1.2-1.3 0-.1-.3-.2-.6-.3z"
+        fill="#fff" />
+    </svg>
+    <span class="wa-text">WhatsApp</span>
+  </a>
+
+  <!-- Toast global com aria-live -->
+  <div id="toast" class="toast" aria-hidden="true" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Overlay de transição (entrada) -->
+  <div id="page-transition" class="page-transition opening" aria-hidden="true"></div>
+
+  <script defer src="scripts.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Ano atual
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      // Toast helpers
+      const toast = document.getElementById('toast');
+      const showToast = (msg, type = 'info') => {
+        if (!toast) return;
+        toast.textContent = msg;
+        toast.dataset.type = type; // use [data-type] no CSS se desejar
+        toast.setAttribute('aria-hidden', 'false');
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => {
+          toast.setAttribute('aria-hidden', 'true');
+          toast.textContent = '';
+        }, 4000);
+      };
+
+      // Newsletter
+      const form = document.getElementById('newsletter-form');
+      const emailInput = document.getElementById('newsletter-email');
+      if (form && emailInput) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const email = emailInput.value.trim();
+          const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+          const btn = form.querySelector('button[type="submit"]');
+
+          if (!valid) {
+            emailInput.setAttribute('aria-invalid', 'true');
+            showToast('Digite um email válido.', 'error');
+            emailInput.focus();
+            return;
+          }
+
+          emailInput.removeAttribute('aria-invalid');
+          if (btn) btn.disabled = true;
+
+          // Simulação de envio
+          setTimeout(() => {
+            showToast('Inscrição realizada com sucesso! 🎉', 'success');
+            form.reset();
+            if (btn) btn.disabled = false;
+          }, 800);
+        });
+      }
+
+      // Voltar ao topo (scroll suave)
+      const backToTop = document.querySelector('.back-to-top');
+      if (backToTop) {
+        backToTop.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // Destaque do link ativo no menu (aria-current)
+      const navLinks = Array.from(document.querySelectorAll('.navbar .nav-links a[href^="#"]'));
+      const targets = navLinks
+        .map(a => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+
+      const setCurrent = () => {
+        const fromTop = window.scrollY + 120; // offset do header
+        let current = null;
+        for (const section of targets) {
+          const top = section.getBoundingClientRect().top + window.scrollY;
+          if (fromTop >= top) current = section;
+        }
+        navLinks.forEach(a => a.removeAttribute('aria-current'));
+        if (current) {
+          const link = navLinks.find(a => a.getAttribute('href') === `#${current.id}`);
+          if (link) link.setAttribute('aria-current', 'page');
+        }
+      };
+
+      setCurrent();
+      window.addEventListener('scroll', () => requestAnimationFrame(setCurrent));
+      window.addEventListener('resize', () => requestAnimationFrame(setCurrent));
+
+      // Modal Pacote Transformação
+      const openBtn = document.getElementById('open-transform-modal');
+      const modal = document.getElementById('transform-modal');
+      const closeBtn = document.getElementById('close-transform-modal');
+
+      if (openBtn && modal && closeBtn) {
+        openBtn.addEventListener('click', function () {
+          modal.style.display = 'flex';
+          modal.setAttribute('aria-hidden', 'false');
+          closeBtn.focus();
+        });
+        closeBtn.addEventListener('click', function () {
+          modal.style.display = 'none';
+          modal.setAttribute('aria-hidden', 'true');
+          openBtn.focus();
+        });
+        // Fecha ao clicar fora do conteúdo
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal) {
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+            openBtn.focus();
+          }
+        });
+        // Fecha com ESC
+        document.addEventListener('keydown', function (e) {
+          if (modal.style.display === 'flex' && e.key === 'Escape') {
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+            openBtn.focus();
+          }
+        });
+      }
+    });
+  </script>
+  <script src="quickview.js" defer></script>
+
+<script>
+(function(){
+  try {
+    var container = document.getElementById('mobile-banners');
+    var prevBtn = document.querySelector('.b-prev');
+    var nextBtn = document.querySelector('.b-next');
+    if (!container) {
+      console.warn('mobile-banners não encontrado (id="mobile-banners"). Verifique o HTML.');
+      return;
+    }
+
+    // variáveis para remover listeners no teardown
+    var handlers = {};
+
+    function getCardWidth() {
+      var card = container.querySelector('.card');
+      if (!card) return Math.round(container.clientWidth * 0.9);
+      var style = window.getComputedStyle(container);
+      var gap = parseFloat(style.gap || style.columnGap) || 14;
+      return Math.round(card.getBoundingClientRect().width + gap);
+    }
+
+    function updateNavVisibility() {
+      var cards = container.querySelectorAll('.card');
+      var wrapper = (container.closest) ? container.closest('.banners-wrapper') : document.querySelector('.banners-wrapper');
+      if (wrapper) {
+        if (cards.length <= 1) wrapper.classList.add('has-one');
+        else wrapper.classList.remove('has-one');
+      }
+      var maxScroll = container.scrollWidth - container.clientWidth;
+      if (prevBtn) prevBtn.disabled = container.scrollLeft <= 10;
+      if (nextBtn) nextBtn.disabled = container.scrollLeft >= maxScroll - 10;
+    }
+
+    function scrollToIndex(index) {
+      var cardW = getCardWidth();
+      var total = container.querySelectorAll('.card').length;
+      var t = Math.max(0, Math.min(index, total - 1));
+      container.scrollTo({ left: t * cardW, behavior: 'smooth' });
+    }
+
+    function scrollToNext(dir) {
+      var cardW = getCardWidth();
+      var index = Math.round(container.scrollLeft / cardW) + dir;
+      scrollToIndex(index);
+    }
+
+    // INIT: adiciona listeners e mostra setas
+    function initCarousel() {
+      // evitar inicializar duas vezes
+      if (handlers.inited) return;
+      handlers.inited = true;
+
+      if (prevBtn) {
+        handlers.prevClick = function(e){ e.preventDefault(); scrollToNext(-1); };
+        prevBtn.addEventListener('click', handlers.prevClick);
+      }
+      if (nextBtn) {
+        handlers.nextClick = function(e){ e.preventDefault(); scrollToNext(1); };
+        nextBtn.addEventListener('click', handlers.nextClick);
+      }
+
+      handlers.onScroll = function(){ window.requestAnimationFrame(updateNavVisibility); };
+      container.addEventListener('scroll', handlers.onScroll);
+
+      handlers.onResize = function(){ window.requestAnimationFrame(updateNavVisibility); };
+      window.addEventListener('resize', handlers.onResize);
+
+      handlers.onKey = function(e){
+        if (e.key === 'ArrowRight') { e.preventDefault(); scrollToNext(1); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollToNext(-1); }
+      };
+      container.addEventListener('keydown', handlers.onKey);
+
+      // touch swipe
+      handlers.touch = { startX:0, deltaX:0, touching:false };
+      handlers.touchstart = function(e){
+        handlers.touch.touching = true;
+        handlers.touch.startX = e.touches[0].clientX;
+        handlers.touch.deltaX = 0;
+      };
+      handlers.touchmove = function(e){
+        if (!handlers.touch.touching) return;
+        handlers.touch.deltaX = e.touches[0].clientX - handlers.touch.startX;
+      };
+      handlers.touchend = function(){
+        handlers.touch.touching = false;
+        var threshold = 40;
+        if (handlers.touch.deltaX > threshold) scrollToNext(-1);
+        else if (handlers.touch.deltaX < -threshold) scrollToNext(1);
+        handlers.touch.deltaX = 0;
+      };
+      container.addEventListener('touchstart', handlers.touchstart, {passive:true});
+      container.addEventListener('touchmove', handlers.touchmove, {passive:true});
+      container.addEventListener('touchend', handlers.touchend);
+
+      // mostrar nav (caso estivesse escondida por CSS/desktop)
+      var nav = container.closest('.banners-wrapper')?.querySelector('.banners-nav');
+      if (nav) nav.style.display = 'block';
+
+      updateNavVisibility();
+    }
+
+    // TEARDOWN: remove listeners e esconde setas
+    function destroyCarousel() {
+      if (!handlers.inited) return;
+      if (prevBtn && handlers.prevClick) prevBtn.removeEventListener('click', handlers.prevClick);
+      if (nextBtn && handlers.nextClick) nextBtn.removeEventListener('click', handlers.nextClick);
+      if (handlers.onScroll) container.removeEventListener('scroll', handlers.onScroll);
+      if (handlers.onResize) window.removeEventListener('resize', handlers.onResize);
+      if (handlers.onKey) container.removeEventListener('keydown', handlers.onKey);
+      if (handlers.touchstart) container.removeEventListener('touchstart', handlers.touchstart);
+      if (handlers.touchmove) container.removeEventListener('touchmove', handlers.touchmove);
+      if (handlers.touchend) container.removeEventListener('touchend', handlers.touchend);
+
+      // volta à posição inicial
+      container.scrollTo({ left: 0, behavior: 'instant' });
+
+      // esconder nav (CSS também garante isso)
+      var nav = container.closest('.banners-wrapper')?.querySelector('.banners-nav');
+      if (nav) nav.style.display = 'none';
+
+      handlers = {}; // limpa handlers
+    }
+
+    // Observa largura: liga/desliga comportamento mobile
+    var mql = window.matchMedia('(max-width: 768px)');
+    function mmChange(e) {
+      if (e.matches) initCarousel();
+      else destroyCarousel();
+    }
+
+    // inicializa conforme largura atual
+    if (mql.matches) initCarousel();
+    // addListener fallback para compatibilidade
+    if (typeof mql.addEventListener === 'function') mql.addEventListener('change', mmChange);
+    else if (typeof mql.addListener === 'function') mql.addListener(mmChange);
+
+    // garantir teardown ao unload (bom para SPA)
+    window.addEventListener('beforeunload', function(){ destroyCarousel(); });
+
+  } catch (err) {
+    console.error('Erro no script mobile-banners:', err);
+  }
+})();
+</script>
+
+
+
+</body>
+
+</html>

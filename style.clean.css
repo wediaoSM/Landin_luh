@@ -1,0 +1,929 @@
+/* styles.refatorado.fixed.css — Versão corrigida
+   Alterações principais:
+   - Desaninhamento de media queries (compatível com CSS puro)
+   - Corrigido nome do arquivo de background (removido espaço)
+   - Mantida estrutura e comentários originais
+*/
+
+/*===============================================
+  01. Variáveis (CSS Custom Properties)
+===============================================*/
+:root{
+  /* Layout */
+  --max-width: 1100px;
+  --banner-height: 520px;
+  --card-height: 340px;         /* fallback desktop */
+  --card-center-height: 420px;
+  --radius: 14px;
+  --transition-fast: 0.28s;
+
+  /* Cores */
+  --accent: #d9b89c;
+  --accent-2: #cda07e;
+  --text: #efeae4;
+  --muted: rgba(255,255,255,0.75);
+  --brown-100: 122, 90, 60; /* RGB usado em gradientes */
+
+  /* Quickview (modal) — prefixadas) */
+  --qv-brown-rgb: 140,94,56;
+  --qv-brown-alpha: 0.22;
+  --qv-brown-alpha-top: 0.18;
+  --qv-title: #ffe7b3;
+  --qv-text-light: #fff8f2;
+  --qv-text-muted: rgba(255,248,242,0.86);
+  --qv-radius: 12px;
+  --qv-z: 999999;
+}
+
+/*===============================================
+  02. Reset / Base
+===============================================*/
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;scroll-behavior:smooth}
+body{
+  background: #0f0f10 url('Imagens/Fundo\ .jpeg') center 25%/cover no-repeat fixed;
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+/* Skip link (accessibility) */
+.skip-link{position:fixed;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{left:16px;top:16px;width:auto;height:auto;padding:8px 12px;background:#111;color:#fff;border-radius:8px;z-index:9999}
+
+/*===============================================
+  03. Tipografia
+===============================================*/
+h1,h2,h3{color:#fff;font-weight:700;margin:0}
+h1{font-size:44px;line-height:1.04}
+h2{font-size:32px}
+.lead{color:var(--muted);font-size:15px;margin-bottom:16px}
+p{color:rgba(255,250,245,0.95)}
+
+/*===============================================
+  04. Botões (reutilizáveis)
+===============================================*/
+.btn-primary{display:inline-block;padding:11px 18px;border:1px solid rgba(255,255,255,0.12);border-radius:28px;background:linear-gradient(90deg,rgba(217,184,156,0.18),rgba(217,184,156,0.06));color:#fff;font-weight:700;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,0.35);transition:transform var(--transition-fast),box-shadow var(--transition-fast)}
+.btn-primary:hover{transform:translateY(-4px);box-shadow:0 22px 60px rgba(0,0,0,0.45)}
+.btn-secondary{display:inline-block;padding:10px 16px;border:1px solid rgba(255,255,255,0.06);border-radius:22px;background:transparent;color:#fff;font-weight:600}
+
+/*===============================================
+  05. Navbar Fixa
+===============================================*/
+.navbar{position:fixed;top:10px;left:50%;transform:translateX(-50%);width:calc(100% - 40px);max-width:var(--max-width);padding:8px 20px;display:flex;justify-content:space-between;align-items:center;border-radius:12px;backdrop-filter:blur(10px);background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.008));border:1px solid rgba(255,255,255,0.04);box-shadow:0 6px 20px rgba(0,0,0,0.24);z-index:1200}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-badge{width:40px;height:40px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;box-shadow:0 6px 18px rgba(213,170,137,0.14)}
+.brand-title{font-size:13px;font-weight:700}
+.nav-links{display:flex;gap:18px;align-items:center}
+
+/*===============================================
+  06. Hero (layout principal)
+===============================================*/
+.hero{position:relative;width:100%;min-height:76vh;padding:0 0 24px;padding-top:clamp(88px,10vh,120px);display:block}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,3,2,0.02),rgba(6,3,2,0.06));z-index:1;pointer-events:none}
+
+.hero-content{position:relative;max-width:min(calc(var(--max-width) + 240px),1280px);padding-right:clamp(140px,22vw,320px);padding:36px 12px 0;display:flex;gap:24px;align-items:flex-start;justify-content:flex-start;margin-left:120px}
+
+@media (max-width:900px){.hero-content{margin-left:22px}}
+@media (max-width:480px){.hero-content{margin-left:8px}}
+
+.intro{padding:6px 0 4px}
+.intro .name{font-size:12px;letter-spacing:3px;font-weight:600;margin-bottom:10px;color:rgba(255,255,255,0.9)}
+.intro h1{font-size:clamp(28px,4.2vw,44px);line-height:1.08;letter-spacing:0.2px;margin-bottom:10px}
+.intro p{max-width:560px;font-size:clamp(14px,1.6vw,16px);color:rgba(255,250,245,0.92);margin:10px 0 14px}
+
+.cta-row{gap:12px}
+.cta-row .btn-primary{padding:12px 18px;border-radius:28px}
+.cta-row .btn-secondary{padding:10px 16px;border-radius:22px}
+
+/* Visual do Hero — bolha/visual à direita */
+.hero-visual{position:absolute;right:0;top:50%;transform:translateY(-50%);flex:0 0 auto;padding-right:0;pointer-events:none;width:100%;min-height:76vh;display:flex;align-items:center;justify-content:flex-end}
+.bubble{width:clamp(380px,36vw,540px);height:clamp(380px,36vw,540px);border-radius:18px;background-size:cover;background-position:center;box-shadow:0 30px 80px rgba(0,0,0,0.6);transform:translateY(-10px);transition:transform .6s cubic-bezier(0.2,0.9,0.3,1)}
+.bubble:hover{transform:translateY(-20px) scale(1.02)}
+
+/*===============================================
+  Hero Main Block (perfil) — estilo único, consolidado
+===============================================*/
+.hero-main-block{display:flex;align-items:center;gap:38px;background:linear-gradient(120deg,rgba(217,184,156,0.13) 0%,rgba(205,160,126,0.09) 100%);border-radius:28px;border:2.5px solid var(--accent);box-shadow:0 18px 60px rgba(0,0,0,0.18),0 2px 16px rgba(217,184,156,0.08);padding:38px;margin:0 auto 32px;max-width:820px;position:relative;z-index:10}
+.hero-main-visual{flex:0 0 140px;display:flex;align-items:center;justify-content:center}
+.hero-avatar{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);box-shadow:0 6px 24px rgba(217,184,156,0.18);background:#fff}
+.hero-main-text{flex:1 1 340px;display:flex;flex-direction:column;gap:18px}
+.hero-main-text h1{font-size:2.3rem;font-weight:900;line-height:1.13;margin:0 0 8px;color:#fff}
+.hero-highlight{color:var(--accent);font-size:2.1rem;font-weight:900;display:block}
+.hero-sub{font-size:1.15rem;font-weight:700;color:var(--muted);margin-top:2px}
+.hero-lead{font-size:1.08rem;color:var(--muted);margin:0 0 10px;font-weight:500;line-height:1.5}
+.hero-main-ctas{display:flex;gap:16px;margin-top:10px}
+.hero-main-ctas .btn-primary{padding:13px 22px;font-size:16px;border-radius:14px}
+.hero-main-ctas .btn-secondary{padding:12px 18px;border-radius:14px}
+
+@media (max-width:900px){
+  .hero-main-block{flex-direction:column;gap:18px;padding:28px 12px 22px 12px;max-width:98vw}
+  .hero-avatar{width:90px;height:90px}
+  .hero-main-text h1,.hero-highlight{font-size:1.5rem}
+}
+@media (max-width:600px){
+  .hero-main-block{padding:18px 4vw 14px}
+  .hero-main-text h1,.hero-highlight{font-size:1.1rem}
+  .hero-avatar{width:64px;height:64px}
+  .hero-main-ctas{flex-direction:column;gap:8px}
+}
+
+/*===============================================
+  07. Banners e Cards
+===============================================*/
+.banners-wrapper{position:relative;margin-top:18px;width:100%}
+.banners-wrapper::before{content:"";position:absolute;top:0;left:0;right:0;height:var(--banner-height);background:linear-gradient(180deg,rgba(var(--brown-100),0.62),rgba(var(--brown-100),0.38));box-shadow:0 18px 40px rgba(0,0,0,0.30);backdrop-filter:blur(4px);z-index:1;pointer-events:none}
+.banners{position:relative;z-index:3;max-width:var(--max-width);margin:0 auto;display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:28px;padding:60px 12px;align-items:center}
+
+.card{position:relative;border-radius:var(--radius);overflow:visible;background:transparent;transform-style:preserve-3d}
+.card-image{position:relative;height:var(--card-height);border-radius:12px;background-size:cover;background-position:center;box-shadow:0 18px 40px rgba(0,0,0,0.48);overflow:hidden;transition:transform .36s cubic-bezier(0.2,0.9,0.3,1),box-shadow .36s,filter .36s}
+.card-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:12px;z-index:1}
+.card:hover .card-image{transform:translateY(-8px) scale(1.02);box-shadow:0 44px 110px rgba(0,0,0,0.6);filter:brightness(1.02)}
+.card.center .card-image{height:var(--card-center-height);border-radius:16px;transform:translateY(-18px);box-shadow:0 46px 130px rgba(0,0,0,0.62)}
+
+.banners .card-image::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.02) 10%,rgba(0,0,0,0.08) 100%);z-index:2}
+.card-image::after{content:"";position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));border-radius:0 0 12px 12px;z-index:3;pointer-events:none}
+
+.card-caption{position:absolute;left:50%;bottom:18px;width:88%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;color:#fff;font-weight:700;z-index:4}
+.card-caption.compact h3{font-size:16px;margin-bottom:4px}
+.card-caption.compact p{font-size:13px;margin:0;opacity:0.95}
+.card-caption.center-caption h3{font-size:20px;margin-bottom:6px}
+.card-caption.center-caption p{font-size:14px;margin:0;opacity:0.97}
+
+/*===============================================
+  08. Seção Sobre
+===============================================*/
+.about{padding:70px 0 60px;background:transparent;color:rgba(255,255,255,0.95);position:relative;z-index:2}
+.about-grid{display:grid;grid-template-columns:360px 1fr;gap:28px;align-items:center}
+.about-image-portrait{width:340px;height:440px;border-radius:18px;background-size:cover;background-position:center 25%;box-shadow:0 30px 70px rgba(0,0,0,0.6);border:6px solid rgba(255,255,255,0.03)}
+.about-text-v2 h2{font-size:30px;margin-bottom:10px}
+.about-text-v2 h2 span{color:var(--accent)}
+.about-text-v2 .two-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.bio-block h4{font-size:14px;margin-bottom:6px;color:var(--accent)}
+.bio-block p{margin:0;color:var(--muted);font-size:14px}
+.highlights{list-style:none;margin:16px 0 8px;padding:0}
+.highlights li{font-weight:600;margin-bottom:10px;color:rgba(255,255,255,0.95)}
+
+/*===============================================
+  09. Footer
+===============================================*/
+.site-footer{padding:42px 0 22px}
+.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1.2fr;gap:28px;align-items:start}
+.footer-brand{display:flex;flex-direction:column;gap:12px}
+.footer-brand h3{margin:0}
+.footer-brand .muted{margin:0}
+.socials-row{display:flex;gap:10px;margin-top:4px}
+.social-btn{width:36px;height:36px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;color:#fff;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:transform .16s ease,background .16s ease,border-color .16s ease,color .16s ease}
+.social-btn:hover{background:linear-gradient(135deg,rgba(217,184,156,0.18),rgba(205,160,126,0.10));border-color:rgba(255,255,255,0.12);transform:translateY(-2px);color:var(--accent)}
+.footer-list{list-style:none;padding:0;margin:0}
+.footer-list li{margin-bottom:8px;color:var(--muted)}
+.footer-newsletter h4{margin-bottom:6px}
+.newsletter-form{display:flex;gap:8px;margin-top:10px}
+.newsletter-form input[type="email"]{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04);color:#fff;outline:none}
+.newsletter-form input::placeholder{color:rgba(255,255,255,0.55)}
+.newsletter-form .btn-primary{padding:10px 14px}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:22px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.03)}
+.back-to-top{color:var(--muted);font-weight:700}
+.back-to-top:hover{color:var(--accent)}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(16px);background:rgba(0,0,0,0.9);color:#fff;padding:12px 18px;border-radius:10px;box-shadow:0 18px 40px rgba(0,0,0,0.6);opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s cubic-bezier(.2,.8,.2,1);z-index:1400;font-weight:600}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+
+/*===============================================
+  10. WhatsApp Float Button
+===============================================*/
+.whatsapp-btn{position:fixed;bottom:20px;right:20px;display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:999px;background:linear-gradient(90deg,#25d366,#1da851);color:#fff;font-weight:700;text-decoration:none;box-shadow:0 10px 30px rgba(29,168,81,0.18);transition:transform 160ms ease,box-shadow 160ms ease,opacity 160ms;z-index:1400}
+.whatsapp-btn:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(29,168,81,0.22)}
+.whatsapp-btn .wa-text{font-size:14px;line-height:1}
+
+/*===============================================
+  11. Reveal Animation
+===============================================*/
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease-out,transform .6s cubic-bezier(0.2,0.9,0.3,1)}
+.reveal.in-view{opacity:1;transform:none}
+
+/*===============================================
+  12. Shop Hero (cards de produto)
+===============================================*/
+.shop-hero{margin-top:32px;position:relative;z-index:50;max-width:var(--max-width);padding:38px 0 32px;border-radius:22px;background:linear-gradient(135deg,rgba(217,184,156,0.10),rgba(205,160,126,0.04));border:2.5px solid var(--accent);box-shadow:0 18px 60px rgba(0,0,0,0.18),0 2px 16px rgba(217,184,156,0.08)}
+.shop-hero-content{display:flex;flex-direction:row;align-items:stretch;justify-content:center;gap:38px;width:100%}
+.shop-hero-text{flex:1 1 440px;max-width:440px;margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:18px;padding:0 18px}
+.shop-hero-text h2{font-size:30px;margin-bottom:10px;color:var(--accent);font-weight:800;letter-spacing:0.5px}
+.shop-hero-text .lead{margin-bottom:10px;font-size:16px;color:var(--muted)}
+.shop-quicklist{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-direction:column;gap:8px;color:var(--muted);font-weight:600;align-items:center}
+.shop-quicklist li strong{color:var(--accent);margin-right:6px}
+.shop-hero-ctas{display:flex;gap:14px;margin-top:18px;align-items:center;justify-content:center}
+.shop-hero-card{flex:0 1 340px;background:#181415;border-radius:14px;overflow:hidden;color:#fff;display:flex;flex-direction:column;align-items:stretch;box-shadow:0 12px 36px rgba(0,0,0,0.22);border:1.5px solid var(--accent);max-width:340px;margin:0 auto;align-self:center}
+.shop-badge{align-self:flex-start;margin:14px 18px 0 18px;padding:7px 12px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#181415;font-weight:800;font-size:13px}
+.shop-image{width:100%;height:180px;background-size:cover;background-position:center;border-radius:8px;margin:12px 18px 0 18px;box-shadow:inset 0 0 36px rgba(0,0,0,0.22)}
+.shop-card-body{padding:18px 18px 14px 18px;display:flex;flex-direction:column;gap:12px}
+.shop-card-body h3{margin:0;font-size:19px;font-weight:700}
+.shop-prices{display:flex;gap:10px;align-items:center;justify-content:center}
+.old-price{text-decoration:line-through;color:rgba(255,255,255,0.45);font-weight:700}
+.new-price{color:var(--accent);font-weight:900;font-size:19px}
+.shop-card-actions{display:flex;gap:10px;margin-top:8px;justify-content:center}
+.shop-card-actions .btn-primary{flex:1;padding:12px 0;border-radius:10px;font-size:15px}
+.shop-card-actions .btn-secondary{flex:1;padding:12px 0;border-radius:10px;font-size:15px}
+
+/*===============================================
+  13. Quickview Modal (consolidado)
+===============================================*/
+.quickview-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:var(--qv-z);-webkit-font-smoothing:antialiased}
+.quickview-modal[aria-hidden="false"]{display:flex}
+.quickview-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.36);backdrop-filter:blur(3px) saturate(110%);z-index:calc(var(--qv-z) + 1)}
+.quickview-panel{position:relative;z-index:calc(var(--qv-z) + 2);width:min(820px,94vw);max-height:88vh;border-radius:var(--qv-radius);padding:0;background:transparent;display:flex;align-items:center;justify-content:center;overflow:visible;box-shadow:0 28px 70px rgba(0,0,0,0.45)}
+.qv-inner{width:100%;max-width:720px;margin:18px;border-radius:calc(var(--qv-radius) - 2px);background:linear-gradient(180deg,rgba(var(--qv-brown-rgb),var(--qv-brown-alpha-top)),rgba(var(--qv-brown-rgb),var(--qv-brown-alpha)))!important;border:1px solid rgba(0,0,0,0.16);padding:26px;color:var(--qv-text-light);display:flex;flex-direction:column;gap:12px;overflow:auto;max-height:calc(88vh - 36px);box-shadow:0 18px 40px rgba(0,0,0,0.28)}
+.quickview-head{position:relative;width:100%;display:flex;align-items:center;justify-content:center;padding:0;margin:0}
+.quickview-title{margin:0;font-size:1.22rem;font-weight:800;color:var(--qv-title);letter-spacing:0.2px;text-align:center;padding:4px 8px}
+.quickview-close{position:absolute;right:12px;top:12px;width:36px;height:36px;border-radius:999px;border:0;background:rgba(255,255,255,0.10);color:var(--qv-brown-rgb);display:inline-grid;place-items:center;cursor:pointer;font-weight:700;transition:transform .12s ease,background .12s ease;z-index:calc(var(--qv-z) + 3)}
+.quickview-close:hover{transform:translateY(-3px);background:rgba(255,255,255,0.16);outline:none;box-shadow:0 6px 18px rgba(0,0,0,0.22)}
+.quickview-body{color:var(--qv-text-light);font-size:1rem;line-height:1.6;margin-top:6px;text-align:center;max-width:680px;margin-left:auto;margin-right:auto}
+.quickview-desc p{margin:8px 0;white-space:pre-wrap;color:var(--qv-text-light);font-weight:600}
+.quickview-desc p:first-child{font-weight:800;font-size:1.06rem;color:var(--qv-title);margin-bottom:6px}
+.quickview-desc ul{padding:0;margin:8px auto 0;list-style:none;display:inline-grid;gap:8px;text-align:left;max-width:440px}
+.quickview-desc li{position:relative;padding-left:28px;color:var(--qv-text-light);font-weight:700}
+.quickview-desc li::before{content:"✓";position:absolute;left:0;top:0;transform:translateY(2px);width:22px;height:22px;display:inline-grid;place-items:center;color:#fff;background:linear-gradient(180deg,#2ebf54,#0aa84b);border-radius:6px;font-size:12px;box-shadow:0 6px 14px rgba(10,168,75,0.12)}
+.quickview-divider{height:1px;width:100%;background:linear-gradient(90deg,rgba(0,0,0,0.06),rgba(255,255,255,0.02));margin:10px 0 14px;border-radius:2px}
+.quickview-actions{margin-top:6px;display:flex;gap:10px;justify-content:center;align-items:center;padding-bottom:2px}
+.quickview-actions .btn-primary{padding:10px 16px;border-radius:10px;font-weight:800;background:linear-gradient(90deg,#c9a063,#e7c77a);color:#0b0b0b;border:0;text-decoration:none;box-shadow:0 10px 26px rgba(0,0,0,0.18)}
+.quickview-actions .btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.10);color:var(--qv-text-light);padding:8px 12px;border-radius:10px;font-weight:700}
+.modal-open{overflow:hidden!important}
+
+/*===============================================
+  14. Small Gallery Modal (center-gallery-modal)
+===============================================*/
+#center-gallery-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:210000;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial}
+#center-gallery-modal[aria-hidden="false"]{display:flex}
+.cg-overlay{position:absolute;inset:0;background:rgba(6,7,9,0.56);backdrop-filter:blur(3px);z-index:1}
+.cg-panel{position:relative;z-index:2;width:min(900px,94vw);max-height:calc(88vh - 24px);border-radius:12px;padding:12px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.02));box-shadow:0 24px 60px rgba(0,0,0,0.56)}
+.cg-stage{width:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;min-height:260px;aspect-ratio:16/9;max-height:calc(80vh - 120px)}
+.cg-stage img{width:100%;height:100%;object-fit:contain;display:block;transition:opacity .22s ease,transform .26s ease;user-select:none;-webkit-user-drag:none}
+.cg-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:999px;border:0;display:inline-grid;place-items:center;background:rgba(255,255,255,0.06);color:#fff;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,0.5);z-index:4}
+.cg-prev{left:8px}.cg-next{right:8px}
+.cg-arrow:hover{transform:translateY(-50%) scale(1.05);background:rgba(255,255,255,0.10)}
+.cg-close{position:absolute;right:8px;top:8px;width:36px;height:36px;border-radius:999px;border:0;background:rgba(255,255,255,0.06);color:#fff;display:inline-grid;place-items:center;cursor:pointer;z-index:6}
+.cg-caption{font-size:0.95rem;color:rgba(255,255,255,0.92);text-align:center;min-height:1.1em}
+.cg-dots{display:flex;gap:8px;margin-top:6px}
+.cg-dots button{width:9px;height:9px;border-radius:50%;border:0;background:rgba(255,255,255,0.18);padding:0;cursor:pointer}
+.cg-dots button.active{background:rgba(255,255,255,0.95)}
+
+/*===============================================
+  15. Mobile banners carousel (forçar comportamento)
+===============================================*/
+.banners-nav{display:none}
+
+@media (max-width:768px){
+  .banners, .banners-wrapper .banners, #mobile-banners{display:flex !important;flex-direction:row;flex-wrap:nowrap !important;gap:14px !important;padding:14px 12px !important;overflow-x:auto !important;-webkit-overflow-scrolling:touch !important;scroll-snap-type:x mandatory !important}
+  .banners .card, #mobile-banners .card{flex:0 0 86% !important;max-width:86% !important;scroll-snap-align:center !important;box-sizing:border-box !important;margin:0 !important}
+  .banners .card .card-image, #mobile-banners .card .card-image{height:260px !important}
+  #mobile-banners::-webkit-scrollbar{display:none}
+  .banners-nav{display:block !important;position:absolute !important;inset:auto 8px auto 8px !important;pointer-events:none;z-index:999 !important}
+  .banners-nav .b-nav{pointer-events:auto !important;position:absolute !important;top:50% !important;transform:translateY(-50%) !important;width:44px !important;height:44px !important;display:inline-grid !important;place-items:center !important;border-radius:999px !important;background:rgba(0,0,0,0.36) !important;color:#fff !important;font-size:20px !important;cursor:pointer !important;box-shadow:0 8px 20px rgba(0,0,0,0.45) !important}
+  .banners-nav .b-prev{left:8px !important}
+  .banners-nav .b-next{right:8px !important}
+}
+
+@media (max-width:600px){
+  .banners .card, #mobile-banners .card{flex:0 0 92% !important;max-width:92% !important}
+  .banners .card .card-image, #mobile-banners .card .card-image{height:240px !important}
+}
+
+@media (max-width:400px){
+  .banners .card, #mobile-banners .card{flex:0 0 94% !important;max-width:94% !important}
+  .banners .card .card-image, #mobile-banners .card .card-image{height:220px !important}
+  .banners-nav .b-prev{left:6px !important}
+  .banners-nav .b-next{right:6px !important}
+}
+
+/*===============================================
+  16. Responsividade genérica e fixes
+===============================================*/
+@media (max-width:1100px){.about-grid{grid-template-columns:320px 1fr}.hero-content{padding-right:clamp(110px,20vw,260px)}.bubble{width:clamp(320px,34vw,460px);height:clamp(320px,34vw,460px)}}
+@media (min-width:769px) and (max-width:900px){.banners{grid-template-columns:1fr;padding:36px 14px;gap:18px}.about-grid{grid-template-columns:1fr;gap:18px}.about-image-portrait{width:100%;height:320px;border-radius:12px}.hero-content{flex-direction:column;gap:18px;padding-top:16px;padding-right:clamp(90px,22vw,220px)}.bubble{margin-right:-64px;width:300px;height:300px}.footer-inner{flex-direction:column;gap:18px}}
+@media (max-width:768px){:root{--card-height:220px}.about-image-portrait{background-position:center 25%}}
+@media (max-width:600px){.shop-hero-text h2{font-size:22px}.shop-hero-card{max-width:98vw}.shop-image{height:100px}.shop-card-body h3{font-size:16px}.shop-prices .new-price{font-size:16px}}
+@media (max-width:480px){h1{font-size:28px}.bubble{display:none}.whatsapp-btn{bottom:12px;right:12px;padding:10px 12px}}
+@media (max-width:400px){:root{--card-height:180px}.about-image-portrait{background-position:center 55%}}
+
+/* Mobile: central card matches others */
+@media (max-width:900px){
+  .banners .card.center .card-image{height:var(--card-height) !important;border-radius:12px !important;transform:none !important}
+  .banners .card.center .card-caption h3{font-size:16px}
+  .banners .card.center .card-caption p{font-size:13px}
+}
+@media (max-width:400px){.banners .card.center .card-caption h3{font-size:12px}.banners .card.center .card-caption p{font-size:10.5px}}
+
+/* Page transition overlay */
+.page-transition{position:fixed;inset:0;z-index:2000;background:linear-gradient(135deg,rgba(217,184,156,0.08),rgba(205,160,126,0.06)),rgba(0,0,0,0.60);backdrop-filter:blur(2px);transform:translateY(100%);opacity:0;transition:transform .42s cubic-bezier(.2,.8,.2,1),opacity .28s ease;pointer-events:none}
+.page-transition.active,.page-transition.opening{transform:translateY(0);opacity:1;pointer-events:auto}
+@media (prefers-reduced-motion:reduce){.page-transition{transition:none!important}}
+
+/* RESET DE CORES DE LINKS (reintroduzido) */
+/* Remove cor azul e underline padrão de todos os links */
+a, a:link, a:visited {
+  color: inherit;                 /* herda a cor do elemento pai */
+  text-decoration: none;          /* remove underline */
+  -webkit-tap-highlight-color: transparent; /* remove highlight em dispositivos touch */
+}
+
+/* Hover / active (desktop e teclado) */
+a:hover, a:active {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color .18s ease;
+}
+
+/* Foco acessível (visível ao navegar com teclado) */
+a:focus {
+  outline: 3px solid rgba(217, 184, 156, 0.18);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Links específicos em navegação / footer / sociais — mantém contraste e peso */
+.nav-links a,
+.footer-columns a,
+.socials a,
+.socials-row a {
+  color: inherit;
+  font-weight: 600;
+}
+
+.nav-links a:hover,
+.footer-columns a:hover,
+.socials a:hover,
+.socials-row a:hover {
+  color: var(--accent);
+}
+
+/* Força visited se algum navegador aplicar cor diferente */
+a:visited { color: inherit; }
+
+/* Mobile: se houver apenas 1 card, esconder as setas do carousel (JS também deve fazer) */
+.banners-wrapper.has-one .banners-nav { display: none !important; }
+
+/* End of file */
+
+
+/* PATCH: corrige sobreposição nos pontos <= 768px */
+@media (max-width: 768px) {
+
+  /* 1) reduz a "máscara" / vinheta que fica acima dos banners (evita cortar a parte de baixo) */
+  .banners-wrapper::before {
+    height: calc(var(--card-height, 220px) + 64px) !important; /* menos agressivo que 520px */
+  }
+
+  /* 2) remove o translate exagerado do card central (evita puxar o conteúdo pra cima) */
+  .card.center .card-image {
+    transform: none !important;
+    margin-bottom: 8px !important; /* garante espaçamento extra */
+  }
+
+  /* 3) empurra a imagem da seção Sobre pra baixo (remove "mordida" nos banners) */
+  #sobre .about-image-portrait {
+    margin-top: 22px !important;   /* aumente para 28–36px se quiser mais espaço */
+    position: relative !important;
+    z-index: 2 !important;         /* mantém a ordem visual esperada */
+  }
+
+  /* 4) reduz padding vertical dos banners para o layout mobile ficar mais harmonioso */
+  .banners {
+    padding-top: 30px !important;
+    padding-bottom: 20px !important;
+    gap: 12px !important;
+  }
+
+  /* 5) garante que o card central use tamanho padrão do mobile (evita overflow visual) */
+  .banners .card.center .card-image,
+  #mobile-banners .card .card-image {
+    height: var(--card-height, 220px) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.48) !important;
+  }
+}
+
+/* ===== FULL FORCE FIX PARA 400px/PEQUENO ===== */
+@media (max-width: 420px) {
+
+  /* força wrapper ocupar a viewport e centralizar via translate */
+  .banners-wrapper,
+  .banners-wrapper .banners,
+  .banners,
+  #mobile-banners {
+    position: relative !important;
+    width: 100vw !important;
+    max-width: none !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    padding: 0 6vw !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x mandatory !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    z-index: 3 !important;
+  }
+
+  /* protege contra containers parent com padding/transform */
+  .container, .hero-content, .page-inner, main, .site-wrapper {
+    padding-left: 6vw !important;
+    padding-right: 6vw !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* cards: largura controlada e snap central */
+  .banners .card,
+  #mobile-banners .card {
+    flex: 0 0 86% !important;
+    max-width: 86% !important;
+    margin: 0 !important;
+    scroll-snap-align: center !important;
+    box-sizing: border-box !important;
+  }
+
+  /* garante altura e remove transforms que possam puxar pra cima/direita */
+  .banners .card .card-image,
+  .banners .card.center .card-image,
+  #mobile-banners .card .card-image {
+    height: var(--card-height,160px) !important;
+    transform: none !important;
+    margin: 0 0 6px 0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.36) !important;
+    overflow: hidden !important;
+  }
+
+  /* legenda e caption dentro da área visível */
+  .card-caption {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    bottom: 10px !important;
+    width: 92% !important;
+    text-align: center !important;
+    z-index: 4 !important;
+  }
+
+  /* pseudo-maskagem atrás dos cards */
+  .banners-wrapper::before {
+    height: calc(var(--card-height,160px) + 32px) !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+  }
+
+  /* removendo decorações que podem sobrepor o carrossel */
+  .bubble, .hero-visual, .hero-avatar { display: none !important; }
+
+  /* ajustar botões nav do carrossel (se existirem) */
+  .banners-nav { display: block !important; z-index: 6 !important; pointer-events: auto !important; }
+  .banners-nav .b-nav { width: 40px !important; height: 40px !important; top: 50% !important; transform: translateY(-50%) !important; }
+
+  /* evita scroll horizontal global por 100vw */
+  html, body { overflow-x: hidden; }
+}
+
+/* === FINAL FIX: banners 400px (override de conflitos e desalinhamento) === */
+@media (max-width: 400px) {
+  /* Usa 220px para não perder área visual e padroniza referência */
+  :root { --card-height: 220px !important; }
+
+  /* Faixa com padding simétrico + snap estável */
+  .banners,
+  .banners-wrapper .banners,
+  #mobile-banners {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-padding-left: 50% !important;
+    scroll-padding-right: 50% !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+  }
+
+  /* Cards mais largos (cheios) e centralizados no snap */
+  .banners .card,
+  #mobile-banners .card {
+    flex: 0 0 94% !important;
+    max-width: 94% !important;
+    margin: 0 !important;
+    scroll-snap-align: center !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Altura consistente e sem translate que “puxa” o centro */
+  .banners .card .card-image,
+  .banners .card.center .card-image,
+  #mobile-banners .card .card-image {
+    height: var(--card-height) !important;
+    transform: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.36) !important;
+  }
+
+  /* Máscara superior acompanha a nova altura */
+  .banners-wrapper::before {
+    height: calc(var(--card-height) + 28px) !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+  }
+
+  /* Legenda centralizada e dentro da área visível */
+  .card-caption {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    bottom: 10px !important;
+    width: 92% !important;
+    text-align: center !important;
+    z-index: 4 !important;
+  }
+}
+/* === /FINAL FIX === */
+
+/* ===== OVERRIDE FINAL ≤420px: centraliza e remove deslocamento do wrapper ===== */
+@media (max-width: 420px) {
+  /* 1) Reset do wrapper (remove 100vw + translate) */
+  .banners-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    margin: 0 auto !important;
+  }
+
+  /* 2) Remove paddings forçados nos wrappers de página (evita empurrar faixa) */
+  .container,
+  .hero-content,
+  .page-inner,
+  main,
+  .site-wrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* 3) Faixa do carrossel: flex + snap central, sem padding assimétrico */
+  .banners,
+  .banners-wrapper .banners,
+  #mobile-banners {
+    /* mantém flex e snap */
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+
+    /* sem padding lateral de container; usa scroll-padding para centrar no snap */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x mandatory !important;
+
+    /* centra o item com scroll-snap-align:center */
+    scroll-padding-left: 50% !important;
+    scroll-padding-right: 50% !important;
+
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+  }
+
+  /* 4) Cards “cheios” e centrados no snap */
+  .banners .card,
+  #mobile-banners .card {
+    flex: 0 0 94% !important;
+    max-width: 94% !important;
+    margin: 0 !important;
+    scroll-snap-align: center !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
+}
+/* ===== /OVERRIDE FINAL ≤420px ===== */
+
+/* PATCH RÁPIDO: corrige overflow, centraliza snap e posicionamento das setas em <=420px */
+@media (max-width: 420px) {
+  /* wrapper protege contra overflow vertical/horizontal */
+  .banners-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: auto !important;
+    transform: none !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important; /* evita scroll indesejado do wrapper */
+  }
+
+  /* o carrossel em si faz o scroll horizontal */
+  .banners,
+  .banners-wrapper .banners,
+  #mobile-banners {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+    padding: 0 6vw !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-padding-left: 50% !important;
+    scroll-padding-right: 50% !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+  }
+
+  /* cards ocupam quase toda a largura (snap central) */
+  .banners .card,
+  #mobile-banners .card {
+    flex: 0 0 94% !important;
+    max-width: 94% !important;
+    margin: 0 !important;
+    scroll-snap-align: center !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
+
+  /* garante que a imagem interna não puxe o layout para fora */
+  .banners .card .card-image,
+  .banners .card.center .card-image,
+  #mobile-banners .card .card-image {
+    height: var(--card-height, 220px) !important;
+    transform: none !important;
+    margin: 0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.36) !important;
+  }
+
+  /* legenda dentro da área visível */
+  .card-caption {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    bottom: 10px !important;
+    width: 92% !important;
+  }
+
+  /* setas do nav: visíveis e sobre o carrossel */
+  .banners-nav {
+    display: block !important;
+    z-index: 20 !important;
+    pointer-events: auto !important;
+  }
+  .banners-nav .b-nav {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: inline-grid !important;
+    place-items: center !important;
+    left: 8px !important;
+    right: 8px !important;
+  }
+  .banners-nav .b-prev { left: 8px !important; right: auto !important; }
+  .banners-nav .b-next { right: 8px !important; left: auto !important; }
+
+  /* se houver algum elemento a 100vw que cause overflow, bloqueia scroll global */
+  html, body { overflow-x: hidden !important; }
+
+  /* remove paddings laterais de containers pais que empurram o carrossel */
+  .container, .hero-content, .page-inner, main, .site-wrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+/* FIX: centralizar legenda do card sobre a imagem em telas pequenas */
+@media (max-width: 420px) {
+  /* garante que o card esteja centrado como bloco dentro do carrossel */
+  .banners .card,
+  #mobile-banners .card {
+    display: block !important;
+    width: 94% !important;           /* mesmo tamanho do snap */
+    max-width: 94% !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+    position: relative !important;   /* referência para posição absoluta da legenda */
+  }
+
+  /* imagem como bloco centralizado e com posição relativa */
+  .banners .card .card-image,
+  #mobile-banners .card .card-image {
+    width: 100% !important;
+    margin: 0 auto !important;
+    position: relative !important;   /* a legenda ficará relativa a este elemento */
+    transform: none !important;
+    overflow: hidden !important;
+  }
+
+  /* legenda centralizada exata em relação à card-image */
+  .banners .card .card-caption,
+  #mobile-banners .card .card-caption {
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    bottom: 10px !important;
+    width: calc(100% - 32px) !important; /* garante margem interna confortável */
+    max-width: 88% !important;
+    padding: 0 12px !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    z-index: 6 !important;
+  }
+
+  /* se algum container pai tiver paddings que deslocam o carrossel, neutraliza */
+  .container, .hero-content, .page-inner, main, .site-wrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
+  }
+}
+/* AJUSTE: empurra a seção de banners pra baixo em telas pequenas (<=400px) */
+@media (max-width: 400px) {
+  .banners-wrapper {
+    /* valor principal — ajusta quanto desce (troque 28px se quiser mais/menos) */
+    margin-top: calc(28px + env(safe-area-inset-top)) !important;
+    /* garante que não “coma” o topo visualmente */
+    padding-top: 6px !important;
+    /* mantém o stacking/contexto visual */
+    z-index: 2 !important;
+  }
+
+  /* se o hero estiver por cima por causa do ::before, reduz a máscara um pouco */
+  .banners-wrapper::before {
+    height: calc(var(--card-height, 220px) + 18px) !important;
+  }
+
+  /* prevenção extra: se algum header fixo estiver empurrando, adiciona espaço */
+  .hero { padding-top: calc(88px + env(safe-area-inset-top)) !important; }
+}
+
+/* HIDE: remove banners de promoção / destaque no topo em telas muito pequenas */
+@media (max-width: 400px) {
+  /* seletores comuns — aplica display:none com !important para garantir override */
+  .hero-visual,
+  .bubble,
+  .hero-promo,
+  .promo-banner,
+  .top-promo,
+  .banner-highlight,
+  .promo-highlight,
+  .promo,
+  .banner--promo,
+  .highlight-banner,
+  .hero .promo,
+  #promo, /* id comum */
+  #top-promo { 
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* caso o espaço esteja vindo da máscara (::before) ou do wrapper, ajusta também */
+  .banners-wrapper::before,
+  .hero::before {
+    display: none !important;
+    height: 0 !important;
+  }
+
+  /* evita gaps deixados por containers pai */
+  .hero, .banners-wrapper, .hero-visual {
+    padding-top: 0 !important;
+  }
+}
+
+/* ==== FIX RÁPIDO: evita que o hero/grupo de texto fique colado na navbar fixa (mobile ≤420/400px) ==== */
+/* Defina uma altura base do navbar (ajuste se o seu navbar for maior/menor) */
+:root { --site-navbar-height: 56px; /* ajuste se necessário (ex: 64px) */ }
+
+/* garante que o navbar respeite área segura do topo (notch) */
+.navbar {
+  top: calc(env(safe-area-inset-top, 10px));
+}
+
+/* para telas pequenas: empurra o hero para baixo com prioridade */
+@media (max-width: 420px) {
+  /* força padding-top do hero para ficar abaixo do navbar + folga */
+  .hero {
+    padding-top: calc(var(--site-navbar-height) + 12px) !important;
+  }
+
+  /* garante que o conteúdo interno não esteja "colado" */
+  .hero-content {
+    padding-top: 8px !important; /* reduzido: o principal é o padding do .hero */
+  }
+
+  /* extra: adiciona margem extra no bloco principal de texto caso o hero tenha elementos absolutos */
+  .hero-main-block {
+    margin-top: 6px !important;
+  }
+}
+
+/* variante mais específica para 400px (se quiser maior folga) */
+@media (max-width: 400px) {
+  .hero {
+    /* se ainda estiver muito perto, aumente o +12px para +18px ou +24px */
+    padding-top: calc(var(--site-navbar-height) + 18px) !important;
+  }
+
+  .hero-main-block {
+    margin-top: 8px !important;
+  }
+}
+/* === COMPACT HERO (mobile ≤420px) === */
+:root { --site-navbar-height: 48px; /* ajustar para 44/40/56 conforme seu navbar real */ }
+
+@media (max-width: 420px) {
+  /* empurra o hero só o suficiente para não ficar atrás da navbar */
+  .hero {
+    padding-top: calc(var(--site-navbar-height) + 8px) !important;
+  }
+
+  /* reduz margem/padding do conteúdo principal para ficar mais "encaixado" */
+  .hero-content {
+    padding-top: 6px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    margin-left: 0 !important;
+  }
+
+  /* compacta o bloco principal (card) */
+  .hero-main-block {
+    padding: 18px 18px !important;
+    gap: 12px !important;
+    margin: 6px 0 10px 0 !important;
+    max-width: 94vw !important;
+    border-radius: 14px !important;
+  }
+
+  /* tipografia mais compacta */
+  .hero-main-text h1,
+  .hero-highlight {
+    font-size: 1.05rem !important;            /* título menor */
+    line-height: 1.06 !important;
+  }
+  .hero-sub {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+  }
+  .hero-lead {
+    font-size: 0.92rem !important;
+    line-height: 1.45 !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* CTA menor e mais enxuto */
+  .hero-main-ctas { gap: 10px !important; margin-top: 6px !important; }
+  .hero-main-ctas .btn-primary {
+    padding: 9px 12px !important;
+    font-size: 14px !important;
+    border-radius: 12px !important;
+  }
+
+  /* garante que a bolha/visual não atrapalhe (se já estiver oculto, ok) */
+  .hero-visual, .bubble { display: none !important; }
+
+  /* evita que o avatar (se existir) ocupe muito espaço */
+  .hero-avatar { display: none !important; }
+
+  /* pequenos ajustes de espaçamento geral */
+  .banners-wrapper { margin-top: 18px !important; }
+}
+
+

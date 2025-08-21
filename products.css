@@ -1,0 +1,915 @@
+/* products.css — versão consolidada e completa
+   Cole por inteiro substituindo o arquivo existente.
+   Mantém: grid/cards, cart modal (lateral desktop / bottom sheet mobile),
+   quickview, intro modal, quantity controls (simple/compact/stack),
+   scrollbars, toasts e ajustes responsivos.
+*/
+
+/* ======================
+   Variáveis globais
+   ====================== */
+:root{
+  --bg-dark: #0f1113;
+  --panel-dark: rgba(21,20,22,0.96);
+  --muted: #bfbfbf;
+  --accent: #d9b89c;
+  --accent-2: #cda07e;
+
+  --card-radius: 12px;
+  --card-shadow: 0 14px 36px rgba(0,0,0,0.35);
+  --max-panel-width: 960px;
+
+  --qty-box-w: 44px;
+  --qty-box-h: 34px;
+  --spin-w: 28px;
+  --qty-gap: 6px;
+}
+
+/* ======================
+   Base / Background
+   ====================== */
+html { background: var(--bg-dark); }
+body { background: none !important; }
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("Imagens/Fundo .jpeg") no-repeat center 30% / cover;
+  z-index: -1;
+  pointer-events: none;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* ======================
+   Page container / panel
+   ====================== */
+.product-page {
+  padding-top: 110px; /* espaço abaixo da navbar fixa */
+  padding-bottom: 40px;
+}
+.products-panel {
+  position: relative;
+  padding: 18px;
+  border-radius: calc(var(--card-radius) + 2px);
+  margin-top: 12px;
+}
+.products-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at center, rgba(0, 0, 0, 0.78) 0%, rgba(0,0,0,0.30) 60%, rgba(0,0,0,0.08) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.14), rgba(0,0,0,0.04));
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ======================
+   Grid & Cards
+   ====================== */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 18px;
+}
+.product-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 60px rgba(0,0,0,0.45);
+  border-color: rgba(255,255,255,0.12);
+}
+.product-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display:block;
+}
+.product-info {
+  padding: 12px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.product-info h3 { font-size:16px; margin:0; }
+.product-info p { font-size:14px; color:var(--muted); margin:0; line-height:1.3; }
+.product-price { font-size:15px; font-weight:700; color:var(--accent); }
+.product-actions { margin-top:auto; padding-top:10px; }
+.product-actions .btn-primary { width:100%; padding:10px 12px; font-size:14px; border-radius:10px; }
+
+/* ======================
+   Back / Nav small helpers
+   ====================== */
+.nav-links .back-btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.04);
+  font-weight:700;
+  line-height:1;
+}
+.nav-links .back-btn:hover {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  color:#000;
+  border-color: transparent;
+}
+
+/* ======================
+   Cart floating button
+   ====================== */
+.cart-button {
+  position: fixed;
+  right: 20px;
+  bottom: 22px;
+  z-index: 1200;
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  padding:12px 14px;
+  border-radius:999px;
+  border:0;
+  box-shadow:0 18px 40px rgba(0,0,0,0.45);
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  color:#fff;
+  cursor: pointer;
+}
+.cart-button .cart-count {
+  background: rgba(0,0,0,0.16);
+  padding:4px 8px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:13px;
+}
+
+/* ======================
+   Cart modal / overlay / panel
+   ====================== */
+/* Wrapper */
+.cart-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 1400;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.cart-modal[aria-hidden="false"] { display:block; }
+
+/* overlay */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8,10,12,0.6);
+  -webkit-backdrop-filter: blur(6px) saturate(1.05);
+  backdrop-filter: blur(6px) saturate(1.05);
+  z-index: 1410;
+  transition: opacity .22s ease;
+}
+
+/* Default (desktop) — side panel */
+.cart-panel {
+  position: fixed;
+  top: 8vh;
+  right: 20px;
+  left: auto;
+  width: 420px;
+  max-width: calc(100% - 40px);
+  height: 84vh;
+  background: linear-gradient(180deg, rgba(21,20,22,0.96), rgba(12,12,13,0.98));
+  color:#fff;
+  border-radius: 14px;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.7);
+  border: 1px solid rgba(255,255,255,0.04);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  transform: translateX(18px) scale(.995);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .28s cubic-bezier(.2,.9,.2,1), opacity .22s ease;
+  z-index: 1420;
+}
+
+/* When open */
+.cart-modal[aria-hidden="false"] .cart-panel {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* When hidden */
+.cart-modal[aria-hidden="true"] .cart-panel {
+  transform: translateX(18px) scale(.995);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Header & actions */
+.cart-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:18px;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+.cart-title { display:flex; gap:12px; align-items:center; }
+.cart-title svg { color:#e7d3b6; opacity:.95; }
+.cart-title h3 { margin:0; font-size:18px; font-weight:900; color:#f3e8d6; }
+.cart-items-badge { display:inline-block; font-size:13px; color:#cfc6b8; background: rgba(255,255,255,0.02); padding:6px 10px; border-radius:999px; font-weight:700; margin-top:4px; }
+
+.cart-actions-header { display:flex; gap:8px; align-items:center; }
+.cart-clear.small {
+  background: transparent;
+  color: #ffc9c9;
+  border: 1px solid rgba(255,80,80,0.07);
+  padding:8px 10px;
+  border-radius:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+.cart-clear.small:hover{ background: rgba(255,80,80,0.06); }
+
+/* Close button */
+.cart-close {
+  width:40px; height:40px; border-radius:10px; border:0;
+  background: rgba(255,255,255,0.03); color:#fff; font-size:22px; cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center; transition: transform .12s ease, background .12s;
+}
+.cart-close:hover { transform: scale(1.04); background: rgba(255,255,255,0.06); }
+
+/* Body area */
+.cart-body {
+  padding: 14px 16px;
+  overflow-y: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Footer */
+.cart-footer {
+  padding: 14px 16px;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.02));
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* Empty */
+.cart-empty {
+  padding: 28px 6px;
+  text-align:center;
+  color:#bdb7ad;
+}
+
+/* Items list */
+.cart-items {
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* Item card */
+@keyframes itemIn { to { transform: translateY(0); opacity:1; } }
+.cart-item {
+  display:flex;
+  gap:14px;
+  align-items:center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.006), rgba(255,255,255,0.002));
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  transform: translateY(6px);
+  opacity: 0;
+  animation: itemIn .32s forwards ease;
+}
+.cart-item .item-thumb {
+  width:84px; height:84px; flex-shrink:0; border-radius:10px; overflow:hidden;
+  display:inline-flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.02);
+}
+.cart-item .item-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+.cart-item .item-meta { flex:1; display:flex; flex-direction:column; gap:6px; }
+.cart-item .item-meta strong { font-size:15px; line-height:1.2; font-weight:800; color:#fff; }
+.cart-item .item-meta .unit-price { font-size:13px; color:var(--muted); }
+.cart-item .item-meta .item-total { font-weight:900; font-size:14px; color:var(--accent); }
+
+/* Controls area */
+.cart-item .item-controls { display:flex; gap:12px; align-items:center; justify-content:flex-end; min-width:120px; }
+
+/* Footer totals & actions */
+.cart-totals { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; font-weight:800; font-size:16px; }
+.cart-actions { display:flex; gap:10px; }
+.cart-actions .btn-secondary { flex:1; }
+.cart-actions .btn-primary { flex:1; }
+
+/* Footer action buttons */
+.cart-footer-actions { display:flex; gap:10px; }
+.btn-outline { flex:1; padding:12px 14px; border-radius:12px; background:transparent; border:1px solid rgba(255,255,255,0.06); color:#fff; font-weight:800; cursor:pointer; }
+.btn-outline:hover { background: rgba(255,255,255,0.02); }
+.btn-primary { flex:1; padding:12px 14px; border-radius:12px; font-weight:900; border:0; cursor:pointer; background: linear-gradient(90deg,#f3ddbb,#d9b89c); color:#181415; box-shadow: 0 10px 28px rgba(217,184,156,0.12); }
+.btn-primary:disabled { opacity:.55; cursor:not-allowed; box-shadow:none; }
+
+/* ======================
+   Scrollbars & toast
+   ====================== */
+.cart-body::-webkit-scrollbar { width:12px; }
+.cart-body::-webkit-scrollbar-track { background: transparent; }
+.cart-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius:8px; border:3px solid transparent; background-clip: padding-box; }
+.cart-body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.10); }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%) translateY(16px);
+  background: rgba(0,0,0,0.9);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 10px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s cubic-bezier(.2,.8,.2,1);
+  z-index: 1400;
+  font-weight:600;
+}
+.toast.show { opacity:1; transform: translateX(-50%) translateY(0); pointer-events:auto; }
+
+/* ======================
+   Quantity controls
+   ====================== */
+.item-controls { display:flex; gap:10px; align-items:center; justify-content:flex-end; min-width:120px; }
+
+.qty-controls {
+  display:inline-flex;
+  align-items:center;
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.03);
+  background: rgba(255,255,255,0.02);
+}
+.qty-btn {
+  width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center;
+  background: transparent; color: #fff; border:0; cursor: pointer; font-weight:700;
+}
+.qty-btn:hover { background: rgba(255,255,255,0.04); }
+
+.qty-input {
+  width: var(--qty-box-w);
+  height: var(--qty-box-h);
+  border: 0;
+  text-align: center;
+  background: transparent;
+  color: #fff;
+  font-weight: 800;
+  outline: none;
+}
+
+/* Simple compact variant used by JS (no heavy backgrounds) */
+.qty-controls.simple {
+  gap: var(--qty-gap);
+  padding: 4px;
+  background: transparent;
+  border: none;
+}
+.qty-controls.simple .qty-input {
+  width: var(--qty-box-w);
+  height: var(--qty-box-h);
+  background: rgba(0,0,0,0.06);
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 8px;
+  padding: 0 6px;
+}
+.qty-controls.simple .qty-spinner {
+  display:inline-flex; flex:0 0 var(--spin-w); align-items:center; justify-content:center; gap:4px;
+}
+.qty-controls.simple .spin-btn {
+  width:100%; height: calc((var(--qty-box-h) - 6px)/2); display:inline-flex; align-items:center; justify-content:center; border:0; background:transparent; color:#fff; cursor:pointer;
+}
+
+/* Hide native spinner appearance for WebKit (appearance removed but JS can still use input step) */
+.qty-input::-webkit-outer-spin-button, .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type=number] { -moz-appearance: textfield; }
+
+/* Compact / stack classes (JS can add these) */
+.qty-controls.simple.compact .qty-spinner { display:none; }
+.qty-controls.simple.stack { flex-wrap:wrap; gap:6px; align-items:center; }
+.qty-controls.simple.stack .qty-input { order:1; width: calc(var(--qty-box-w) + 6px); }
+.qty-controls.simple.stack .qty-spinner { order:2; width:100%; min-width:0; flex-direction:row; justify-content:center; height:auto; padding:6px 0; }
+
+/* Remove overlay shadow remnants */
+.qty-spinner, .qty-spinner * { background: transparent !important; box-shadow: none !important; border: none !important; }
+
+/* ======================
+   Quickview & intro modal
+   ====================== */
+.quickview-modal { position: fixed; inset: 0; display:none; z-index:1500; }
+.quickview-modal[aria-hidden="false"] { display:block; }
+.quickview-overlay { position: fixed; inset:0; background: rgba(0,0,0,0.55); z-index:1510; }
+.quickview-panel {
+  position: fixed; left:50%; top:50%; transform: translate(-50%,-50%);
+  width: min(760px, calc(100% - 48px));
+  max-height: calc(100% - 96px);
+  background: #0f1113; color:#fff; border-radius:12px; border:1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 34px 100px rgba(0,0,0,0.7);
+  overflow:hidden; display:flex; flex-direction:column; z-index:1520;
+}
+.quickview-head{ display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.quickview-title { margin:0; font-size:18px; font-weight:800; color:var(--accent); }
+.quickview-close{ background: rgba(255,255,255,0.07); color:#fff; border:0; width:36px; height:36px; border-radius:10px; cursor:pointer; }
+.quickview-close:hover{ background: rgba(255,255,255,0.12); }
+.quickview-body { padding:16px 18px; overflow-y:auto; -webkit-overflow-scrolling:touch; flex:1; }
+.quickview-actions { padding:14px 18px; border-top:1px solid rgba(255,255,255,0.06); display:flex; gap:10px; }
+
+/* ===== Intro modal — versão robusta para evitar "não abre" ===== */
+/* Mantém visual original, mas usa visibility/opacity para evitar conflitos com display:none */
+.intro-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1550;
+  /* deixamos no fluxo (display:block) mas escondido por visibility/opacity */
+  display: block !important;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: opacity .22s ease, visibility .22s ease;
+}
+
+/* Quando JS seta aria-hidden="false" o modal aparece */
+.intro-modal[aria-hidden="false"] {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* overlay: escurecimento suave por baixo do painel */
+.intro-modal .intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1552;
+  background: linear-gradient(120deg, rgba(217,184,156,0.10), rgba(0,0,0,0.62) 80%);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity .22s ease;
+  pointer-events: none;
+}
+
+/* overlay visível somente quando modal aberto */
+.intro-modal[aria-hidden="false"] .intro-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* painel centralizado — mantém cor, borda e sombra como antes */
+.intro-modal .intro-panel {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(.998);
+  width: min(520px, 92vw);
+  max-width: 520px;
+  max-height: 86vh;
+  overflow: auto;
+  background: #181415;
+  color: #fff;
+  border-radius: 16px;
+  border: 2.5px solid var(--accent);
+  box-shadow: 0 34px 100px rgba(0,0,0,0.68);
+  z-index: 1555;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  opacity: 0;
+  transform-origin: 50% 50%;
+  transition: opacity .22s ease, transform .22s cubic-bezier(.2,.9,.2,1);
+}
+
+/* painel "entra" quando modal aberto */
+.intro-modal[aria-hidden="false"] .intro-panel {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* cabeçalho, corpo, ações (mantém seu estilo anterior) */
+.intro-modal .intro-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  min-height: 48px;
+}
+.intro-modal .intro-head h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+.intro-modal .intro-close {
+  background: rgba(255,255,255,0.06);
+  border: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+.intro-modal .intro-close:hover { background: rgba(255,255,255,0.12); transform: scale(1.03); }
+
+.intro-modal .intro-body {
+  padding: 12px 4px;
+  font-size: 0.98rem;
+  color: var(--muted);
+  line-height: 1.45;
+  text-align: left;
+}
+
+.intro-modal .intro-steps { margin: 8px 0 0 0; padding-left: 16px; }
+.intro-modal .intro-steps li {
+  margin: 6px 0;
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  color: rgba(255,255,255,0.88);
+  font-size: 0.95rem;
+}
+.intro-modal .intro-steps li strong { display:inline-flex; min-width:20px; color: var(--accent); }
+
+.intro-modal .intro-actions {
+  display: flex;
+  gap: 10px;
+  padding-top: 10px;
+  padding-bottom: 6px;
+  justify-content: flex-end;
+  border-top: 1px solid rgba(255,255,255,0.03);
+}
+.intro-modal .intro-actions .btn-primary { padding: 10px 12px; font-weight:800; border-radius:10px; }
+.intro-modal .intro-actions .btn-secondary { padding: 10px 12px; border-radius:10px; }
+
+/* responsive */
+@media (max-width: 520px) {
+  .intro-modal .intro-panel { width: min(380px, 94vw); max-width: 380px; padding: 12px; border-radius: 12px; }
+  .intro-modal .intro-head { padding-bottom: 6px; gap: 10px; min-height: 42px; }
+  .intro-modal .intro-head h3 { font-size: 1rem; }
+  .intro-modal .intro-body { font-size: 0.94rem; padding: 10px 2px; }
+  .intro-modal .intro-steps li { font-size: 0.9rem; margin: 6px 0; }
+  .intro-modal .intro-actions { gap: 8px; padding-top: 8px; justify-content: center; flex-wrap: wrap; }
+  .intro-modal .intro-actions .btn-primary, .intro-modal .intro-actions .btn-secondary { width: 100%; flex:1 1 auto; padding: 10px 10px; }
+  .intro-modal .intro-close { width: 34px; height: 34px; font-size: 18px; }
+}
+
+/* ======================
+   Accessibility helpers / small extras
+   ====================== */
+.product-card[data-quickview], .product-banner[data-quickview] { cursor:pointer; }
+.product-card[data-quickview]:focus-visible, .product-banner[data-quickview]:focus-visible { outline: 2px solid var(--accent); outline-offset:2px; border-radius:12px; }
+
+/* When modal open, lock scroll */
+body.modal-open { overflow: hidden; }
+
+/* ======================
+   Responsive behavior (ordered)
+   ====================== */
+
+/* Desktop adjustments */
+@media (min-width: 1025px) {
+  .product-page { padding-top: 150px; }
+}
+
+/* Tablet and smaller: center modal compact (<=768) */
+@media (max-width: 768px) {
+  .products-panel { padding: 10px; }
+  .products-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap:12px; }
+  .product-image { aspect-ratio: 4/5; }
+  .product-info h3 { font-size:14px; }
+  .product-actions .btn-primary { padding:8px 10px; font-size:12px; }
+
+  /* Center modal smaller */
+  .cart-panel {
+    left: 50% !important;
+    top: 50% !important;
+    right: auto !important;
+    transform: translate(-50%,-50%) !important;
+    width: min(420px, 74vw) !important;
+    max-width: 420px !important;
+    max-height: 75vh !important;
+    height: auto !important;
+    border-radius: 12px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    box-shadow: 0 28px 80px rgba(0,0,0,0.66) !important;
+  }
+
+  .cart-body { padding:10px 12px; max-height: calc(75vh - 150px); overflow-y:auto; }
+  .cart-footer { padding:10px 12px; }
+  .item-thumb { width:56px; height:56px; }
+  .qty-input { width:44px; height:32px; font-size:13px; }
+  .qty-btn { width:32px; height:32px; font-size:14px; }
+  .cart-title h3 { font-size:16px; }
+  .cart-items-badge { padding:4px 8px; font-size:12px; }
+  .cart-subtotal { font-size:16px; }
+  .btn-primary, .btn-outline { padding:10px 12px; font-size:14px; border-radius:10px; }
+  .cart-close { width:34px; height:34px; font-size:18px; }
+}
+
+/* Mobile narrow: bottom sheet style (<=720) overrides center */
+@media (max-width: 720px) {
+  .cart-panel {
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 86vh !important;
+    border-radius: 12px 12px 0 0 !important;
+    transform: translateY(12px) scale(.995) !important;
+  }
+  .cart-modal[aria-hidden="false"] .cart-panel { transform: translateY(0) scale(1) !important; pointer-events:auto !important; opacity:1 !important; }
+  .cart-body { max-height: calc(86vh - 160px); }
+  .cart-footer-actions { flex-direction: column; gap:10px; }
+}
+
+/* Very small phones adjustments */
+@media (max-width: 520px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); gap:14px; }
+  .qty-controls.simple .qty-input { width:44px; font-size:13px; }
+  .product-info h3 { font-size:14px; }
+  .product-actions .btn-primary { font-size:13px; padding:10px; }
+}
+
+/* Tiny phones */
+@media (max-width: 400px) {
+  :root{ --qty-box-w: 40px; --qty-box-h: 32px; --spin-w:26px; }
+  .products-grid { grid-template-columns: repeat(3, minmax(90px, 1fr)); gap:6px; }
+  .product-actions .btn-primary { padding:6px 8px; font-size:11px; }
+  .cart-panel { width: min(320px, 88vw) !important; max-height: calc(100vh - 64px) !important; }
+  .cart-body { max-height: calc(100vh - 140px) !important; }
+  .item-thumb { width:48px; height:48px; }
+  .item-meta strong { font-size:14px; }
+  .unit-price, .item-total { font-size:12px; }
+  .qty-input { width:40px; height:30px; font-size:12px; }
+  .qty-btn { width:30px; height:30px; }
+  .cart-footer-actions { gap:8px; flex-direction:column; }
+  .btn-primary, .btn-outline { padding:10px 8px; font-size:14px; }
+  .cart-close { width:32px; height:32px; font-size:16px; }
+}
+
+/* Força centrar quando modal estiver aberto em telas <=768 caso outro CSS tente sobrepor */
+@media (max-width: 768px) {
+  body .cart-modal[aria-hidden="false"] .cart-panel { left:50% !important; top:50% !important; transform: translate(-50%,-50%) !important; }
+}
+
+/* ======================
+   Final fixes / overrides
+   ====================== */
+/* Remove any leftover shadow/border from spinner overlays (very specific) */
+.cart-panel .cart-body .qty-controls .qty-spinner,
+.cart-panel .cart-body .qty-controls .qty-spinner * {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+}
+
+/* Accessibility: focus outlines */
+:focus { outline: 2px solid rgba(217,184,156,0.12); outline-offset: 2px; }
+
+/* Notes:
+   - Se ficar com layout diferente do esperado, verifique se existem regras inline
+     ou outros arquivos CSS carregados após este arquivo. Regras com maior especificidade
+     (ex.: .theme-dark .cart-panel) podem sobrepor estes estilos.
+   - Se quiser, eu posso tornar certos seletores ainda mais específicos (ex.: .site .cart-modal .cart-panel)
+     para garantir prioridade sobre outras folhas.
+*/
+/* ===== Fixes rápidos para mobile 400px (colar no FINAL do products.css) ===== */
+@media (max-width: 400px) {
+  /* reduz o painel do carrinho para caber melhor */
+  .cart-panel {
+    width: min(300px, 92vw) !important;
+    max-width: 320px !important;
+    height: auto !important;
+    max-height: calc(100vh - 64px) !important;
+    padding: 8px 10px !important;
+    border-radius: 12px !important;
+    transform: translate(-50%,-50%) !important;
+    left: 50% !important;
+    top: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    overflow-x: hidden !important; /* evita scroll horizontal */
+  }
+
+  .cart-body {
+    padding: 8px 10px !important;
+    max-height: calc(100vh - 180px) !important;
+    overflow-x: hidden !important;
+  }
+
+  /* itens do carrinho ficam mais compactos e quebram quando necessário */
+  .cart-item {
+    gap: 8px !important;
+    padding: 8px !important;
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;        /* permite quebrar para linha abaixo */
+    min-width: 0 !important;           /* evita que filhos forcem largura */
+  }
+
+  .cart-item .item-thumb {
+    width: 48px !important;
+    height: 48px !important;
+    flex: 0 0 48px !important;
+  }
+
+  /* metadados (nome, preços) podem encolher e truncar */
+  .cart-item .item-meta {
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+  }
+  .cart-item .item-meta strong,
+  .cart-item .item-meta .unit-price,
+  .cart-item .item-meta .item-total {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* controles — força quebra para a largura total do item se não couberem */
+  .cart-item .item-controls {
+    min-width: 0 !important;
+    width: 100% !important;                 /* ocupa a linha inteira */
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    margin-top: 6px !important;
+  }
+
+  /* torna os botões e inputs menores e garante que não vazem */
+  .qty-input {
+    width: 40px !important;
+    max-width: 40px !important;
+    height: 30px !important;
+    box-sizing: border-box !important;
+    padding: 0 6px !important;
+    font-size: 12px !important;
+  }
+
+  /* garante que os botões + / - apareçam (se alguma regra anterior os escondeu) */
+  .qty-btn,
+  .spin-btn,
+  .spin-up,
+  .spin-down {
+    display: inline-flex !important;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 14px !important;
+    padding: 0 !important;
+  }
+
+  /* spinner lateral em coluna (mais compacto) */
+  .qty-controls.simple .qty-spinner {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    width: 28px !important;
+    flex: 0 0 28px !important;
+  }
+
+  /* botão remover mais compacto e sem quebre de linha estranha */
+  .cart-remove {
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    flex: 0 0 auto !important;
+    margin-left: 6px !important;
+  }
+
+  /* evita que textos longos ou inputs criem barra branca à direita */
+  .cart-body,
+  .cart-panel,
+  .products-panel {
+    overflow-x: hidden !important;
+  }
+
+  /* footer actions empilhadas, mais compactas */
+  .cart-footer-actions {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  /* ajusta título e badges para não forçar largura */
+  .cart-title h3 { font-size: 16px !important; }
+  .cart-items-badge { padding: 4px 8px !important; font-size: 12px !important; }
+
+  /* correção final: qualquer elemento que force overflow horizontal */
+  .cart-panel * { max-width: 100% !important; box-sizing: border-box !important; }
+}
+
+
+/* ===== Estilo do botão "Remover" no carrinho ===== */
+.cart-remove {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.04);
+  background: transparent;
+  color: #ffdcd0;                    /* tom levemente quente para contraste */
+  font-weight: 800;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .14s ease, transform .08s ease, border-color .14s ease, color .12s ease;
+  white-space: nowrap;
+}
+
+/* Ícone dentro do botão */
+.cart-remove svg {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  fill: currentColor;
+  opacity: 0.95;
+}
+
+/* Hover / focus — vermelho suave para ação de remoção */
+.cart-remove:hover,
+.cart-remove:focus {
+  background: rgba(255,80,80,0.08);      /* leve fundo vermelho */
+  border-color: rgba(255,80,80,0.16);
+  color: #ffbfbf;
+  transform: translateY(-1px);
+  outline: none;
+}
+
+/* Focus visível acessível */
+.cart-remove:focus {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 0 4px rgba(217,184,156,0.08);
+}
+
+/* Variante só-ícone (use class extra .icon-only quando quiser apenas o ícone) */
+.cart-remove.icon-only {
+  padding: 8px;
+  width: 38px;
+  height: 38px;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+/* Se quiser texto pequeno no mobile */
+@media (max-width: 520px) {
+  .cart-remove {
+    padding: 7px 8px;
+    font-size: 12px;
+    gap: 6px;
+  }
+  .cart-remove.icon-only { width: 34px; height: 34px; padding: 6px; }
+}
+
+/* Ajuste final: garante que o botão não cause overflow dentro do item do carrinho */
+.cart-item .item-controls .cart-remove {
+  margin-left: 6px;
+  flex: 0 0 auto;
+}
