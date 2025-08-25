@@ -2927,3 +2927,37 @@ body {
   /* substitua 'Imagens/Fundo.jpeg' pelo nome real sem espaços */
   background-image: url('Imagens/Fundo\ .jpeg') !important;
 }
+
+/* FINAL OVERRIDE — Faixa marrom visível e mais forte no mobile */
+
+/* ≤600px: mais opaca, sem blur e com altura suficiente para a faixa dos cards */
+@media (max-width: 600px) {
+  .banners-wrapper::before {
+    display: block !important;          /* reativa se algum bloco ocultou */
+    top: 0 !important;
+    height: calc(var(--card-height, 240px) + 56px) !important;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--brown-100), 0.82) 0%,
+      rgba(var(--brown-100), 0.58) 100%
+    ) !important;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    z-index: 1 !important;              /* atrás dos cards, à frente do fundo */
+    pointer-events: none !important;
+  }
+}
+
+/* ≤400px: ainda mais marcada e um pouco mais baixa (acompanha cards menores) */
+@media (max-width: 400px) {
+  .banners-wrapper::before {
+    display: block !important;          /* override do bloco que escondia */
+    height: calc(var(--card-height, 220px) + 36px) !important;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--brown-100), 0.90) 0%,
+      rgba(var(--brown-100), 0.62) 100%
+    ) !important;
+  }
+}
