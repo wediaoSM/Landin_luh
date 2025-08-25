@@ -2922,11 +2922,6 @@ html, body {
   }
 }
 
-/* 7) corrige background path problema (só se você renomear o arquivo) */
-body {
-  /* substitua 'Imagens/Fundo.jpeg' pelo nome real sem espaços */
-  background-image: url('Imagens/Fundo\ .jpeg') !important;
-}
 
 /* FINAL OVERRIDE — Faixa marrom visível e mais forte no mobile */
 
