@@ -409,6 +409,7 @@ p {
 
 @media (max-width:900px) {
   .hero-main-block {
+    margin-top: 60px !important;
     flex-direction: column;
     gap: 18px;
     padding: 28px 12px 22px 12px;
@@ -947,20 +948,22 @@ p {
 }
 
 .shop-hero-card {
-  flex: 0 1 340px;
-  background: #181415;
-  border-radius: 14px;
+  flex: 0 0 300px;       /* fixa largura base menor */
+  width: 300px;          /* garante largura no flex layout */
+  max-width: 300px;
+  background: rgba(40, 32, 24, 0.86);
+  border-radius: 12px;
   overflow: hidden;
-  color: #fff;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.30);
   border: 1.5px solid var(--accent);
-  max-width: 340px;
-  margin: 0 auto;
-  align-self: center
+  margin: 0;             /* evita margem duplicada */
+  align-self: center;
+  padding: 12px;         /* opcional: reduz espaço interno */
 }
+
 
 .shop-badge {
   align-self: flex-start;
@@ -1034,6 +1037,13 @@ p {
   padding: 12px 0;
   border-radius: 10px;
   font-size: 15px
+}
+
+@media (max-width: 768px) {
+  .shop-hero-content {
+    width: 90%;
+    flex-direction: column;
+  }
 }
 
 /*===============================================
@@ -2251,7 +2261,7 @@ a:visited {
 
   /* extra: adiciona margem extra no bloco principal de texto caso o hero tenha elementos absolutos */
   .hero-main-block {
-    margin-top: 6px !important;
+    margin-top: 60px !important;
   }
 }
 
@@ -2263,7 +2273,7 @@ a:visited {
   }
 
   .hero-main-block {
-    margin-top: 8px !important;
+    margin-top: 70px !important;
   }
 }
 
@@ -2292,7 +2302,7 @@ a:visited {
   .hero-main-block {
     padding: 18px 18px !important;
     gap: 12px !important;
-    margin: 6px 0 10px 0 !important;
+
     max-width: 94vw !important;
     border-radius: 14px !important;
   }
@@ -2485,9 +2495,10 @@ a:visited {
 /* Mobile: menor e com respiro das bordas */
 @media (max-width: 420px) {
   .card .card-cta {
+    width: 60%;
     top: 8px;
     right: 8px;
-    font-size: 11px;
+    font-size: 10px;
     padding: 6px 10px;
     letter-spacing: .25px;
   }
@@ -2591,6 +2602,12 @@ a:visited {
   #sobre {
     margin-top: clamp(60px, 10vw, 140px) !important;
   }
+
+  .about-text-v2 {
+  max-width: 100%;
+  margin: 0 auto !important;
+  text-align: center !important; 
+}
 }
 
 /* Telefones pequenos: folga máxima */
@@ -2611,25 +2628,51 @@ a:visited {
   margin-right: auto !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   #sobre .about-image-portrait {
-    width: min(84%, 580px) !important;
+    width: min(30%, 400px) !important;
     max-width: 580px !important;
     min-height: 220px !important;
+    background-position: center 13% !important;
+  }
+
+.about-text-v2 {
+  max-width: 100%;
+  margin: 0 auto !important;
+  text-align: center !important; 
+}
+
+ 
+}
+
+@media (max-width: 768px) {
+  #sobre .about-image-portrait {
+    width: min(40%, 580px) !important;
+    max-width: 580px !important;
+    min-height: 220px !important;
+    background-position: center 13% !important;
   }
 }
 
 @media (max-width: 600px) {
   #sobre .about-image-portrait {
-    width: 92% !important;
+    width: 40% !important;
     min-height: 200px !important;
+     background-position: center 13% !important;
   }
+
+  .about-text-v2 {
+  max-width: 100%;
+  margin: 0 auto !important;
+  text-align: center !important; 
+}
 }
 
 @media (max-width: 400px) {
   #sobre .about-image-portrait {
-    width: 96% !important;
+    width: 60% !important;
     min-height: 180px !important;
+     background-position: center 13% !important;
   }
 }
 
