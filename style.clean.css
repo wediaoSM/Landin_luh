@@ -57,7 +57,7 @@ body {
   background-color: #0f0f10 !important;
 
   /* caminho corrigido (remove espaço/escape) */
-  background-image: url('Imagens/fundo.jpeg') !important;
+  background-image: url('Imagens/Fundo\ .jpeg') !important;
 
   /* composição menos “fechada” */
   background-position: center top !important;
