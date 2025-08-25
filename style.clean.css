@@ -54,7 +54,6 @@ body {
 
 body {
   /* mantém a cor base */
-  background-color: #0f0f10 !important;
 
   /* caminho corrigido (remove espaço/escape) */
   background-image: url('Imagens/Fundo\ .jpeg') !important;
