@@ -413,7 +413,8 @@ p {
     flex-direction: column;
     gap: 18px;
     padding: 28px 12px 22px 12px;
-    max-width: 98vw
+    max-width: 98vw;
+    height: 1px !important;
   }
 
   .hero-avatar {
@@ -429,7 +430,8 @@ p {
 
 @media (max-width:600px) {
   .hero-main-block {
-    padding: 18px 4vw 14px
+    padding: 18px 4vw 14px;
+    height: 1px !important;
   }
 
   .hero-main-text h1,
@@ -891,7 +893,7 @@ p {
   flex-direction: row;
   align-items: stretch;
   justify-content: center;
-  gap: 38px;
+  gap: 1px;
   width: 100%
 }
 
@@ -976,6 +978,14 @@ p {
   font-size: 13px
 }
 
+@media (max-width: 480px) {
+  .shop-badge{
+     font-size: 13px;
+      font-weight: 800;
+      margin: 1px 1px 0 1px;
+  }
+}
+
 .shop-image {
   width: 100%;
   height: 180px;
@@ -1041,7 +1051,7 @@ p {
 
 @media (max-width: 768px) {
   .shop-hero-content {
-    width: 90%;
+    width: 100%;
     flex-direction: column;
   }
 }
@@ -2262,6 +2272,7 @@ a:visited {
   /* extra: adiciona margem extra no bloco principal de texto caso o hero tenha elementos absolutos */
   .hero-main-block {
     margin-top: 60px !important;
+    height: 1px !important;
   }
 }
 
@@ -2274,6 +2285,7 @@ a:visited {
 
   .hero-main-block {
     margin-top: 70px !important;
+    height: 1px !important;
   }
 }
 

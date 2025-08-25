@@ -64,7 +64,7 @@
       box-shadow: none !important;
       border-radius: 0 !important;
       padding: 0 !important;
-      margin: 0 0 24px 0 !important;
+      margin: 90px 0 24px 0 !important;
       position: relative;
       z-index: 2;
       gap: 22px;
@@ -678,8 +678,16 @@
       }
 
       .shop-hero-card .shop-image {
-        height: 120px !important;
-        /* antes herdava 140px */
+        height: 140px !important;
+        /* antes 120px */
+      }
+
+       @media (max-width: 400px) {
+        .shop-hero-card .shop-image {
+          width: 200px !important;
+            height: 300px !important;
+        }
+
       }
 
       /* Sobre: imagem menor e mais “alta” (retrato) em 768px */
@@ -705,7 +713,7 @@
 
     .shop-flag {
       position: absolute;
-      top: -10px;
+      top: 0px;
       left: 14px;
       display: inline-flex;
       align-items: center;
