@@ -304,6 +304,8 @@ Ele garante um resultado natural, leve e confortável`;
    Uso: coloque data-gallery="img1.jpg, img2.jpg, img3.jpg" no <article class="card center">.
    Se não houver data-gallery, o script pega todas <img> dentro do próprio card como fallback.
 */
+/* center-gallery.js — versão atualizada: bind em todos os .card.center + thumbnails nos dots */
+
 (function () {
   const SELECTOR = '.banners .card.center';
 
@@ -317,6 +319,7 @@ Ele garante um resultado natural, leve e confortável`;
     modal = document.createElement('div');
     modal.id = 'center-gallery-modal';
     modal.setAttribute('aria-hidden', 'true');
+    modal.style.display = 'none';
     modal.innerHTML = `
       <div class="cg-overlay" data-cg-close></div>
       <div class="cg-panel" role="dialog" aria-modal="true">
@@ -363,25 +366,20 @@ Ele garante um resultado natural, leve e confortável`;
   }
 
   function parseGalleryFromCard(card) {
-    // prioridade: data-gallery (comma or pipe separated)
     const raw = card.dataset.gallery;
     if (raw && raw.trim()) {
-      // split by comma or pipe
       const parts = raw.split(/\s*(?:,|\|)\s*/).map(s => s.trim()).filter(Boolean);
       return parts.map(s => ({ src: s, alt: '' }));
     }
-    // fallback: todas as imgs internas do card
     const imgsNode = Array.from(card.querySelectorAll('img'));
     if (imgsNode.length) {
       return imgsNode.map(img => ({ src: img.getAttribute('src'), alt: img.getAttribute('alt') || '' }));
     }
-    // sem imagens
     return [];
   }
 
   function openForCard(card, start = 0) {
     if (!card) return;
-    // fecha quickview caso esteja aberto (compatibilidade)
     const q = document.getElementById('quickview');
     if (q && q.getAttribute('aria-hidden') === 'false') {
       q.setAttribute('aria-hidden', 'true');
@@ -402,7 +400,6 @@ Ele garante um resultado natural, leve e confortável`;
     modal.setAttribute('aria-hidden', 'false');
     modal.style.display = 'flex';
     document.body.classList.add('modal-open');
-    // foco
     setTimeout(() => modal.querySelector('.cg-close')?.focus(), 30);
   }
 
@@ -412,7 +409,6 @@ Ele garante um resultado natural, leve e confortável`;
     m.setAttribute('aria-hidden', 'true');
     m.style.display = 'none';
     document.body.classList.remove('modal-open');
-    // limpa src para liberar
     const im = m.querySelector('.cg-stage img');
     if (im) { im.src = ''; im.alt = ''; }
   }
@@ -425,7 +421,6 @@ Ele garante um resultado natural, leve e confortável`;
   function update() {
     const item = imgs[idx];
     if (!item) return;
-    // transição suave
     imgEl.style.opacity = '0';
     setTimeout(() => {
       imgEl.src = item.src;
@@ -445,8 +440,18 @@ Ele garante um resultado natural, leve e confortável`;
     imgs.forEach((it, i) => {
       const b = document.createElement('button');
       b.type = 'button';
+      b.className = 'cg-dot';
       b.setAttribute('aria-label', `Ir para imagem ${i + 1}`);
+      b.setAttribute('role', 'tab');
       b.addEventListener('click', () => { idx = i; update(); });
+      // se houver src, usa como miniatura
+      if (it.src) {
+        b.style.backgroundImage = `url('${it.src}')`;
+        b.style.backgroundSize = 'cover';
+        b.style.backgroundPosition = 'center';
+      } else {
+        b.textContent = (i + 1);
+      }
       dotsEl.appendChild(b);
     });
     updateDots();
@@ -454,40 +459,21 @@ Ele garante um resultado natural, leve e confortável`;
 
   function updateDots() {
     if (!dotsEl) return;
-    Array.from(dotsEl.children).forEach((b, i) => b.classList.toggle('active', i === idx));
+    Array.from(dotsEl.children).forEach((b, i) => {
+      b.classList.toggle('active', i === idx);
+      b.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+    });
   }
 
-  // bind: só no card central para evitar disparos indesejados
-  function bindToCenterCard() {
-    const card = document.querySelector(SELECTOR);
-    if (!card) {
-      // observa o DOM e tenta novamente caso o card seja injetado depois
-      const obs = new MutationObserver((mut) => {
-        for (const m of mut) {
-          for (const n of m.addedNodes) {
-            if (n instanceof Element && n.matches && n.matches(SELECTOR)) {
-              obs.disconnect();
-              attach(n);
-              return;
-            }
-          }
-        }
-      });
-      obs.observe(document.documentElement, { childList: true, subtree: true });
-      return;
-    }
-    attach(card);
-  }
-
+  // attach to all center cards (and observe dom for new ones)
   function attach(card) {
-    if (card.__cgBound) return;
+    if (!card || card.__cgBound) return;
     card.__cgBound = true;
 
     card.addEventListener('click', function (e) {
-      // evita abrir se clicou em link interno
       if (e.target.closest('a')) return;
       e.preventDefault();
-      e.stopPropagation(); // impede quickview de receber o click
+      e.stopPropagation();
       openForCard(card, 0);
     });
 
@@ -498,10 +484,33 @@ Ele garante um resultado natural, leve e confortável`;
         openForCard(card, 0);
       }
     });
+
+    // add accessibility hints
+    if (!card.hasAttribute('role')) card.setAttribute('role', 'button');
+    if (!card.hasAttribute('tabindex')) card.setAttribute('tabindex', '0');
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindToCenterCard);
-  else bindToCenterCard();
+  function bindAllExisting() {
+    const list = Array.from(document.querySelectorAll(SELECTOR));
+    list.forEach(attach);
+  }
+
+  // observe for cards injected later
+  const obs = new MutationObserver((mut) => {
+    for (const m of mut) {
+      for (const n of m.addedNodes) {
+        if (!(n instanceof Element)) continue;
+        if (n.matches && n.matches(SELECTOR)) attach(n);
+        // também inspeciona filhos caso um container tenha sido injetado
+        const found = Array.from(n.querySelectorAll && n.querySelectorAll(SELECTOR) || []);
+        found.forEach(attach);
+      }
+    }
+  });
+  obs.observe(document.documentElement, { childList: true, subtree: true });
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindAllExisting);
+  else bindAllExisting();
 })();
 
 
