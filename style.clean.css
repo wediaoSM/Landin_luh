@@ -56,7 +56,7 @@ body {
   /* mantém a cor base */
 
   /* caminho corrigido (remove espaço/escape) */
-  background-image: url('Imagens/Fundo\ .jpeg') !important;
+  background-image: url('Imagens/fundo.jpeg') !important;
   background-position: center center !important;  /* centraliza */
   background-repeat: no-repeat !important;
   background-size: cover !important;              /* cobre toda a viewport */
