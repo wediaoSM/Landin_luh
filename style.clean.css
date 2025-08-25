@@ -56,17 +56,21 @@ body {
   /* mantém a cor base */
 
   /* caminho corrigido (remove espaço/escape) */
-  background-image: url('Imagens/Fundo\ .jpeg') !important;
+  background-image: url('Imagens/fundo.jpeg') !important;
+  background-position: center center !important;  /* centraliza */
+  background-repeat: no-repeat !important;
+  background-size: cover !important;              /* cobre toda a viewport */
+  background-attachment: fixed !important;        /* fixa o fundo ao rolar */
 
   /* composição menos “fechada” */
-  background-position: center top !important;
-  background-repeat: no-repeat !important;
+  /* background-position: center top !important; */
+  /* background-repeat: no-repeat !important; */
 
   /* reduz o zoom por padrão */
-  background-size: contain !important;
+  /* background-size: contain !important; */
 
   /* evita bugs de “zoom”/jitter em mobile */
-  background-attachment: scroll !important;
+  /* background-attachment: scroll !important; */
   color: var(--text);
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.45;
@@ -2130,9 +2134,9 @@ a:visited {
   .site-wrapper {
     padding-left: 0 !important;
     padding-right: 0 !important;
-    max-width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+    max-width: 100% !important;
   }
 }
 
@@ -2972,7 +2976,7 @@ body {
 /* Mobile: desativa fixed para evitar bugs no iOS/Android */
 @media (max-width: 1024px) {
   body {
-    background-attachment: scroll !important;
-    background-size: cover !important;    /* mantém cobertura total da tela */
+    background-attachment: fixed !important;
+    background-size: cover !important;
   }
 }
