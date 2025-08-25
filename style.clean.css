@@ -2575,7 +2575,6 @@ a:visited {
   outline: none !important;
   -webkit-appearance: none !important;
   appearance: none !important;
-  background-image: none !important;
   /* visual mais leve (não sobrepõe a imagem) */
   background: rgba(0, 0, 0, 0.28) !important;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35) !important;
