@@ -2202,7 +2202,7 @@ a:visited {
   }
 }
 
-/* HIDE: remove banners de promoção / destaque no topo em telas muito pequenas */
+/* HIDE: removes banners de promoção / destaque no topo em telas muito pequenas */
 @media (max-width: 400px) {
 
   /* seletores comuns — aplica display:none com !important para garantir override */
@@ -2778,4 +2778,152 @@ a:visited {
   outline: 2px solid #c9a063;
   opacity: 1;
   transform: translateY(-2px);
+}
+
+/* Faixa marrom horizontal atrás do #sobre (mais clara, cobrindo também o título) */
+#sobre::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 10px;                    /* descola levemente da borda superior da seção */
+  transform: translateX(-50%);  /* só no eixo X */
+  width: 100vw;                     /* cobre a largura da tela */
+  height: 520px;                    /* altura da faixa (não altera a seção) */
+  background: linear-gradient(
+    180deg,
+    rgba(var(--brown-100), 0) 0%,
+    rgba(var(--brown-100), 0.10) 18%,
+    rgba(var(--brown-100), 0.28) 46%,
+    rgba(var(--brown-100), 0.24) 100%
+  );
+  box-shadow: none;             /* remove borda/halo que “briga” com os banners */
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  /* máscara extra (opcional) para fade suave em browsers modernos */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  pointer-events: none;
+  z-index: -1; /* fica atrás do conteúdo do #sobre */
+}
+
+/* Responsivo: mantém alturas já definidas (apenas reusa overrides) */
+@media (max-width: 900px) { #sobre::before { height: 480px; } }
+@media (max-width: 768px) { #sobre::before { height: 420px; } }
+@media (max-width: 600px) { #sobre::before { height: 360px; } }
+@media (max-width: 400px) { #sobre::before { height: 300px; } }
+
+/* Garante ancoragem e stacking isolado do pseudo-elemento */
+#sobre {
+  position: relative;    /* ancora o ::before */
+  isolation: isolate;    /* evita interferência com banners */
+  z-index: 0;
+}
+
+/* Mobile 400px: faixa ocupa a altura total da seção e layout empilhado */
+@media (max-width: 400px) {
+  #sobre::before {
+    top: 0;                       /* alinha no topo da seção */
+    height: 100%;                 /* cobre de cima a baixo */
+    width: 100vw;                 /* mantém de ponta a ponta */
+    transform: translateX(-50%);  /* centraliza no eixo X */
+    /* gradiente mais uniforme e claro no mobile */
+    background: linear-gradient(
+      180deg,
+      rgba(var(--brown-100), 0.18) 0%,
+      rgba(var(--brown-100), 0.26) 35%,
+      rgba(var(--brown-100), 0.26) 65%,
+      rgba(var(--brown-100), 0.18) 100%
+    );
+    /* remove a máscara para preencher toda a altura no mobile */
+    -webkit-mask-image: none;
+    mask-image: none;
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+  }
+
+  /* Sobre empilhado de cima para baixo */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+
+  .about-text-v2 {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
+
+/* ===========================
+   PATCH RÁPIDO: Corrige hero colapsado e evita esconder carrossel
+   Cole no FINAL do seu arquivo CSS
+   =========================== */
+
+/* 1) Garante que hero-main-block mantenha altura natural em todos os breakpoints */
+.hero-main-block {
+  height: auto !important;
+  min-height: 120px; /* ajuste conforme necessidade */
+}
+
+/* 2) Corrige ocorrências em media queries onde height:1px foi aplicado */
+@media (max-width: 900px) {
+  .hero-main-block {
+    height: auto !important;
+    min-height: 140px !important;
+    margin-top: 60px !important;
+    padding-bottom: 18px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero-main-block {
+    height: auto !important;
+    min-height: 120px !important;
+    margin-top: 58px !important;
+    padding: 16px !important;
+  }
+}
+
+/* 3) Evita ocultar scroll horizontal globalmente (remover overflow-x:hidden em html/body) */
+/* Se você tem overflow-x:hidden no CSS, prefira comentar/ajustar; forço aqui um comportamento seguro: */
+html, body {
+  overflow-x: visible !important;
+}
+
+/* 4) Protege o carrossel - garante que o #mobile-banners pode rolar */
+/* Mantém overflow hidden apenas no wrapper que causa problemas (se existir), senão não toca no global */
+.banners-wrapper {
+  overflow: visible !important;
+}
+
+/* 5) Tornar safe-area + navbar consistente (defina uma única vez) */
+:root {
+  --site-navbar-height: 56px; /* ajuste para o real */
+}
+
+/* mobile: padding-top do hero abaixo do navbar */
+@media (max-width: 420px) {
+  .hero {
+    padding-top: calc(var(--site-navbar-height) + 12px) !important;
+  }
+  .hero-content {
+    padding-top: 8px !important;
+  }
+}
+
+/* 6) reduzir sombras / backdrop-filter em telas pequenas para performance */
+@media (max-width: 600px) {
+  .bubbles, .bubble, .hero-visual, .banners-wrapper::before {
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* 7) corrige background path problema (só se você renomear o arquivo) */
+body {
+  /* substitua 'Imagens/Fundo.jpeg' pelo nome real sem espaços */
+  background-image: url('Imagens/Fundo\ .jpeg') !important;
 }
