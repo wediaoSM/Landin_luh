@@ -57,7 +57,7 @@ body {
   background-color: #0f0f10 !important;
 
   /* caminho corrigido (remove espaço/escape) */
-  background-image: url('Imagens/Fundo.jpeg') !important;
+  background-image: url('Imagens/fundo.jpeg') !important;
 
   /* composição menos “fechada” */
   background-position: center top !important;
@@ -2952,5 +2952,29 @@ html, body {
       rgba(var(--brown-100), 0.90) 0%,
       rgba(var(--brown-100), 0.62) 100%
     ) !important;
+  }
+}
+
+/* === FIX: Fundo em tela cheia, sem cortes === */
+html,
+body {
+  min-height: 100% !important;
+  /* garante pintura do background ao longo da página */
+}
+
+/* Desktop/tablet: imagem cobre a viewport e fixa para não “cortar” na rolagem */
+body {
+  /* mantém caminho e cor já definidos acima */
+  background-position: center 25% !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;      /* de contain -> cover */
+  background-attachment: fixed !important; /* efeito estável no desktop */
+}
+
+/* Mobile: desativa fixed para evitar bugs no iOS/Android */
+@media (max-width: 1024px) {
+  body {
+    background-attachment: scroll !important;
+    background-size: cover !important;    /* mantém cobertura total da tela */
   }
 }
