@@ -139,20 +139,20 @@ document.addEventListener('DOMContentLoaded', function () {
           const inMatch = inline.match(/url\((['"]?)(.*?)\1\)/i);
           if (inMatch && inMatch[2]) return normalizePath(inMatch[2]);
         }
-      } catch (e) {}
+      } catch (e) { }
       try {
         if (el.style && el.style.backgroundImage && el.style.backgroundImage !== 'none') {
           const fromStyle = el.style.backgroundImage.match(/url\((['"]?)(.*?)\1\)/i);
           if (fromStyle && fromStyle[2]) return normalizePath(fromStyle[2]);
         }
-      } catch (e) {}
+      } catch (e) { }
       try {
         const cs = getComputedStyle(el);
         if (cs && cs.backgroundImage && cs.backgroundImage !== 'none') {
           const fromComputed = cs.backgroundImage.match(/url\((['"]?)(.*?)\1\)/i);
           if (fromComputed && fromComputed[2]) return normalizePath(fromComputed[2]);
         }
-      } catch (e) {}
+      } catch (e) { }
       return '';
     }
 
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (addBtn.dataset && addBtn.dataset.image && addBtn.dataset.image.trim()) {
           return normalizePath(addBtn.dataset.image);
         }
-      } catch (err) {}
+      } catch (err) { }
 
       // 2) procurar o card mais próximo (classe .product-card ou ancestor)
       let card = addBtn.closest('.product-card') || addBtn.closest('[data-product-id]') || null;
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // 4) data-image no próprio card
       try {
         if (card.dataset && card.dataset.image && card.dataset.image.trim()) return normalizePath(card.dataset.image.trim());
-      } catch (err) {}
+      } catch (err) { }
 
       // 5) background-image no .product-image ou em qualquer filho
       const found = findAnyBackgroundInCard(card);
@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   })();
 
-}); 
+});
 
 /* ==== PATCH: atualiza subtotal / badge automaticamente (colar no final de scripts.js) ==== */
 (function () {
@@ -553,11 +553,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // intercepta cliques relevantes (add, qty, remove, clear) e atualiza UI logo depois
   document.addEventListener('click', (e) => {
     if (e.target.closest('.add-to-cart') ||
-        e.target.closest('.qty-increase') ||
-        e.target.closest('.qty-decrease') ||
-        e.target.closest('.cart-remove') ||
-        e.target.closest('.cart-clear') ||
-        e.target.closest('.checkout-btn')
+      e.target.closest('.qty-increase') ||
+      e.target.closest('.qty-decrease') ||
+      e.target.closest('.cart-remove') ||
+      e.target.closest('.cart-clear') ||
+      e.target.closest('.checkout-btn')
     ) {
       // pequeno delay para garantir que a lógica do carrinho (do seu scripts.js) já tenha salvo no localStorage
       setTimeout(updateCartUIFromStorage, 140);
@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // Spinner robusto: encontra inputs ou elementos de quantidade e adiciona overlay com botões
-(function(){
+(function () {
   'use strict';
 
   function createSpinnerButtons() {
@@ -595,12 +595,12 @@ document.addEventListener('DOMContentLoaded', function () {
     var btnUp = document.createElement('button');
     btnUp.type = 'button';
     btnUp.className = 'spin-btn spin-up';
-    btnUp.setAttribute('aria-label','Aumentar quantidade');
+    btnUp.setAttribute('aria-label', 'Aumentar quantidade');
     btnUp.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 15l5-5 5 5z"/></svg>';
     var btnDown = document.createElement('button');
     btnDown.type = 'button';
     btnDown.className = 'spin-btn spin-down';
-    btnDown.setAttribute('aria-label','Diminuir quantidade');
+    btnDown.setAttribute('aria-label', 'Diminuir quantidade');
     btnDown.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9l5 5 5-5z"/></svg>';
     container.appendChild(btnUp);
     container.appendChild(btnDown);
@@ -608,31 +608,31 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Tenta extrair número textual de um elemento
-  function extractNumberFrom(el){
-    if(!el) return 1;
+  function extractNumberFrom(el) {
+    if (!el) return 1;
     var txt = (el.value || el.textContent || el.innerText || '').trim();
     var m = txt.match(/-?\d+/);
     return m ? Number(m[0]) : 1;
   }
 
   // Garante wrapper .qty-controls.simple e injetar spinner
-  function ensureSpinnerOn(targetEl){
-    if(!targetEl || targetEl.dataset._spinnerProcessed === '1') return;
+  function ensureSpinnerOn(targetEl) {
+    if (!targetEl || targetEl.dataset._spinnerProcessed === '1') return;
     targetEl.dataset._spinnerProcessed = '1';
 
     var input = null;
-    if(targetEl.matches && targetEl.matches('input[type="number"]')){
+    if (targetEl.matches && targetEl.matches('input[type="number"]')) {
       input = targetEl;
     }
 
     // Se o elemento não é input, procuramos um input filho; se não houver, criaremos um input oculto para sincronizar
-    if(!input){
+    if (!input) {
       input = targetEl.querySelector && targetEl.querySelector('input[type="number"]');
     }
 
     // Se ainda não achou, cria um input escondido para gerenciamento (mantemos o conteúdo visível original)
     var createdHidden = false;
-    if(!input){
+    if (!input) {
       input = document.createElement('input');
       input.type = 'number';
       input.min = targetEl.getAttribute && targetEl.getAttribute('data-min') || 1;
@@ -647,36 +647,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Se já existe wrapper, usar; senão criar
     var wrapper = targetEl.closest && targetEl.closest('.qty-controls');
-    if(!wrapper){
+    if (!wrapper) {
       wrapper = document.createElement('div');
       wrapper.className = 'qty-controls simple';
       // inserir wrapper no lugar correto:
-      if(createdHidden){
+      if (createdHidden) {
         // substitui targetEl por wrapper e insere o target dentro
         targetEl.parentNode.insertBefore(wrapper, targetEl);
         wrapper.appendChild(targetEl);
         wrapper.appendChild(input);
       } else {
         // se input existia em outro lugar, tentar envolver input
-        if(input.parentNode) input.parentNode.insertBefore(wrapper, input);
+        if (input.parentNode) input.parentNode.insertBefore(wrapper, input);
         wrapper.appendChild(input);
       }
     } else {
       // se criamos input oculto, anexa ao wrapper
-      if(createdHidden) wrapper.appendChild(input);
+      if (createdHidden) wrapper.appendChild(input);
     }
 
     // Se criamos input oculto, sincronizar visual -> input quando alguém clicar no wrapper
-    if(createdHidden){
+    if (createdHidden) {
       // manter o texto visível no targetEl; sempre que input mudar, atualizamos o texto
-      input.addEventListener('input', function(){
-        try{ targetEl.textContent = input.value; }catch(e){}
-        input.dispatchEvent(new Event('change',{bubbles:true}));
+      input.addEventListener('input', function () {
+        try { targetEl.textContent = input.value; } catch (e) { }
+        input.dispatchEvent(new Event('change', { bubbles: true }));
       });
     }
 
     // Adiciona spinner se ainda não existe
-    if(!wrapper.querySelector('.qty-spinner')){
+    if (!wrapper.querySelector('.qty-spinner')) {
       var spinner = createSpinnerButtons();
       wrapper.appendChild(spinner);
     }
@@ -687,46 +687,46 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Delegation para clicks nas setas
-  document.addEventListener('click', function(e){
+  document.addEventListener('click', function (e) {
     var up = e.target.closest && e.target.closest('.spin-up');
     var down = e.target.closest && e.target.closest('.spin-down');
-    if(!up && !down) return;
+    if (!up && !down) return;
     e.preventDefault();
-    var wrapper = (up||down).closest('.qty-controls');
-    if(!wrapper) return;
+    var wrapper = (up || down).closest('.qty-controls');
+    if (!wrapper) return;
     var input = wrapper.querySelector('input[type="number"].qty-input');
-    if(!input){
+    if (!input) {
       // tenta achar qualquer input numérico no wrapper
       input = wrapper.querySelector('input[type="number"]');
     }
-    if(!input) return;
+    if (!input) return;
     var step = Number(input.getAttribute('step') || 1);
     var min = Number(input.getAttribute('min') || -Infinity);
     var max = input.hasAttribute('max') ? Number(input.getAttribute('max')) : Infinity;
     var value = Number(input.value || 0);
-    if(up) value = Math.min(max, value + step);
-    if(down) value = Math.max(min, value - step);
+    if (up) value = Math.min(max, value + step);
+    if (down) value = Math.max(min, value - step);
     input.value = value;
-    input.dispatchEvent(new Event('input',{bubbles:true}));
-    input.dispatchEvent(new Event('change',{bubbles:true}));
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
   });
 
   // Keyboard (setas) para inputs focados
-  document.addEventListener('keydown', function(e){
+  document.addEventListener('keydown', function (e) {
     var el = document.activeElement;
-    if(!el || !el.matches) return;
-    if(!el.matches('input[type="number"].qty-input')) return;
-    if(e.key === 'ArrowUp' || e.key === 'ArrowDown'){
+    if (!el || !el.matches) return;
+    if (!el.matches('input[type="number"].qty-input')) return;
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       e.preventDefault();
       var step = Number(el.getAttribute('step') || 1);
       var min = Number(el.getAttribute('min') || -Infinity);
       var max = el.hasAttribute('max') ? Number(el.getAttribute('max')) : Infinity;
       var val = Number(el.value || 0);
-      if(e.key === 'ArrowUp') val = Math.min(max, val + step);
+      if (e.key === 'ArrowUp') val = Math.min(max, val + step);
       else val = Math.max(min, val - step);
       el.value = val;
-      el.dispatchEvent(new Event('input',{bubbles:true}));
-      el.dispatchEvent(new Event('change',{bubbles:true}));
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      el.dispatchEvent(new Event('change', { bubbles: true }));
     }
   });
 
@@ -737,10 +737,10 @@ document.addEventListener('DOMContentLoaded', function () {
     '.qty-value', '.quantity-value', '.item-quantity'
   ];
 
-  function scanAndAttach(root){
-    quantitySelectors.forEach(function(sel){
+  function scanAndAttach(root) {
+    quantitySelectors.forEach(function (sel) {
       var nodes = root.querySelectorAll ? root.querySelectorAll(sel) : [];
-      nodes.forEach(function(n){
+      nodes.forEach(function (n) {
         // se for um input numeric ou um elemento textual
         ensureSpinnerOn(n);
       });
@@ -751,16 +751,16 @@ document.addEventListener('DOMContentLoaded', function () {
   function init() {
     scanAndAttach(document);
     // Observer para elementos inseridos dinamicamente (ex.: seu script que renderiza itens do cart)
-    var mo = new MutationObserver(function(muts){
-      muts.forEach(function(m){
-        if(!m.addedNodes || !m.addedNodes.length) return;
-        m.addedNodes.forEach(function(node){
-          if(node.nodeType !== 1) return;
+    var mo = new MutationObserver(function (muts) {
+      muts.forEach(function (m) {
+        if (!m.addedNodes || !m.addedNodes.length) return;
+        m.addedNodes.forEach(function (node) {
+          if (node.nodeType !== 1) return;
           // se o nó é diretamente um selector que usamos
-          quantitySelectors.forEach(function(sel){
-            if(node.matches && node.matches(sel)) ensureSpinnerOn(node);
+          quantitySelectors.forEach(function (sel) {
+            if (node.matches && node.matches(sel)) ensureSpinnerOn(node);
             var nested = node.querySelectorAll && node.querySelectorAll(sel);
-            if(nested && nested.length) nested.forEach(function(n){ ensureSpinnerOn(n); });
+            if (nested && nested.length) nested.forEach(function (n) { ensureSpinnerOn(n); });
           });
         });
       });
@@ -768,25 +768,25 @@ document.addEventListener('DOMContentLoaded', function () {
     mo.observe(document.body, { childList: true, subtree: true });
   }
 
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 
   // também tentar após window.load para elementos muito atrasados
-  window.addEventListener('load', function(){ scanAndAttach(document); });
+  window.addEventListener('load', function () { scanAndAttach(document); });
 
 })();
 
 
 // Adapta spinner/quantidade automaticamente para não cobrir o número
-(function(){
+(function () {
   function adaptQty() {
-    document.querySelectorAll('.qty-controls.simple').forEach(function(w){
+    document.querySelectorAll('.qty-controls.simple').forEach(function (w) {
       var input = w.querySelector('input[type="number"]');
       var spinner = w.querySelector('.qty-spinner');
       if (!input) return;
 
       // limpa classes antigas
-      w.classList.remove('compact','stack');
+      w.classList.remove('compact', 'stack');
 
       // elemento que determina o espaço disponível (prioriza .item-controls, .cart-item, ou parent direto)
       var container = w.closest('.item-controls') || w.closest('.cart-item') || w.parentElement;
@@ -808,7 +808,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       } else {
         // cabe ao lado: remove flags
-        w.classList.remove('compact','stack');
+        w.classList.remove('compact', 'stack');
       }
     });
   }
@@ -827,10 +827,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // Aplica modo automaticamente e expõe toggleSpinnerMode()
-(function(){
+(function () {
   function applyModeToAll() {
-    document.querySelectorAll('.qty-controls.simple').forEach(function(w){
-      w.classList.remove('overlay','above');
+    document.querySelectorAll('.qty-controls.simple').forEach(function (w) {
+      w.classList.remove('overlay', 'above');
       var forced = w.getAttribute('data-mode'); // 'overlay'|'above'
       if (forced === 'overlay' || forced === 'above') {
         w.classList.add(forced);
@@ -851,12 +851,12 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('load', applyModeToAll);
   window.addEventListener('resize', applyModeToAll);
   document.addEventListener('DOMContentLoaded', applyModeToAll);
-  new MutationObserver(applyModeToAll).observe(document.body, { childList:true, subtree:true });
+  new MutationObserver(applyModeToAll).observe(document.body, { childList: true, subtree: true });
 
   // Para debug no console:
-  window.toggleSpinnerMode = function(mode){
-    if(mode === 'overlay' || mode === 'above'){
-      document.querySelectorAll('.qty-controls.simple').forEach(w => { w.classList.remove('overlay','above'); w.classList.add(mode); w.setAttribute('data-mode', mode); });
+  window.toggleSpinnerMode = function (mode) {
+    if (mode === 'overlay' || mode === 'above') {
+      document.querySelectorAll('.qty-controls.simple').forEach(w => { w.classList.remove('overlay', 'above'); w.classList.add(mode); w.setAttribute('data-mode', mode); });
     } else {
       document.querySelectorAll('.qty-controls.simple').forEach(w => w.removeAttribute('data-mode'));
       applyModeToAll();
@@ -865,7 +865,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 
 /* === HIDE TOP PROMO at <=400px (colar no final de scripts.js) === */
-(function(){
+(function () {
   'use strict';
 
   // seletores que queremos esconder em 400px (adapte se necessário)
@@ -886,16 +886,16 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
 
   // debounce util
-  function debounce(fn, wait){
+  function debounce(fn, wait) {
     let t;
-    return function(){
+    return function () {
       clearTimeout(t);
       t = setTimeout(() => fn.apply(this, arguments), wait || 120);
     };
   }
 
   // aplica/retira visibilidade
-  function setPromoHidden(hide){
+  function setPromoHidden(hide) {
     PROMO_SELECTORS.forEach(sel => {
       document.querySelectorAll(sel).forEach(el => {
         try {
@@ -937,7 +937,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // verifica media query e aplica
   const mql = window.matchMedia('(max-width: 400px)');
-  function checkAndApply(){
+  function checkAndApply() {
     setPromoHidden(mql.matches);
   }
 
@@ -956,7 +956,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 
 /* Intro modal behavior: show once, close handlers (overlay/btn/ESC) */
-(function(){
+(function () {
   var modal = document.getElementById('store-intro');
   if (!modal) return;
 
@@ -981,16 +981,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // attach handlers
   if (overlay) overlay.addEventListener('click', closeModal);
-  closeBtns.forEach(function(b){ b.addEventListener('click', closeModal); });
-  if (continueBtn) continueBtn.addEventListener('click', function(){
+  closeBtns.forEach(function (b) { b.addEventListener('click', closeModal); });
+  if (continueBtn) continueBtn.addEventListener('click', function () {
     closeModal();
     // optional: open cart or scroll to products
     var target = document.querySelector('.products-grid');
-    if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
   // ESC to close
-  document.addEventListener('keydown', function(e){
+  document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
   });
 
@@ -1004,4 +1004,127 @@ document.addEventListener('DOMContentLoaded', function () {
     // se localStorage bloqueado, apenas abre uma vez por sessão:
     if (!window.__lc_intro_seen) { setTimeout(openModal, 650); window.__lc_intro_seen = true; }
   }
+})();
+
+
+(function reorderBannersCustom() {
+  'use strict';
+  const container = document.getElementById('mobile-banners');
+  if (!container) { console.warn('mobile-banners não encontrado (id="mobile-banners").'); return; }
+
+  function normalizeText(s) {
+    if (!s) return '';
+    try { return s.toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
+    catch (e) { return s.toString().toLowerCase().trim(); }
+  }
+
+  function cardLabel(card) {
+    const h = card.querySelector('h3');
+    if (h && h.textContent.trim()) return normalizeText(h.textContent);
+    if (card.dataset && (card.dataset.name || card.dataset.id)) return normalizeText(card.dataset.name || card.dataset.id);
+    return normalizeText(card.textContent || '');
+  }
+
+  // conjuntos de palavras-chave (procura a primeira correspondência em cada grupo, na ordem desejada)
+  const groups = [
+    ['transforma', 'transformacoes', 'transformação', 'transformacoes reais', 'transformações'], // TRANSFORMAÇÕES
+    ['ponto slim', 'pontoslim', 'ponto-slim', 'ponto slim'], // PONTO SLIM
+    ['adesivo', 'adesivo slim', 'adesivo-slim'], // ADESIVO
+    ['ponto americano', 'ponto-americano', 'americano'], // PONTO AMERICANO
+    ['makeup', 'make up', 'make-up', 'maquiag', 'makeup'] // MAKEUP (último)
+  ];
+
+  const cards = Array.from(container.querySelectorAll('.card'));
+  if (!cards.length) return;
+
+  const chosen = [];
+  const used = new Set();
+
+  groups.forEach((keys) => {
+    const found = cards.find(c => {
+      const lbl = cardLabel(c);
+      return keys.some(k => lbl.includes(k));
+    });
+    if (found && !used.has(found)) {
+      chosen.push(found);
+      used.add(found);
+    } else {
+      console.warn('Não encontrou card para grupo de keywords:', keys);
+    }
+  });
+
+  // restantes (mantém ordem original)
+  const remaining = cards.filter(c => !used.has(c));
+
+  // reconstruir DOM: chosen (na ordem solicitada) + restantes
+  const frag = document.createDocumentFragment();
+  chosen.forEach(c => frag.appendChild(c));
+  remaining.forEach(c => frag.appendChild(c));
+  container.appendChild(frag);
+
+  // garante dataset.id para cada card e salva ordem no localStorage
+  try {
+    Array.from(container.querySelectorAll('.card')).forEach((c, idx) => {
+      if (!c.dataset.id || !c.dataset.id.trim()) c.dataset.id = `banner-${idx + 1}`;
+    });
+    const ids = Array.from(container.querySelectorAll('.card')).map(c => c.dataset.id);
+    localStorage.setItem('lc_banners_order_v1', JSON.stringify(ids));
+  } catch (err) {
+    console.warn('Erro ao salvar ordem no localStorage', err);
+  }
+
+  // força recálculo do carrossel/destaques
+  container.dispatchEvent(new Event('scroll', { bubbles: true }));
+  window.dispatchEvent(new Event('resize'));
+  setTimeout(() => {
+    container.dispatchEvent(new Event('scroll', { bubbles: true }));
+    window.dispatchEvent(new Event('resize'));
+  }, 140);
+
+  console.log('Ordem aplicada: TRANSFORMAÇÕES → PONTO SLIM → ADESIVO → PONTO AMERICANO → MAKEUP. (restantes mantidos após).');
+})();
+
+/* === FOOTER MOBILE PATCH: compacta footer em <=400px === */
+(function () {
+  'use strict';
+  // CSS para compactar o footer em telas pequenas
+  const style = document.createElement('style');
+  style.id = 'footer-mobile-patch';
+  style.textContent = `
+    @media (max-width: 400px) {
+      footer, .footer, #footer {
+        padding: 10px 0 !important;
+        min-height: 38px !important;
+        font-size: 0.92rem !important;
+        line-height: 1.2 !important;
+        letter-spacing: 0 !important;
+        box-sizing: border-box !important;
+      }
+      footer .footer-content, .footer .footer-content, #footer .footer-content {
+        padding: 0 !important;
+        margin: 0 !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+      }
+      footer .footer-links, .footer .footer-links, #footer .footer-links {
+        margin: 0 !important;
+        font-size: 0.9em !important;
+        gap: 6px !important;
+      }
+      footer .footer-logo, .footer .footer-logo, #footer .footer-logo {
+        max-width: 80px !important;
+        margin-bottom: 2px !important;
+      }
+      footer .footer-copy, .footer .footer-copy, #footer .footer-copy {
+        font-size: 0.85em !important;
+        margin: 0 !important;
+      }
+      /* Remove espaçamento extra entre elementos */
+      footer * {
+        margin-bottom: 0 !important;
+        margin-top: 0 !important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
 })();
