@@ -84,12 +84,6 @@ body {
   will-change: transform;
 }
 
-/* troca para imagem mobile (opcional) */
-@media (max-width: 600px) {
-  .site-bg {
-    background-image: url('Imagens/fundo-mobile.jpg');
-  }
-}
 
 /* segurança: evita fixed sendo preso a um ancestor transformado
    (garanta .site-bg como child direto de <body> pra evitar este problema) */
