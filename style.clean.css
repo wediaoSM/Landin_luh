@@ -52,34 +52,52 @@ body {
   scroll-behavior: smooth
 }
 
+/* --- Remover background do body e usar elemento .site-bg --- */
 body {
-  /* mantém a cor base */
 
-  /* caminho corrigido (remove espaço/escape) */
-  background-image: url('Imagens/fundo.jpeg') !important;
-  background-position: center center !important;
-  /* centraliza */
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  /* cobre toda a viewport */
-  background-attachment: fixed !important;
-  /* fixa o fundo ao rolar */
-
-  /* composição menos “fechada” */
-  /* background-position: center top !important; */
-  /* background-repeat: no-repeat !important; */
-
-  /* reduz o zoom por padrão */
-  /* background-size: contain !important; */
-
-  /* evita bugs de “zoom”/jitter em mobile */
-  /* background-attachment: scroll !important; */
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* desativa qualquer background herdado */
+  background: none !important;
+  background-image: none !important;
+  background-attachment: initial !important;
   color: var(--text);
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Elemento fixo de fundo — INSERIR <div class="site-bg" aria-hidden="true"></div> logo após o <body> */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -9999;
+  background-image: url('Imagens/fundo.jpeg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* troca para imagem mobile (opcional) */
+@media (max-width: 600px) {
+  .site-bg {
+    background-image: url('Imagens/fundo-mobile.jpg');
+  }
+}
+
+/* segurança: evita fixed sendo preso a um ancestor transformado
+   (garanta .site-bg como child direto de <body> pra evitar este problema) */
+body>.site-bg {
+  position: fixed;
+}
+
+
 
 .container {
   max-width: var(--max-width);
@@ -983,7 +1001,7 @@ p {
   align-items: stretch;
   box-shadow: 0 12px 34px rgba(0, 0, 0, 0.30);
   border: 1.5px solid var(--accent);
-  margin: 0;
+  margin-right: 40px;
   /* evita margem duplicada */
   align-self: center;
   padding: 12px;
@@ -2995,43 +3013,5 @@ body {
     background: linear-gradient(180deg,
         rgba(var(--brown-100), 0.90) 0%,
         rgba(var(--brown-100), 0.62) 100%) !important;
-  }
-}
-
-/* === FIX: Fundo em tela cheia, sem cortes === */
-html,
-body {
-  min-height: 100% !important;
-  /* garante pintura do background ao longo da página */
-}
-
-/* Desktop/tablet: imagem cobre a viewport e fixa para não “cortar” na rolagem */
-body {
-  /* mantém caminho e cor já definidos acima */
-  background-position: center 25% !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  /* de contain -> cover */
-  background-attachment: fixed !important;
-  /* efeito estável no desktop */
-}
-
-/* Mobile: desativa fixed para evitar bugs no iOS/Android */
-@media (max-width: 1024px) {
-  body {
-    background-attachment: fixed !important;
-    background-size: cover !important;
-  }
-}
-
-/* FIX: evitar “zoom” da imagem de fundo no mobile (≤420px) */
-@media (max-width: 420px) {
-  body {
-    background-size: contain !important;
-    /* mostra a imagem inteira, sem zoom/corte */
-    background-attachment: scroll !important;
-    /* evita bug/zoom de fundo fixo no mobile */
-    background-position: center top !important;
-    background-repeat: no-repeat !important;
   }
 }

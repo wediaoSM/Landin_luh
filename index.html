@@ -682,10 +682,10 @@
         /* antes 120px */
       }
 
-       @media (max-width: 400px) {
+      @media (max-width: 400px) {
         .shop-hero-card .shop-image {
           width: 200px !important;
-            height: 300px !important;
+          height: 300px !important;
         }
 
       }
@@ -957,12 +957,13 @@
         overflow: hidden;
       }
     }
-
-    
   </style>
 </head>
 
 <body id="top">
+  <!-- coloque logo após <body> -->
+  <div class="site-bg" aria-hidden="true"></div>
+
   <a class="skip-link" href="#main">Pular para conteúdo</a>
 
   <header class="hero" role="banner" aria-label="Topo da página">
@@ -1071,7 +1072,8 @@
       </article>
 
       <!-- CAR CENTER (removido class="center") -->
-      <article class="card center" data-gallery="Imagens/transformacao.jpg,transformacoes/foto1.jpeg,Imagens/transf-03.jpg">
+      <article class="card center"
+        data-gallery="Imagens/transformacao.jpg,transformacoes/foto1.jpeg,Imagens/transf-03.jpg">
         <div class="card-image">
           <img src="transformacoes/card-capa.jpg" alt="Transformações Reais (thumb)" loading="lazy" />
           <!-- selo CTA -->
