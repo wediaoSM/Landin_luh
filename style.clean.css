@@ -1,4 +1,4 @@
-/* styles.refatorado.fixed.css — Versão corrigida
+/* styles.clean.css — Versão corrigida
    Alterações principais:
    - Desaninhamento de media queries (compatível com CSS puro)
    - Corrigido nome do arquivo de background (removido espaço)
@@ -57,10 +57,13 @@ body {
 
   /* caminho corrigido (remove espaço/escape) */
   background-image: url('Imagens/fundo.jpeg') !important;
-  background-position: center center !important;  /* centraliza */
+  background-position: center center !important;
+  /* centraliza */
   background-repeat: no-repeat !important;
-  background-size: cover !important;              /* cobre toda a viewport */
-  background-attachment: fixed !important;        /* fixa o fundo ao rolar */
+  background-size: cover !important;
+  /* cobre toda a viewport */
+  background-attachment: fixed !important;
+  /* fixa o fundo ao rolar */
 
   /* composição menos “fechada” */
   /* background-position: center top !important; */
@@ -967,8 +970,10 @@ p {
 }
 
 .shop-hero-card {
-  flex: 0 0 300px;       /* fixa largura base menor */
-  width: 300px;          /* garante largura no flex layout */
+  flex: 0 0 300px;
+  /* fixa largura base menor */
+  width: 300px;
+  /* garante largura no flex layout */
   max-width: 300px;
   background: rgba(40, 32, 24, 0.86);
   border-radius: 12px;
@@ -978,9 +983,11 @@ p {
   align-items: stretch;
   box-shadow: 0 12px 34px rgba(0, 0, 0, 0.30);
   border: 1.5px solid var(--accent);
-  margin: 0;             /* evita margem duplicada */
+  margin: 0;
+  /* evita margem duplicada */
   align-self: center;
-  padding: 12px;         /* opcional: reduz espaço interno */
+  padding: 12px;
+  /* opcional: reduz espaço interno */
 }
 
 
@@ -996,10 +1003,10 @@ p {
 }
 
 @media (max-width: 480px) {
-  .shop-badge{
-     font-size: 13px;
-      font-weight: 800;
-      margin: 1px 1px 0 1px;
+  .shop-badge {
+    font-size: 13px;
+    font-weight: 800;
+    margin: 1px 1px 0 1px;
   }
 }
 
@@ -2616,10 +2623,10 @@ a:visited {
   }
 
   .about-text-v2 {
-  max-width: 100%;
-  margin: 0 auto !important;
-  text-align: center !important; 
-}
+    max-width: 100%;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
 }
 
 /* Telefones pequenos: folga máxima */
@@ -2648,13 +2655,13 @@ a:visited {
     background-position: center 13% !important;
   }
 
-.about-text-v2 {
-  max-width: 100%;
-  margin: 0 auto !important;
-  text-align: center !important; 
-}
+  .about-text-v2 {
+    max-width: 100%;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
 
- 
+
 }
 
 @media (max-width: 768px) {
@@ -2670,21 +2677,21 @@ a:visited {
   #sobre .about-image-portrait {
     width: 40% !important;
     min-height: 200px !important;
-     background-position: center 13% !important;
+    background-position: center 13% !important;
   }
 
   .about-text-v2 {
-  max-width: 100%;
-  margin: 0 auto !important;
-  text-align: center !important; 
-}
+    max-width: 100%;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
 }
 
 @media (max-width: 400px) {
   #sobre .about-image-portrait {
     width: 60% !important;
     min-height: 180px !important;
-     background-position: center 13% !important;
+    background-position: center 13% !important;
   }
 }
 
@@ -2785,55 +2792,82 @@ a:visited {
   content: "";
   position: absolute;
   left: 50%;
-  top: 10px;                    /* descola levemente da borda superior da seção */
-  transform: translateX(-50%);  /* só no eixo X */
-  width: 100vw;                     /* cobre a largura da tela */
-  height: 520px;                    /* altura da faixa (não altera a seção) */
-  background: linear-gradient(
-    180deg,
-    rgba(var(--brown-100), 0) 0%,
-    rgba(var(--brown-100), 0.10) 18%,
-    rgba(var(--brown-100), 0.28) 46%,
-    rgba(var(--brown-100), 0.24) 100%
-  );
-  box-shadow: none;             /* remove borda/halo que “briga” com os banners */
+  top: 10px;
+  /* descola levemente da borda superior da seção */
+  transform: translateX(-50%);
+  /* só no eixo X */
+  width: 100vw;
+  /* cobre a largura da tela */
+  height: 520px;
+  /* altura da faixa (não altera a seção) */
+  background: linear-gradient(180deg,
+      rgba(var(--brown-100), 0) 0%,
+      rgba(var(--brown-100), 0.10) 18%,
+      rgba(var(--brown-100), 0.28) 46%,
+      rgba(var(--brown-100), 0.24) 100%);
+  box-shadow: none;
+  /* remove borda/halo que “briga” com os banners */
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   /* máscara extra (opcional) para fade suave em browsers modernos */
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
   pointer-events: none;
-  z-index: -1; /* fica atrás do conteúdo do #sobre */
+  z-index: -1;
+  /* fica atrás do conteúdo do #sobre */
 }
 
 /* Responsivo: mantém alturas já definidas (apenas reusa overrides) */
-@media (max-width: 900px) { #sobre::before { height: 480px; } }
-@media (max-width: 768px) { #sobre::before { height: 420px; } }
-@media (max-width: 600px) { #sobre::before { height: 360px; } }
-@media (max-width: 400px) { #sobre::before { height: 300px; } }
+@media (max-width: 900px) {
+  #sobre::before {
+    height: 480px;
+  }
+}
+
+@media (max-width: 768px) {
+  #sobre::before {
+    height: 420px;
+  }
+}
+
+@media (max-width: 600px) {
+  #sobre::before {
+    height: 360px;
+  }
+}
+
+@media (max-width: 400px) {
+  #sobre::before {
+    height: 300px;
+  }
+}
 
 /* Garante ancoragem e stacking isolado do pseudo-elemento */
 #sobre {
-  position: relative;    /* ancora o ::before */
-  isolation: isolate;    /* evita interferência com banners */
+  position: relative;
+  /* ancora o ::before */
+  isolation: isolate;
+  /* evita interferência com banners */
   z-index: 0;
 }
 
 /* Mobile 400px: faixa ocupa a altura total da seção e layout empilhado */
 @media (max-width: 400px) {
   #sobre::before {
-    top: 0;                       /* alinha no topo da seção */
-    height: 100%;                 /* cobre de cima a baixo */
-    width: 100vw;                 /* mantém de ponta a ponta */
-    transform: translateX(-50%);  /* centraliza no eixo X */
+    top: 0;
+    /* alinha no topo da seção */
+    height: 100%;
+    /* cobre de cima a baixo */
+    width: 100vw;
+    /* mantém de ponta a ponta */
+    transform: translateX(-50%);
+    /* centraliza no eixo X */
     /* gradiente mais uniforme e claro no mobile */
-    background: linear-gradient(
-      180deg,
-      rgba(var(--brown-100), 0.18) 0%,
-      rgba(var(--brown-100), 0.26) 35%,
-      rgba(var(--brown-100), 0.26) 65%,
-      rgba(var(--brown-100), 0.18) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(var(--brown-100), 0.18) 0%,
+        rgba(var(--brown-100), 0.26) 35%,
+        rgba(var(--brown-100), 0.26) 65%,
+        rgba(var(--brown-100), 0.18) 100%);
     /* remove a máscara para preencher toda a altura no mobile */
     -webkit-mask-image: none;
     mask-image: none;
@@ -2864,7 +2898,8 @@ a:visited {
 /* 1) Garante que hero-main-block mantenha altura natural em todos os breakpoints */
 .hero-main-block {
   height: auto !important;
-  min-height: 120px; /* ajuste conforme necessidade */
+  min-height: 120px;
+  /* ajuste conforme necessidade */
 }
 
 /* 2) Corrige ocorrências em media queries onde height:1px foi aplicado */
@@ -2888,7 +2923,8 @@ a:visited {
 
 /* 3) Evita ocultar scroll horizontal globalmente (remover overflow-x:hidden em html/body) */
 /* Se você tem overflow-x:hidden no CSS, prefira comentar/ajustar; forço aqui um comportamento seguro: */
-html, body {
+html,
+body {
   overflow-x: visible !important;
 }
 
@@ -2900,7 +2936,8 @@ html, body {
 
 /* 5) Tornar safe-area + navbar consistente (defina uma única vez) */
 :root {
-  --site-navbar-height: 56px; /* ajuste para o real */
+  --site-navbar-height: 56px;
+  /* ajuste para o real */
 }
 
 /* mobile: padding-top do hero abaixo do navbar */
@@ -2908,6 +2945,7 @@ html, body {
   .hero {
     padding-top: calc(var(--site-navbar-height) + 12px) !important;
   }
+
   .hero-content {
     padding-top: 8px !important;
   }
@@ -2915,7 +2953,11 @@ html, body {
 
 /* 6) reduzir sombras / backdrop-filter em telas pequenas para performance */
 @media (max-width: 600px) {
-  .bubbles, .bubble, .hero-visual, .banners-wrapper::before {
+
+  .bubbles,
+  .bubble,
+  .hero-visual,
+  .banners-wrapper::before {
     box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -2928,18 +2970,18 @@ html, body {
 /* ≤600px: mais opaca, sem blur e com altura suficiente para a faixa dos cards */
 @media (max-width: 600px) {
   .banners-wrapper::before {
-    display: block !important;          /* reativa se algum bloco ocultou */
+    display: block !important;
+    /* reativa se algum bloco ocultou */
     top: 0 !important;
     height: calc(var(--card-height, 240px) + 56px) !important;
-    background: linear-gradient(
-      180deg,
-      rgba(var(--brown-100), 0.82) 0%,
-      rgba(var(--brown-100), 0.58) 100%
-    ) !important;
+    background: linear-gradient(180deg,
+        rgba(var(--brown-100), 0.82) 0%,
+        rgba(var(--brown-100), 0.58) 100%) !important;
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28) !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    z-index: 1 !important;              /* atrás dos cards, à frente do fundo */
+    z-index: 1 !important;
+    /* atrás dos cards, à frente do fundo */
     pointer-events: none !important;
   }
 }
@@ -2947,13 +2989,12 @@ html, body {
 /* ≤400px: ainda mais marcada e um pouco mais baixa (acompanha cards menores) */
 @media (max-width: 400px) {
   .banners-wrapper::before {
-    display: block !important;          /* override do bloco que escondia */
+    display: block !important;
+    /* override do bloco que escondia */
     height: calc(var(--card-height, 220px) + 36px) !important;
-    background: linear-gradient(
-      180deg,
-      rgba(var(--brown-100), 0.90) 0%,
-      rgba(var(--brown-100), 0.62) 100%
-    ) !important;
+    background: linear-gradient(180deg,
+        rgba(var(--brown-100), 0.90) 0%,
+        rgba(var(--brown-100), 0.62) 100%) !important;
   }
 }
 
@@ -2969,8 +3010,10 @@ body {
   /* mantém caminho e cor já definidos acima */
   background-position: center 25% !important;
   background-repeat: no-repeat !important;
-  background-size: cover !important;      /* de contain -> cover */
-  background-attachment: fixed !important; /* efeito estável no desktop */
+  background-size: cover !important;
+  /* de contain -> cover */
+  background-attachment: fixed !important;
+  /* efeito estável no desktop */
 }
 
 /* Mobile: desativa fixed para evitar bugs no iOS/Android */
@@ -2978,5 +3021,17 @@ body {
   body {
     background-attachment: fixed !important;
     background-size: cover !important;
+  }
+}
+
+/* FIX: evitar “zoom” da imagem de fundo no mobile (≤420px) */
+@media (max-width: 420px) {
+  body {
+    background-size: contain !important;
+    /* mostra a imagem inteira, sem zoom/corte */
+    background-attachment: scroll !important;
+    /* evita bug/zoom de fundo fixo no mobile */
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
   }
 }
