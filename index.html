@@ -147,6 +147,9 @@
 
     @media (max-width: 768px) {
 
+      .modal-content{
+        height: 600px;
+      }
       /* Empilha o destaque da loja */
       .shop-hero-content {
         display: flex;
@@ -229,6 +232,11 @@
     }
 
     @media (max-width: 600px) {
+
+        .modal-content{
+        height: 580px;
+      }
+
       #sobre .about-text-v2 {
         padding: 14px 12px;
       }
@@ -471,6 +479,10 @@
 
     /* Mobile pequeno: 400px (iPhone) */
     @media (max-width: 400px) {
+      .modal-content {
+        height: 600px;
+        width: 500px !important;
+      }
 
       /* CTAs do hero em coluna e full-width */
       .hero-main-ctas {
@@ -1073,7 +1085,7 @@
 
       <!-- CAR CENTER (Transformações Reais) -->
       <article class="card center" id="card-transformacoes"
-        data-gallery="Imagens/transformacao.jpg,transformacoes/foto1.jpeg,transformacoes/loira-ant.jpg,transformacoes/loirinha-dep.jpg,transformacoes/more-ant.jpg,transformacoes/more-dep.jpg,transformacoes/morena-ant.jpg,transformacoes/morena-dep.jpg,transformacoes/ruiva-ant.jpg,transformacoes/ruiva-dep.jpg">
+        data-gallery="Imagens/transformacao.jpg,transformacoes/foto1.jpeg,transformacoes/loira-ant.jpg,transformacoes/loira-dep.jpg,transformacoes/loirinha-ant.jpg,transformacoes/loirinha-dep.jpg,transformacoes/more-ant.jpg,transformacoes/more-dep.jpg,transformacoes/morena-ant.jpg,transformacoes/morena-dep.jpg,transformacoes/ruiva-ant.jpg,transformacoes/ruiva-dep.jpg">
         <div class="card-image">
           <img src="transformacoes/card-capa.jpg" alt="Transformações Reais (thumb)" loading="lazy" />
           <!-- selo CTA -->
@@ -1108,13 +1120,23 @@
         </div>
         <div class="card-caption compact">
           <h3>PONTO AMERICANO</h3>
+        </div>
+      </article>
 
+      <!-- NOVO: CARD ENTRELACE (antes do MAKEUP) -->
+      <article class="card" id="card-entrelace">
+        <div class="card-image">
+          <img src="Imagens/entrelace.jpeg" alt="Método Entrelace (thumb)" loading="lazy" />
+          <span class="card-cta" aria-hidden="true">Saiba mais</span>
+        </div>
+        <div class="card-caption compact">
+          <h3>ENTRELACE</h3>
         </div>
       </article>
 
       <!-- CARD Make Up (agora com galeria) -->
       <article class="card center"
-        data-gallery="maquiagens/mak1.jpg,maquiagens/mak2.jpg,maquiagens/mak3.jpg,maquiagens/mak4.jpg,maquiagens/mak5.jpg,maquiagens/mak6.jpg,maquiagens/mak7.jpg,maquiagens/mak8.jpg">
+        data-gallery="maquiagens/mak1.jpg,maquiagens/mak2.JPG,maquiagens/mak3.jpg,maquiagens/mak4.JPG,maquiagens/mak5.jpg,maquiagens/mak6.JPG,maquiagens/mak7.jpg,maquiagens/mak8.JPG">
         <div class="card-image">
           <img src="maquiagens/card-principal.JPG" alt="Make Up (thumb)" loading="lazy" />
           <!-- selo CTA -->
@@ -1305,10 +1327,6 @@
       </ul>
       <div class="modal-divider"></div>
       <p style="color:#6a4c2b;font-size:1.07em;margin-bottom:22px;text-align:center;">
-        <span
-          style="background:linear-gradient(90deg,#ffe7b3 60%,#fff8f2 100%);padding:2px 8px;border-radius:6px;">Ideal
-          para quem busca mudança completa com naturalidade, conforto e segurança.</span>
-      </p>
       <a href="https://wa.me/5516992345492?text=Ol%C3%A1%2C+quero+comprar+o+Pacote+Transforma%C3%A7%C3%A3o+de+Mega+Hair%21"
         class="btn-modalzap" target="_blank" rel="noopener noreferrer">Comprar pelo WhatsApp</a>
     </div>
@@ -1407,6 +1425,9 @@
         margin: 0 0 12px 0;
         color: #6a4c2b;
         font-size: 1em;
+        height: 180px;
+        /* Libera a altura fixa da lista (evita travas) */
+        max-height: none;
       }
 
       .modal-content ul li {
@@ -1423,39 +1444,109 @@
         opacity: .5;
       }
 
-      .btn-modalzap {
-        background: linear-gradient(90deg, #c9a063 60%, #ffe7b3 100%);
-        color: #fff;
-        border-radius: 8px;
-        border: none;
-        padding: 14px 0;
-        text-align: center;
-        font-weight: 700;
-        font-size: 1.13em;
-        box-shadow: 0 2px 8px rgba(201, 160, 99, 0.10);
-        transition: background .18s, box-shadow .18s;
-        display: block;
+      /* NOVO: fundo com imagem no modal de promoção */
+      #transform-modal .modal-content {
+        background:
+          linear-gradient(180deg, rgba(40, 32, 24, 0.55) 0%, rgba(40, 32, 24, 0.78) 100%),
+          url('cabelos/pacote.JPG') center / cover no-repeat;
+      }
+
+      /* Legibilidade do modal promoção: cores e sombras do texto (mantém o fundo) */
+      #transform-modal #modal-title {
+        color: #FFECC8 !important;
+        text-shadow: 0 2px 6px rgba(0,0,0,.5);
+        letter-spacing: .4px;
+      }
+      #transform-modal .modal-content p,
+      #transform-modal .modal-content ul,
+      #transform-modal .modal-content li {
+        color: #f7f7f7 !important;
+        text-shadow: 0 1px 2px rgba(0,0,0,.5);
+        line-height: 1.7;
+      }
+      #transform-modal .modal-content ul {
+        list-style: disc;
+        padding-left: 22px;
+      }
+      #transform-modal .modal-content li strong {
+        color: #FFE3A3 !important;
+        font-weight: 800;
+      }
+      #transform-modal .modal-divider {
+        background: linear-gradient(90deg, rgba(255,231,179,.9) 0%, rgba(201,160,99,.95) 100%);
+        opacity: .85;
+      }
+      /* Texto do badge claro: use cor escura para contraste */
+      #transform-modal .modal-content p span {
+        color: #3a2a1c !important;
+        text-shadow: none;
+        font-weight: 800;
+      }
+
+      /* NOVO: botão do WhatsApp do modal visível (fundo, cor e borda) */
+      #transform-modal .btn-modalzap {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-top: 80px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        background: linear-gradient(90deg, #ffe7b3 0%, #fbeedc 100%) !important;
+        color: #3a2a1c !important;
+        font-weight: 900;
+        letter-spacing: .2px;
         text-decoration: none;
-        letter-spacing: 0.5px;
-        margin-top: 0;
+        border: 1px solid rgba(201,160,99,.65);
+        box-shadow: 0 8px 22px rgba(0,0,0,.28), 0 2px 8px rgba(201,160,99,.20);
+        pointer-events: auto;
+      }
+      #transform-modal .btn-modalzap:hover {
+        filter: brightness(1.05);
+        box-shadow: 0 10px 26px rgba(0,0,0,.32), 0 2px 10px rgba(201,160,99,.24);
+      }
+      #transform-modal .btn-modalzap:focus-visible {
+        outline: 2px solid #ffe7b3;
+        outline-offset: 2px;
       }
 
-      .btn-modalzap:hover {
-        background: linear-gradient(90deg, #b48a5a 60%, #ffe7b3 100%);
-        box-shadow: 0 4px 16px rgba(201, 160, 99, 0.18);
-        color: #fff;
+      /* Scrollbar (apenas no conteúdo do modal de promoção) */
+      #transform-modal .modal-content {
+        /* Firefox */
+        scrollbar-width: thin;
+        scrollbar-color: #c9a063 rgba(0,0,0,0.22);
+        /* Mantém o layout estável com scrollbar visível */
+        scrollbar-gutter: stable both-edges;
+      }
+      /* Chrome/Edge/Safari */
+      #transform-modal .modal-content::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      #transform-modal .modal-content::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.14);
+        border-radius: 12px;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+      }
+      #transform-modal .modal-content::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #e8c88a 0%, #c9a063 60%, #a37a44 100%);
+        border-radius: 12px;
+        border: 2px solid rgba(0,0,0,0.15);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+      }
+      #transform-modal .modal-content::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #f1d79f 0%, #d4ae73 60%, #b4864f 100%);
+      }
+      #transform-modal .modal-content::-webkit-scrollbar-thumb:active {
+        background: linear-gradient(180deg, #d4ae73 0%, #b4864f 60%, #8e6a3a 100%);
+      }
+      #transform-modal .modal-content::-webkit-scrollbar-corner {
+        background: transparent;
       }
 
-      .btn-secondary#open-transform-modal {
-        transition: background .18s, color .18s, box-shadow .18s;
-      }
-
-      .btn-secondary#open-transform-modal:hover,
-      .btn-secondary#open-transform-modal:focus {
-        background: #c9a063;
-        color: #fff;
-        box-shadow: 0 2px 8px rgba(201, 160, 99, 0.12);
-        outline: none;
+      /* Mobile: barra um pouco mais fina */
+      @media (max-width: 400px) {
+        #transform-modal .modal-content::-webkit-scrollbar { width: 8px; height: 8px; }
       }
 
       @media (max-width: 480px) {
@@ -1468,46 +1559,142 @@
           right: 8px;
         }
       }
+
+      /* Tamanho e rolagem geral do modal (telas pequenas) */
+      #transform-modal .modal-content {
+        height: auto;                 /* evita travas */
+        max-height: calc(100vh - 48px);
+        overflow: auto;               /* rolagem interna */
+      }
+
+      /* 768px: menor largura e padding reduzido */
+      @media (max-width: 768px) {
+        #transform-modal .modal-content {
+          height: auto !important;
+          max-width: 360px;
+          width: 92vw;
+          padding: 28px 16px 18px;
+        }
+      }
+
+      /* 600px: ainda mais compacto */
+      @media (max-width: 600px) {
+        #transform-modal .modal-content {
+          height: auto !important;
+          max-width: 340px;
+          width: 92vw;
+          padding: 22px 12px 16px;
+        }
+      }
+
+      /* 400px: corrige width forçado e compacta ao máximo */
+      @media (max-width: 400px) {
+        #transform-modal .modal-content {
+          height: auto !important;
+          width: 92vw !important;  /* sobrescreve width:500px !important global */
+          max-width: 320px;
+          padding: 18px 10px 14px;
+          max-height: calc(100vh - 32px);
+        }
+      }
+    </style>
+  </div>
+
+  <!-- NOVO: Modal ENTRELACE -->
+  <div id="entrelace-modal" class="modal-overlay" aria-hidden="true" tabindex="-1" style="display:none;">
+    <div class="modal-content gallery" role="dialog" aria-modal="true" aria-labelledby="entrelace-modal-title">
+      <button type="button" class="modal-close" id="close-entrelace-modal" aria-label="Fechar">
+        <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align:middle">
+          <circle cx="12" cy="12" r="12" fill="#fbeedc" />
+          <path d="M8 8l8 8M16 8l-8 8" stroke="#c9a063" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </button>
+      <div class="modal-icon" aria-hidden="true">
+        <svg width="54" height="54" viewBox="0 0 24 24">
+          <defs>
+            <radialGradient id="gold-grad-entrelace" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffe7b3" />
+              <stop offset="100%" stop-color="#c9a063" />
+            </radialGradient>
+          </defs>
+          <circle cx="12" cy="12" r="12" fill="url(#gold-grad-entrelace)" />
+          <path d="M7 13l3 3 7-7" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" />
+        </svg>
+      </div>
+      <h2 id="entrelace-modal-title"
+        style="color:#c9a063;font-family:'Inter',sans-serif;font-weight:800;font-size:1.45em;margin-bottom:10px;letter-spacing:0.5px;text-align:center;">
+        Método Entrelace
+      </h2>
+      <p style="font-size:1.05em;color:#6a4c2b;margin-bottom:10px;">
+        O método entrelace é uma técnica de alongamento capilar muito utilizada por mulheres que desejam mais volume,
+        comprimento e praticidade no dia a dia.
+      </p>
+      <p style="font-size:1.05em;color:#6a4c2b;">
+        Nesse processo, o cabelo natural é trançado rente ao couro cabeludo e, sobre essa base de tranças, são
+        costuradas as telas de cabelo escolhido pela cliente.
+      </p>
+    </div>
+    <!-- NOVO: painel translúcido + blur só para o modal ENTRELACE -->
+    <style>
+      #entrelace-modal .modal-content.gallery {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+        /* padding já existe globalmente; mantido */
+      }
+      #entrelace-modal .modal-content.gallery::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(40, 32, 24, 0.58); /* menos transparente */
+        backdrop-filter: blur(3px) saturate(110%);
+        -webkit-backdrop-filter: blur(3px) saturate(110%);
+        border: 1.5px solid rgba(201, 160, 99, 0.35);
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+        z-index: 0;
+      }
+      #entrelace-modal .modal-content.gallery > * {
+        position: relative;
+        z-index: 1;
+      }
     </style>
   </div>
 
   <!-- NOVO: Modal Galeria Transformações (com rótulos Antes/Depois) -->
   <div id="gallery-modal" class="modal-overlay" aria-hidden="true" tabindex="-1" style="display:none;">
-    <div class="modal-content gallery" role="dialog" aria-modal="true" aria-label="Galeria de transformações">
+    <!-- ADICIONADO: conteúdo do modal de transformações -->
+    <div class="modal-content gallery" role="dialog" aria-modal="true" aria-labelledby="gallery-title">
       <button type="button" class="modal-close" id="gallery-close" aria-label="Fechar">
         <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align:middle">
           <circle cx="12" cy="12" r="12" fill="#fbeedc" />
           <path d="M8 8l8 8M16 8l-8 8" stroke="#c9a063" stroke-width="2.2" stroke-linecap="round" />
         </svg>
       </button>
-      <!-- REMOVIDO: título visual do modal
-      <h2 id="gallery-title">Transformações Reais</h2>
-      -->
-      <div class="gallery-view"
-        style="position:relative;overflow:hidden;border-radius:14px;border:1.5px solid rgba(201,160,99,.35);box-shadow:0 10px 26px rgba(0,0,0,.18);">
-        <img id="gallery-img" src="" alt=""
-          style="display:block;width:100%;height:auto;max-height:60vh;object-fit:contain;background:transparent;">
-        <span id="gallery-badge" class="gallery-badge" aria-hidden="true">Antes</span>
-        <!-- ADICIONADO: setas sobre a imagem -->
-        <button type="button" class="gallery-nav-btn prev" id="gallery-prev-overlay"
-          aria-label="Imagem anterior">‹</button>
-        <button type="button" class="gallery-nav-btn next" id="gallery-next-overlay"
-          aria-label="Próxima imagem">›</button>
-      </div>
-      <div class="gallery-controls"
-        style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;">
-        <button id="gallery-prev" class="btn-secondary" type="button" aria-label="Imagem anterior">‹</button>
-        <div class="gallery-counter" aria-live="polite" style="color:#6a4c2b;font-weight:700;">
-          <span id="gallery-current">1</span>/<span id="gallery-total">0</span>
-        </div>
-        <button id="gallery-next" class="btn-secondary" type="button" aria-label="Próxima imagem">›</button>
+
+      <div class="gallery-view">
+        <span class="gallery-badge" id="gallery-badge">Antes</span>
+
+        <img id="gallery-img" src="" alt="" />
+
+        <!-- setas inferiores -->
+        <button class="g-ctrl g-prev" id="gallery-prev" aria-label="Imagem anterior">‹</button>
+        <button class="g-ctrl g-next" id="gallery-next" aria-label="Próxima imagem">›</button>
+
+        <!-- áreas de navegação sobre a imagem -->
+        <button class="g-ov g-ov-prev" id="gallery-prev-overlay" aria-label="Imagem anterior" tabindex="-1"></button>
+        <button class="g-ov g-ov-next" id="gallery-next-overlay" aria-label="Próxima imagem" tabindex="-1"></button>
+
+        <div class="g-counter"><span id="gallery-current">1</span>/<span id="gallery-total">1</span></div>
       </div>
     </div>
+
     <style>
-      /* Apenas o modal de Transformações fica transparente (não afeta o de Makeup/quickview) */
-      #gallery-modal .modal-content.gallery {
+      /* Deixa o conteúdo do modal transparente (Transformações e Entrelace) */
+      #gallery-modal .modal-content.gallery,
+      #entrelace-modal .modal-content.gallery {
         background: transparent !important;
-        /* remove o fundo branco/creme */
+        border: 0;
+        box-shadow: none;
       }
 
       .modal-content.gallery {
@@ -1516,6 +1703,31 @@
         padding: 22px 16px 18px 16px;
       }
 
+      /* Painel translúcido leve para a galeria (mantém o modal "transparente") */
+      #gallery-modal .gallery-view {
+        position: relative;
+        border-radius: 14px;
+        border: 1.5px solid rgba(201, 160, 99, .35);
+        box-shadow: 0 10px 26px rgba(0, 0, 0, .18);
+        background: rgba(40, 32, 24, 0.5);
+        backdrop-filter: blur(2px) saturate(105%);
+        -webkit-backdrop-filter: blur(2px) saturate(105%);
+        overflow: hidden;
+        padding: 10px 10px 40px 10px; /* espaço para controles */
+      }
+
+      /* Imagem responsiva (mantém proporção) */
+      #gallery-modal #gallery-img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: min(72vh, 820px);
+        object-fit: contain;
+        background: rgba(0, 0, 0, .08);
+        border-radius: 8px;
+      }
+
+      /* Selo "Antes/Depois" (já tinha base) */
       .modal-content.gallery .gallery-badge {
         position: absolute;
         top: 10px;
@@ -1527,55 +1739,111 @@
         padding: 6px 10px;
         font-weight: 900;
         letter-spacing: .2px;
-        box-shadow: 0 8px 18px rgba(0, 0, 0, .12);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
         border: 1px solid rgba(201, 160, 99, .4);
       }
 
-      /* ADICIONADO: estilo das setas sobre a imagem */
-      .modal-content.gallery .gallery-nav-btn {
+      /* Áreas de clique invisíveis sobre a imagem (navegação) */
+      #gallery-modal .g-ov {
         position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 42px;
-        height: 42px;
+        top: 0;
+        bottom: 0;
+        width: 36%;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        z-index: 2;
+      }
+      #gallery-modal .g-ov-prev { left: 0; }
+      #gallery-modal .g-ov-next { right: 0; }
+
+      /* Botões visíveis (setas) */
+      #gallery-modal .g-ctrl {
+        position: absolute;
+        bottom: 8px;
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.4);
+        background: rgba(0,0,0,.25);
+        color: #fff;
+        font-size: 20px;
+        line-height: 1;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        border-radius: 50%;
         cursor: pointer;
         z-index: 3;
-        background: rgba(40, 32, 24, 0.72);
+        backdrop-filter: blur(2px);
+      }
+      #gallery-modal .g-prev { left: 10px; }
+      #gallery-modal .g-next { right: 10px; }
+
+      /* Contador */
+      #gallery-modal .g-counter {
+        position: absolute;
+        right: 58px;
+        bottom: 12px;
+        z-index: 3;
         color: #fff;
-        border: 1px solid rgba(201, 160, 99, .45);
-        box-shadow: 0 8px 18px rgba(0, 0, 0, .18);
-        transition: transform .12s ease, background .12s ease;
+        font-weight: 700;
+        text-shadow: 0 1px 2px rgba(0,0,0,.35);
+        background: rgba(0,0,0,.28);
+        border: 1px solid rgba(255,255,255,.25);
+        border-radius: 999px;
+        padding: 6px 10px;
       }
 
-      .modal-content.gallery .gallery-nav-btn:hover {
-        transform: translateY(-50%) scale(1.06);
-        background: rgba(40, 32, 24, 0.86);
-      }
-
-      .modal-content.gallery .gallery-nav-btn.prev {
-        left: 10px;
-      }
-
-      .modal-content.gallery .gallery-nav-btn.next {
-        right: 10px;
-      }
-
-      @media (max-width: 600px) {
-        .modal-content.gallery {
-          padding: 16px 10px 14px 10px;
-        }
-
-        .modal-content.gallery .gallery-nav-btn {
-          width: 36px;
-          height: 36px;
-        }
+      /* Garantir legibilidade do texto no modal transparente do Entrelace */
+      #entrelace-modal .modal-content.gallery h2,
+      #entrelace-modal .modal-content.gallery p {
+        color: #fff !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .25);
       }
     </style>
   </div>
+
+  <!-- NOVO: Script modal ENTRELACE -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      (function () {
+        var card = document.getElementById('card-entrelace');
+        var modal = document.getElementById('entrelace-modal');
+        if (!card || !modal) return;
+        var closeBtn = document.getElementById('close-entrelace-modal');
+        var lastFocus = null;
+
+        function open() {
+          lastFocus = document.activeElement;
+          modal.style.display = 'flex';
+          modal.setAttribute('aria-hidden', 'false');
+          if (closeBtn) closeBtn.focus();
+        }
+        function close() {
+          modal.style.display = 'none';
+          modal.setAttribute('aria-hidden', 'true');
+          if (lastFocus && lastFocus.focus) lastFocus.focus();
+        }
+
+        // Intercepta antes do quickview.js
+        card.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          open();
+          return false;
+        }, true);
+
+        if (closeBtn) closeBtn.addEventListener('click', close);
+        modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+        document.addEventListener('keydown', function (e) {
+          if (modal.style.display === 'flex' && e.key === 'Escape') close();
+        });
+      })();
+    });
+  </script>
+
+  <!-- NOVO FIM -->
 
   <!-- BOTÃO FLUTUANTE WHATSAPP -->
   <a class="whatsapp-btn"
@@ -1586,7 +1854,7 @@
         d="M20.52 3.48A11.91 11.91 0 0 0 12 0C5.373 0 .01 5.373.01 12c0 13.987.497 15.88 1.43 17.56L0 24l6.63-1.37A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12 0-3.2-1.26-6.15-3.48-8.52z"
         fill="#fff" opacity="0.06" />
       <path
-        d="M17.472 14.382c-.297-.149-1.758-.868-2.03-.968-.273-.099-.472-.148-.672.149-.198.297-.768.968-.942 1.168-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.884-.789-1.48-1.763-1.653-2.06-.173-.297-.018-.458.13-.607.134-.133.298-.347.447-.52.151-.173.201-.298.301-.497.099-.198.05-.372-.025-.52-.074-.148-.672-1.62-.921-2.218-.242-.583-.487-.503-.672-.513l-.573-.01c-.198 0-.52.074-.793.372s-1.04 1.017-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.4.2.7.2 1 .1.3-.1 1.8-.6 2.1-1.3.2-.6.2-1.1.2-1.3 0-.1-.3-.2-.6-.3z" />
+        d="M17.472 14.382c-.297-.149-1.758-.868-2.03-.968-.273-.099-.472-.148-.672.149-.198.297-.768.968-.942 1.168-.173.198-.347.223-.644.074-.297-.149-1.255-.462--2.39-1.475-.884-.789-1.48-1.763-1.653-2.06-.173-.297-.018-.458.13-.607.134-.133.298-.347.447-.52.151-.173.201-.298.301-.497.099-.198.05-.372-.025-.52-.074-.148-.672-1.62-.921-2.218-.242-.583-.487-.503-.672-.513l-.573-.01c-.198 0-.52.074-.793.372s-1.04 1.017-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.4.2.7.2 1 .1.3-.1 1.8-.6 2.1-1.3.2-.6.2-1.1.2-1.3 0-.1-.3-.2-.6-.3z" />
     </svg>
     <span class="wa-text">WhatsApp</span>
   </a>
