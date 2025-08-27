@@ -360,10 +360,11 @@
 
     /* vinheta leve sobre a imagem para unir com o fundo translúcido */
     .shop-hero-card .shop-image {
+
       position: relative;
       /* garante que a imagem cubra bem */
       background-size: cover !important;
-      background-position: center !important;
+      background-position: top 25% !important;
     }
 
     .shop-hero-card .shop-image::after {
@@ -1800,6 +1801,43 @@
       #entrelace-modal .modal-content.gallery p {
         color: #fff !important;
         text-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+      }
+      /* Padronização e espaço para controles (apenas modal Transformações) */
+      #gallery-modal .gallery-view {
+        padding-bottom: 48px; /* antes 40px */
+      }
+      /* 768px: reduzir altura da imagem e reservar espaço */
+      @media (max-width: 768px) {
+        #gallery-modal #gallery-img {
+          max-height: 62vh; /* antes 72vh */
+          width: 100%;
+          height: auto;
+          object-fit: contain;
+        }
+        #gallery-modal .gallery-view {
+          padding-bottom: 56px;
+        }
+      }
+      /* 600px: mais compacto e com área segura */
+      @media (max-width: 600px) {
+        #gallery-modal #gallery-img {
+          max-height: 58vh;
+        }
+        #gallery-modal .gallery-view {
+          padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px));
+        }
+        #gallery-modal .g-ctrl {
+          bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+        }
+        #gallery-modal .g-counter {
+          bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+        }
+      }
+      /* 400px: ainda menor para não cobrir setas/contador */
+      @media (max-width: 400px) {
+        #gallery-modal #gallery-img {
+          max-height: 52vh;
+        }
       }
     </style>
   </div>
