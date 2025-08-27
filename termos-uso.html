@@ -7,13 +7,129 @@
     <title>Termos de Uso • Luciana Cunha</title>
     <meta name="description" content="Termos de Uso — Regras e condições para utilização deste site e serviços.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.clean.css">
+    <style>
+        /* teste rápido: força o fundo (use o caminho que seu index usa) */
+        body {
+            background: url("Imagens/fundo.jpeg") center 25%/cover no-repeat fixed !important;
+        }
+    </style>
     <meta name="theme-color" content="#0f0f10">
+    <style>
+        /* Fundo igual ao index (tema escuro + gradientes sutis) */
+        body.legal-theme {
+            background-color: #0f0f10;
+            background-image:
+                radial-gradient(1200px 800px at -10% -10%, rgba(255, 255, 255, .06), transparent),
+                radial-gradient(1000px 600px at 110% 120%, rgba(255, 255, 255, .04), transparent);
+            background-repeat: no-repeat;
+            background-attachment: fixed, fixed;
+            color: #f5f5f7;
+        }
+
+        body.legal-theme .muted {
+            color: rgba(255, 255, 255, .7);
+        }
+
+        body.legal-theme a.muted {
+            color: rgba(255, 255, 255, .7);
+        }
+
+        body.legal-theme .navbar .brand-title,
+        body.legal-theme .navbar a {
+            color: #f5f5f7;
+        }
+
+        /* Tipografia compacta e refinada para Termos/Política */
+        .legal-typography {
+            font-size: 15.5px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        .legal-typography main.container {
+            padding: 36px 0 !important;
+        }
+
+        .legal-typography h1 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0 0 12px;
+            letter-spacing: .2px;
+            text-wrap: balance;
+            font-size: clamp(1.6rem, 2.4vw + 1rem, 2.2rem);
+        }
+
+        .legal-typography h2 {
+            font-weight: 650;
+            margin: 20px 0 8px;
+            letter-spacing: .15px;
+            font-size: clamp(1.12rem, 1.2vw + .9rem, 1.35rem);
+        }
+
+        .legal-typography h3 {
+            font-weight: 600;
+            margin: 16px 0 6px;
+            letter-spacing: .12px;
+            font-size: 1.05rem;
+        }
+
+        .legal-typography p,
+        .legal-typography li {
+            font-size: 1rem;
+            line-height: 1.65;
+            letter-spacing: .2px;
+            -webkit-hyphens: auto;
+            hyphens: auto;
+            margin: 6px 0;
+        }
+
+        .legal-typography ul {
+            padding-left: 1.2rem;
+            margin: 6px 0 12px;
+        }
+
+        .legal-typography a {
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+        }
+
+        .legal-typography a:hover {
+            text-decoration: underline;
+        }
+
+        .legal-typography .muted {
+            opacity: .85;
+            font-size: .95rem;
+        }
+
+        @media (max-width: 400px) {
+            .legal-typography {
+                font-size: 15px;
+            }
+
+            .legal-typography h1 {
+                font-size: clamp(1.4rem, 4.5vw + .9rem, 1.9rem);
+            }
+
+            .legal-typography h2 {
+                font-size: clamp(1.05rem, 2.5vw + .8rem, 1.22rem);
+            }
+
+            .legal-typography main.container {
+                padding: 28px 0 !important;
+            }
+
+            .legal-typography ul {
+                padding-left: 1rem;
+            }
+        }
+    </style>
 </head>
 
-<body id="top">
+<body id="top" class="no-navbar legal-typography">
     <a class="skip-link" href="#main">Pular para conteúdo</a>
-
     <header class="navbar" role="banner" aria-label="Topo">
         <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0">
             <a href="index.html" class="brand" aria-label="Voltar para a página inicial"
@@ -118,7 +234,13 @@
     <footer class="site-footer" role="contentinfo" style="padding:24px 0">
         <div class="container footer-bottom" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
             <div>© <span id="year"></span> Luciana Cunha</div>
-            <div class="muted"><a class="muted" href="#top">Voltar ao topo ↑</a></div>
+            <div class="muted" style="display:flex;gap:10px;flex-wrap:wrap">
+                <a class="muted" href="termos-uso.html">Termos de Uso</a>
+                <span aria-hidden="true">•</span>
+                <a class="muted" href="politica-privacidade.html">Política de Privacidade</a>
+                <span aria-hidden="true">•</span>
+                <a class="muted" href="#top">Voltar ao topo ↑</a>
+            </div>
         </div>
     </footer>
 

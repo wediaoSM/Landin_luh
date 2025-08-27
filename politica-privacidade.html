@@ -8,16 +8,111 @@
     <meta name="description"
         content="Política de Privacidade — Saiba como seus dados são coletados, usados e protegidos pela Luciana Cunha.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.clean.css">
+    <style>
+        /* teste rápido: força o fundo (use o caminho que seu index usa) */
+        body {
+            background: url("Imagens/fundo.jpeg") center 25%/cover no-repeat fixed !important;
+        }
+
+        /* Tipografia compacta e refinada para Termos/Política */
+        .legal-typography {
+            font-size: 15.5px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        .legal-typography main.container {
+            padding: 36px 0 !important;
+        }
+
+        .legal-typography h1 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 0 0 12px;
+            letter-spacing: .2px;
+            text-wrap: balance;
+            font-size: clamp(1.6rem, 2.4vw + 1rem, 2.2rem);
+        }
+
+        .legal-typography h2 {
+            font-weight: 650;
+            margin: 20px 0 8px;
+            letter-spacing: .15px;
+            font-size: clamp(1.12rem, 1.2vw + .9rem, 1.35rem);
+        }
+
+        .legal-typography h3 {
+            font-weight: 600;
+            margin: 16px 0 6px;
+            letter-spacing: .12px;
+            font-size: 1.05rem;
+        }
+
+        .legal-typography p,
+        .legal-typography li {
+            font-size: 1rem;
+            line-height: 1.65;
+            letter-spacing: .2px;
+            -webkit-hyphens: auto;
+            hyphens: auto;
+            margin: 6px 0;
+        }
+
+        .legal-typography ul {
+            padding-left: 1.2rem;
+            margin: 6px 0 12px;
+        }
+
+        .legal-typography a {
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+        }
+
+        .legal-typography a:hover {
+            text-decoration: underline;
+        }
+
+        .legal-typography .muted {
+            opacity: .85;
+            font-size: .95rem;
+        }
+
+        @media (max-width: 400px) {
+            .legal-typography {
+                font-size: 15px;
+            }
+
+            .legal-typography h1 {
+                font-size: clamp(1.4rem, 4.5vw + .9rem, 1.9rem);
+            }
+
+            .legal-typography h2 {
+                font-size: clamp(1.05rem, 2.5vw + .8rem, 1.22rem);
+            }
+
+            .legal-typography main.container {
+                padding: 28px 0 !important;
+            }
+
+            .legal-typography ul {
+                padding-left: 1rem;
+            }
+        }
+    </style>
+
     <meta name="theme-color" content="#0f0f10">
 </head>
 
-<body id="top">
+<body id="top" class="legal-typography">
+
     <a class="skip-link" href="#main">Pular para conteúdo</a>
 
-    <header class="navbar" role="banner" aria-label="Topo">
-        <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0">
-            <a href="index.html" class="brand" aria-label="Voltar para a página inicial"
+    <body id="top" class="no-navbar">
+        <a class="skip-link" href="#main">Pular para conteúdo</a>
+        <header class="navbar" role="banner" aria-label="Topo"> <a href="index.html" class="brand"
+                aria-label="Voltar para a página inicial"
                 style="text-decoration:none;display:flex;gap:10px;align-items:center">
                 <div class="brand-badge" aria-hidden="true">LC</div>
                 <div class="brand-title">Luciana Cunha</div>
@@ -26,113 +121,120 @@
                 <a href="index.html#sobre">SOBRE</a>
                 <a href="index.html#contato">CONTATO</a>
             </nav>
-        </div>
-    </header>
+            </div>
+        </header>
 
-    <main id="main" class="container" style="max-width:960px;padding:48px 0">
-        <h1>Política de Privacidade</h1>
-        <p class="muted">Atualizado em: 19/08/2025</p>
+        <main id="main" class="container" style="max-width:960px;padding:48px 0">
+            <h1>Política de Privacidade</h1>
+            <p class="muted">Atualizado em: 19/08/2025</p>
 
-        <section>
-            <h2>1. Quem somos</h2>
-            <p>Somos a <strong>Luciana Cunha</strong>, especialista em Megahair, com atendimento em Ribeirão Preto — SP.
-                Esta Política descreve como tratamos seus dados pessoais neste site e em nossos canais de atendimento.
-            </p>
-        </section>
+            <section>
+                <h2>1. Quem somos</h2>
+                <p>Somos a <strong>Luciana Cunha</strong>, especialista em Megahair, com atendimento em Ribeirão Preto —
+                    SP.
+                    Esta Política descreve como tratamos seus dados pessoais neste site e em nossos canais de
+                    atendimento.
+                </p>
+            </section>
 
-        <section>
-            <h2>2. Dados que coletamos</h2>
-            <p>Podemos coletar:</p>
-            <ul>
-                <li><strong>Dados informados por você</strong>: nome, e-mail, telefone e mensagens enviadas (ex.:
-                    WhatsApp, formulários).</li>
-                <li><strong>Dados automáticos</strong>: endereço IP, páginas visitadas, cookies, identificadores de
-                    dispositivo e informações de navegação (analytics).</li>
-            </ul>
-        </section>
+            <section>
+                <h2>2. Dados que coletamos</h2>
+                <p>Podemos coletar:</p>
+                <ul>
+                    <li><strong>Dados informados por você</strong>: nome, e-mail, telefone e mensagens enviadas (ex.:
+                        WhatsApp, formulários).</li>
+                    <li><strong>Dados automáticos</strong>: endereço IP, páginas visitadas, cookies, identificadores de
+                        dispositivo e informações de navegação (analytics).</li>
+                </ul>
+            </section>
 
-        <section>
-            <h2>3. Finalidades e bases legais</h2>
-            <ul>
-                <li><strong>Atendimento e agendamento</strong> — execução de contrato e procedimentos preliminares.</li>
-                <li><strong>Relacionamento e marketing</strong> (ex.: newsletter) — consentimento, com opção de revogar
-                    a qualquer momento.</li>
-                <li><strong>Melhoria do site e segurança</strong> — legítimo interesse em manter e aprimorar nossos
-                    serviços.</li>
-            </ul>
-        </section>
+            <section>
+                <h2>3. Finalidades e bases legais</h2>
+                <ul>
+                    <li><strong>Atendimento e agendamento</strong> — execução de contrato e procedimentos preliminares.
+                    </li>
+                    <li><strong>Relacionamento e marketing</strong> (ex.: newsletter) — consentimento, com opção de
+                        revogar
+                        a qualquer momento.</li>
+                    <li><strong>Melhoria do site e segurança</strong> — legítimo interesse em manter e aprimorar nossos
+                        serviços.</li>
+                </ul>
+            </section>
 
-        <section>
-            <h2>4. Cookies e tecnologias semelhantes</h2>
-            <p>Usamos cookies para lembrar preferências, medir audiência e melhorar a experiência. Você pode
-                gerenciá-los no seu navegador. Ao continuar navegando, você concorda com o uso de cookies.</p>
-        </section>
+            <section>
+                <h2>4. Cookies e tecnologias semelhantes</h2>
+                <p>Usamos cookies para lembrar preferências, medir audiência e melhorar a experiência. Você pode
+                    gerenciá-los no seu navegador. Ao continuar navegando, você concorda com o uso de cookies.</p>
+            </section>
 
-        <section>
-            <h2>5. Compartilhamento de dados</h2>
-            <p>Podemos compartilhar dados com prestadores de serviço essenciais (ex.: hospedagem, analytics, meios de
-                pagamento, mensageria), sempre sob obrigações de confidencialidade e apenas o necessário para a
-                prestação dos serviços.</p>
-        </section>
+            <section>
+                <h2>5. Compartilhamento de dados</h2>
+                <p>Podemos compartilhar dados com prestadores de serviço essenciais (ex.: hospedagem, analytics, meios
+                    de
+                    pagamento, mensageria), sempre sob obrigações de confidencialidade e apenas o necessário para a
+                    prestação dos serviços.</p>
+            </section>
 
-        <section>
-            <h2>6. Transferências internacionais</h2>
-            <p>Alguns fornecedores podem estar fora do Brasil. Nesses casos, adotamos medidas para garantir proteção
-                adequada conforme a LGPD.</p>
-        </section>
+            <section>
+                <h2>6. Transferências internacionais</h2>
+                <p>Alguns fornecedores podem estar fora do Brasil. Nesses casos, adotamos medidas para garantir proteção
+                    adequada conforme a LGPD.</p>
+            </section>
 
-        <section>
-            <h2>7. Segurança da informação</h2>
-            <p>Adotamos medidas técnicas e administrativas para proteger seus dados contra acessos não autorizados,
-                perda, uso indevido ou alteração.</p>
-        </section>
+            <section>
+                <h2>7. Segurança da informação</h2>
+                <p>Adotamos medidas técnicas e administrativas para proteger seus dados contra acessos não autorizados,
+                    perda, uso indevido ou alteração.</p>
+            </section>
 
-        <section>
-            <h2>8. Retenção</h2>
-            <p>Manteremos seus dados apenas pelo tempo necessário para cumprir as finalidades desta Política e
-                obrigações legais.</p>
-        </section>
+            <section>
+                <h2>8. Retenção</h2>
+                <p>Manteremos seus dados apenas pelo tempo necessário para cumprir as finalidades desta Política e
+                    obrigações legais.</p>
+            </section>
 
-        <section>
-            <h2>9. Seus direitos</h2>
-            <p>Nos termos da LGPD, você pode solicitar: confirmação do tratamento, acesso, correção, anonimização,
-                portabilidade, eliminação, informações sobre compartilhamento e revogação do consentimento.</p>
-        </section>
+            <section>
+                <h2>9. Seus direitos</h2>
+                <p>Nos termos da LGPD, você pode solicitar: confirmação do tratamento, acesso, correção, anonimização,
+                    portabilidade, eliminação, informações sobre compartilhamento e revogação do consentimento.</p>
+            </section>
 
-        <section>
-            <h2>10. Contato</h2>
-            <p>Para dúvidas ou solicitações relacionadas a dados pessoais, contate:</p>
-            <ul>
-                <li>E-mail: <a href="mailto:contato@exemplo.com">contato@exemplo.com</a></li>
-                <li>WhatsApp: <a href="https://wa.me/5516992345492" target="_blank" rel="noopener">(+55) 16
-                        99234-5492</a></li>
-                <li>Endereço: Ribeirão Preto — SP, Brasil</li>
-            </ul>
-        </section>
+            <section>
+                <h2>10. Contato</h2>
+                <p>Para dúvidas ou solicitações relacionadas a dados pessoais, contate:</p>
+                <ul>
+                    <li>E-mail: <a href="mailto:contato@exemplo.com">contato@exemplo.com</a></li>
+                    <li>WhatsApp: <a href="https://wa.me/5516992345492" target="_blank" rel="noopener">(+55) 16
+                            99234-5492</a></li>
+                    <li>Endereço: Ribeirão Preto — SP, Brasil</li>
+                </ul>
+            </section>
 
-        <section>
-            <h2>11. Alterações desta Política</h2>
-            <p>Esta Política pode ser atualizada a qualquer momento para refletir melhorias, exigências legais ou
-                mudanças de operação. A versão vigente é a publicada nesta página.</p>
-        </section>
+            <section>
+                <h2>11. Alterações desta Política</h2>
+                <p>Esta Política pode ser atualizada a qualquer momento para refletir melhorias, exigências legais ou
+                    mudanças de operação. A versão vigente é a publicada nesta página.</p>
+            </section>
 
-        <p class="muted">Se preferir, você pode imprimir esta página ou salvá-la em PDF para seus registros.</p>
+            <p class="muted">Se preferir, você pode imprimir esta página ou salvá-la em PDF para seus registros.</p>
 
-        <div style="margin-top:32px">
-            <a class="btn-secondary" href="index.html">← Voltar para a página inicial</a>
-        </div>
-    </main>
+            <div style="margin-top:32px">
+                <a class="btn-secondary" href="index.html">← Voltar para a página inicial</a>
+            </div>
+        </main>
 
-    <footer class="site-footer" role="contentinfo" style="padding:24px 0">
-        <div class="container footer-bottom" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-            <div>© <span id="year"></span> Luciana Cunha</div>
-            <div class="muted"><a class="muted" href="#top">Voltar ao topo ↑</a></div>
-        </div>
-    </footer>
+        <footer class="site-footer" role="contentinfo" style="padding:24px 0">
+            <div class="container footer-bottom"
+                style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+                <div>© <span id="year"></span> Luciana Cunha</div>
+                <div class="muted"><a class="muted" href="#top">Voltar ao topo ↑</a></div>
+            </div>
+        </footer>
 
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-</body>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+
+    </body>
 
 </html>

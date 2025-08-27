@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
      04. Carrinho (inicialização com extração de imagem robusta)
      ========================= */
   (function initCart() {
+
     const CART_KEY = 'lc_carrinho_v1';
 
     const $cartButton = document.getElementById('cart-button');
@@ -91,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const PLACEHOLDER = 'Imagens/placeholder.png';
 
     let cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+
 
     // ---------- utilidades ----------
     function escapeHtml(str) {
@@ -343,15 +345,50 @@ document.addEventListener('DOMContentLoaded', function () {
       const addBtn = e.target.closest('.add-to-cart');
       if (addBtn) {
         const productImage = imageFromCard(addBtn) || '';
+
+        // procura o card/elemento mais próximo que contenha título/dados
+        const card = addBtn.closest('.product-card') || addBtn.closest('.card') || addBtn.closest('[data-product-id]') || addBtn.parentElement;
+
+        // pega texto de h3 (título) se existir
+        function textFromCard(selector) {
+          try {
+            if (!card) return '';
+            const el = card.querySelector(selector);
+            return el && el.textContent ? el.textContent.trim() : '';
+          } catch (err) {
+            return '';
+          }
+        }
+
+        // prioridade para o h3 do card → data-name do card → data-name do botão → aria-label
+        let name = textFromCard('h3') || (card && (card.dataset && card.dataset.name)) || addBtn.dataset.name || addBtn.getAttribute('aria-label') || 'Produto';
+        name = String(name).replace(/\s+/g, ' ').trim();
+
+        // cria id estável: prefer data-id do botão → data-id do card → slug do nome → timestamp
+        function slugify(str) {
+          return String(str || '')
+            .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)/g, '') || null;
+        }
+
+        let id = addBtn.dataset.id || (card && card.dataset && card.dataset.id) || slugify(name) || String(Date.now());
+
+        // FORÇAR preço para zero (conforme solicitado)
+        const price = 0;
+
         const product = {
-          id: addBtn.dataset.id || (addBtn.dataset.name ? addBtn.dataset.name.toLowerCase().replace(/\s+/g, '-') : String(Date.now())),
-          name: addBtn.dataset.name || addBtn.getAttribute('aria-label') || 'Produto',
-          price: parseFloat(addBtn.dataset.price || '0'),
+          id: id,
+          name: name,
+          price: price,
           image: productImage
         };
+
         addToCart(product);
         return;
       }
+
 
       if (e.target.closest('#cart-button')) {
         openCart();
@@ -826,7 +863,6 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 
 
-// Aplica modo automaticamente e expõe toggleSpinnerMode()
 (function () {
   function applyModeToAll() {
     document.querySelectorAll('.qty-controls.simple').forEach(function (w) {
@@ -1127,4 +1163,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   `;
   document.head.appendChild(style);
+})();
+
+// Linka automaticamente, no rodapé, os textos "Termos de Uso" e "Política de Privacidade" para os HTMLs
+(function ensureLegalFooterLinks() {
+  function run() {
+    document.querySelectorAll('footer a, .site-footer a, #footer a').forEach(a => {
+      const t = (a.textContent || '').toLowerCase();
+      if (t.includes('termo')) a.setAttribute('href', 'termos-uso.html');
+      if (t.includes('privacidade') || t.includes('política')) a.setAttribute('href', 'politica-privacidade.html');
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+  else run();
 })();

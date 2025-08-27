@@ -1037,13 +1037,13 @@
 
       <aside class="shop-hero-card" aria-hidden="true">
         <div class="shop-badge">Destaque</div>
-        <div class="shop-image" style="background-image: url('Imagens/pacote.jpg')" role="img"
+        <div class="shop-image" style="background-image: url('cabelos/pacote.JPG')" role="img"
           aria-label="Promoção Mega Hair"></div>
         <div class="shop-card-body">
           <h3>Pacote Transformação</h3>
           <div class="shop-prices">
-            <span class="old-price">R$ 1.199,00</span>
-            <span class="new-price">R$ 899,00</span>
+            <span class="old-price">R$ 4.000</span>
+            <span class="new-price">R$ 3.300</span>
           </div>
 
           <div class="shop-card-actions">
@@ -1071,9 +1071,9 @@
         </div>
       </article>
 
-      <!-- CAR CENTER (removido class="center") -->
-      <article class="card center"
-        data-gallery="Imagens/transformacao.jpg,transformacoes/foto1.jpeg,Imagens/transf-03.jpg">
+      <!-- CAR CENTER (Transformações Reais) -->
+      <article class="card center" id="card-transformacoes"
+        data-gallery="Imagens/transformacao.jpg,transformacoes/foto1.jpeg,transformacoes/loira-ant.jpg,transformacoes/loirinha-dep.jpg,transformacoes/more-ant.jpg,transformacoes/more-dep.jpg,transformacoes/morena-ant.jpg,transformacoes/morena-dep.jpg,transformacoes/ruiva-ant.jpg,transformacoes/ruiva-dep.jpg">
         <div class="card-image">
           <img src="transformacoes/card-capa.jpg" alt="Transformações Reais (thumb)" loading="lazy" />
           <!-- selo CTA -->
@@ -1230,7 +1230,8 @@
         <ul class="footer-list">
           <li id="contato">Telefone: <a href="tel:+5516992345492">(16) 99234-5492</a></li>
           <li>Email: <a href="mailto:contato@exemplo.com">contato@exemplo.com</a></li>
-          <li><span style="white-space:nowrap">Atendimento: Seg–Sáb • 9h–19h</span></li>
+          <li><span style="white-space:nowrap">Atendimento:Terça a Sexta • 9h–19h</span></li>
+          <li><span style="white-space:nowrap">Sabado • 7h–16h</span></li>
           <li>Franca• SP</li>
         </ul>
       </nav>
@@ -1259,9 +1260,9 @@
     <div class="container footer-bottom">
       <div>© <span id="year"></span> Luciana Cunha — Todos os direitos reservados.</div>
       <div class="footer-bottom-right">
-        <a href="#" class="muted">Política de privacidade</a>
+        <a href="politica-privacidade.html" class="muted">Política de privacidade</a>
         <span class="sep">•</span>
-        <a href="#" class="muted">Termos de uso</a>
+        <a href="termos-uso.html" class="muted">Termos de uso</a>
         <span class="sep">•</span>
         <a href="#top" class="back-to-top" aria-label="Voltar ao topo">Voltar ao topo ↑</a>
       </div>
@@ -1295,8 +1296,8 @@
       <p style="font-size:1.13em;color:#6a4c2b;margin-bottom:14px;text-align:center;">O pacote mais completo para
         renovar seu visual:</p>
       <ul style="padding-left:18px;margin-bottom:18px;font-size:1.08em;">
-        <li><strong>Ponto Slim:</strong> aplicação leve e natural</li>
-        <li><strong>Adesivo Slim:</strong> acabamento invisível</li>
+        <li><strong>Aplicação De Alongamento:</strong> Ponto ou Adesivo Slim</li>
+        <li><strong>Cabelo Brasileiro:</strong> Ate 150G</li>
         <li><strong>Consultoria personalizada</strong></li>
         <li><strong>Manutenção inicial inclusa</strong></li>
         <li><strong>Materiais premium</strong></li>
@@ -1470,6 +1471,112 @@
     </style>
   </div>
 
+  <!-- NOVO: Modal Galeria Transformações (com rótulos Antes/Depois) -->
+  <div id="gallery-modal" class="modal-overlay" aria-hidden="true" tabindex="-1" style="display:none;">
+    <div class="modal-content gallery" role="dialog" aria-modal="true" aria-label="Galeria de transformações">
+      <button type="button" class="modal-close" id="gallery-close" aria-label="Fechar">
+        <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align:middle">
+          <circle cx="12" cy="12" r="12" fill="#fbeedc" />
+          <path d="M8 8l8 8M16 8l-8 8" stroke="#c9a063" stroke-width="2.2" stroke-linecap="round" />
+        </svg>
+      </button>
+      <!-- REMOVIDO: título visual do modal
+      <h2 id="gallery-title">Transformações Reais</h2>
+      -->
+      <div class="gallery-view"
+        style="position:relative;overflow:hidden;border-radius:14px;border:1.5px solid rgba(201,160,99,.35);box-shadow:0 10px 26px rgba(0,0,0,.18);">
+        <img id="gallery-img" src="" alt=""
+          style="display:block;width:100%;height:auto;max-height:60vh;object-fit:contain;background:transparent;">
+        <span id="gallery-badge" class="gallery-badge" aria-hidden="true">Antes</span>
+        <!-- ADICIONADO: setas sobre a imagem -->
+        <button type="button" class="gallery-nav-btn prev" id="gallery-prev-overlay"
+          aria-label="Imagem anterior">‹</button>
+        <button type="button" class="gallery-nav-btn next" id="gallery-next-overlay"
+          aria-label="Próxima imagem">›</button>
+      </div>
+      <div class="gallery-controls"
+        style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px;">
+        <button id="gallery-prev" class="btn-secondary" type="button" aria-label="Imagem anterior">‹</button>
+        <div class="gallery-counter" aria-live="polite" style="color:#6a4c2b;font-weight:700;">
+          <span id="gallery-current">1</span>/<span id="gallery-total">0</span>
+        </div>
+        <button id="gallery-next" class="btn-secondary" type="button" aria-label="Próxima imagem">›</button>
+      </div>
+    </div>
+    <style>
+      /* Apenas o modal de Transformações fica transparente (não afeta o de Makeup/quickview) */
+      #gallery-modal .modal-content.gallery {
+        background: transparent !important;
+        /* remove o fundo branco/creme */
+      }
+
+      .modal-content.gallery {
+        max-width: 760px;
+        width: 95vw;
+        padding: 22px 16px 18px 16px;
+      }
+
+      .modal-content.gallery .gallery-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 2;
+        background: linear-gradient(90deg, #ffe7b3 60%, #fbeedc 100%);
+        color: #6a4c2b;
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-weight: 900;
+        letter-spacing: .2px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, .12);
+        border: 1px solid rgba(201, 160, 99, .4);
+      }
+
+      /* ADICIONADO: estilo das setas sobre a imagem */
+      .modal-content.gallery .gallery-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 42px;
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 3;
+        background: rgba(40, 32, 24, 0.72);
+        color: #fff;
+        border: 1px solid rgba(201, 160, 99, .45);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, .18);
+        transition: transform .12s ease, background .12s ease;
+      }
+
+      .modal-content.gallery .gallery-nav-btn:hover {
+        transform: translateY(-50%) scale(1.06);
+        background: rgba(40, 32, 24, 0.86);
+      }
+
+      .modal-content.gallery .gallery-nav-btn.prev {
+        left: 10px;
+      }
+
+      .modal-content.gallery .gallery-nav-btn.next {
+        right: 10px;
+      }
+
+      @media (max-width: 600px) {
+        .modal-content.gallery {
+          padding: 16px 10px 14px 10px;
+        }
+
+        .modal-content.gallery .gallery-nav-btn {
+          width: 36px;
+          height: 36px;
+        }
+      }
+    </style>
+  </div>
+
   <!-- BOTÃO FLUTUANTE WHATSAPP -->
   <a class="whatsapp-btn"
     href="https://wa.me/5516992345492?text=Ol%C3%A1%2C+gostaria+de+agendar+uma+avalia%C3%A7%C3%A3o+de+Mega+Hair."
@@ -1607,6 +1714,87 @@
           }
         });
       }
+
+      // NOVO: Modal "Transformações Reais" com etiquetas Antes/Depois
+      (function () {
+        var card = document.getElementById('card-transformacoes');
+        var modal = document.getElementById('gallery-modal');
+        if (!card || !modal) return;
+
+        var imgEl = document.getElementById('gallery-img');
+        var badgeEl = document.getElementById('gallery-badge');
+        var prevBtn = document.getElementById('gallery-prev');
+        var nextBtn = document.getElementById('gallery-next');
+        var closeBtn = document.getElementById('gallery-close');
+        var curEl = document.getElementById('gallery-current');
+        var totEl = document.getElementById('gallery-total');
+        // ADICIONADO: referências das setas sobrepostas
+        var prevOv = document.getElementById('gallery-prev-overlay');
+        var nextOv = document.getElementById('gallery-next-overlay');
+
+        var urls = (card.getAttribute('data-gallery') || '')
+          .split(',').map(function (s) { return s.trim(); })
+          .filter(Boolean);
+
+        if (!urls.length) return;
+        var idx = 0, lastFocus = null;
+
+        function labelFor(i) { return i % 2 === 0 ? 'Antes' : 'Depois'; }
+
+        function render(i) {
+          idx = (i + urls.length) % urls.length;
+          imgEl.src = urls[idx];
+          imgEl.alt = 'Transformação — ' + labelFor(idx);
+          badgeEl.textContent = labelFor(idx);
+          curEl.textContent = (idx + 1);
+          totEl.textContent = urls.length;
+        }
+
+        function open(startIndex) {
+          lastFocus = document.activeElement;
+          render(startIndex || 0);
+          modal.style.display = 'flex';
+          modal.setAttribute('aria-hidden', 'false');
+          (nextBtn || nextOv).focus();
+          document.body.classList.add('menu-open');
+        }
+
+        function close() {
+          modal.style.display = 'none';
+          modal.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('menu-open');
+          if (lastFocus && lastFocus.focus) lastFocus.focus();
+        }
+
+        // Intercepta clique neste card (antes do quickview.js)
+        card.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          open(0);
+          return false;
+        }, true);
+
+        // Controles inferiores já existentes
+        if (prevBtn) prevBtn.addEventListener('click', function () { render(idx - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { render(idx + 1); });
+
+        // ADICIONADO: setas sobre a imagem
+        if (prevOv) prevOv.addEventListener('click', function () { render(idx - 1); });
+        if (nextOv) nextOv.addEventListener('click', function () { render(idx + 1); });
+
+        closeBtn.addEventListener('click', close);
+
+        // Fecha ao clicar fora
+        modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+
+        // Teclado: ESC, setas
+        document.addEventListener('keydown', function (e) {
+          if (modal.style.display !== 'flex') return;
+          if (e.key === 'Escape') close();
+          if (e.key === 'ArrowRight') { e.preventDefault(); render(idx + 1); }
+          if (e.key === 'ArrowLeft') { e.preventDefault(); render(idx - 1); }
+        });
+      })();
 
       // Auto-hide Navbar (altura dinâmica + padding do header)
       (function () {

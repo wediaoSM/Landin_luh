@@ -3012,3 +3012,18 @@ body {
         rgba(var(--brown-100), 0.62) 100%) !important;
   }
 }
+
+/* esconde navbar em páginas que têm .no-navbar */
+.no-navbar .navbar {
+  display: none !important;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+/* evita que o conteúdo fique colado no topo caso o header antes dava espaçamento */
+.no-navbar main,
+.no-navbar .container {
+  padding-top: 24px;
+  /* ajuste conforme seu layout */
+}

@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <!-- Estilos globais do site -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.clean.css">
   <!-- Estilos específicos da página de produtos -->
   <link rel="stylesheet" href="products.css"> <!-- adiciona estilos do catálogo/carrinho -->
 
@@ -21,10 +21,13 @@
     input[type="number"]::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
-      display: none !important; /* esconder nativo */
+      display: none !important;
+      /* esconder nativo */
     }
+
     input[type="number"] {
-      -moz-appearance: textfield; /* Firefox */
+      -moz-appearance: textfield;
+      /* Firefox */
     }
 
     /* Wrapper relativo para posicionar o spinner custom */
@@ -74,8 +77,8 @@
       min-width: 34px !important;
       padding: 0 !important;
       border-radius: 8px !important;
-      border: 1px solid rgba(255,255,255,0.06) !important;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)) !important;
+      border: 1px solid rgba(255, 255, 255, 0.06) !important;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)) !important;
       color: #fff !important;
       cursor: pointer !important;
       font-weight: 800 !important;
@@ -83,19 +86,53 @@
       transition: transform .08s ease, background .12s ease, box-shadow .12s !important;
     }
 
-    .spin-btn svg { width: 10px; height: 10px; fill: currentColor; }
+    .spin-btn svg {
+      width: 10px;
+      height: 10px;
+      fill: currentColor;
+    }
 
-    .spin-btn:hover { transform: translateY(-2px); background: rgba(255,255,255,0.04); box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
-    .spin-btn:active { transform: translateY(0); }
-    .spin-btn:focus { outline: 2px solid rgba(217,184,156,0.16); outline-offset: 2px; background: rgba(217,184,156,0.06); }
+    .spin-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
 
-    .spin-up { border-bottom-left-radius: 6px !important; border-bottom-right-radius: 6px !important; }
-    .spin-down { border-top-left-radius: 6px !important; border-top-right-radius: 6px !important; }
+    .spin-btn:active {
+      transform: translateY(0);
+    }
+
+    .spin-btn:focus {
+      outline: 2px solid rgba(217, 184, 156, 0.16);
+      outline-offset: 2px;
+      background: rgba(217, 184, 156, 0.06);
+    }
+
+    .spin-up {
+      border-bottom-left-radius: 6px !important;
+      border-bottom-right-radius: 6px !important;
+    }
+
+    .spin-down {
+      border-top-left-radius: 6px !important;
+      border-top-right-radius: 6px !important;
+    }
 
     @media (max-width: 520px) {
-      .qty-controls.simple .qty-input { padding-right: 80px !important; width: 52px !important; height: 34px !important; }
-      .spin-btn { width: 40px !important; height: 30px !important; }
-      .qty-spinner { gap: 6px !important; }
+      .qty-controls.simple .qty-input {
+        padding-right: 80px !important;
+        width: 52px !important;
+        height: 34px !important;
+      }
+
+      .spin-btn {
+        width: 40px !important;
+        height: 30px !important;
+      }
+
+      .qty-spinner {
+        gap: 6px !important;
+      }
     }
 
     /* Forçar visibilidade caso algum outro CSS tente esconder */
@@ -106,7 +143,6 @@
       opacity: 1 !important;
       pointer-events: auto !important;
     }
-
   </style>
 </head>
 
@@ -141,15 +177,12 @@
           <a class="product-image" style="background-image:url('cabelos/loiro-platinado.jpeg');"
             aria-label="Shampoo Mega Hair"></a>
           <div class="product-info">
-            <h3>Loiro Platinado</h3>
-            <p>Limpeza suave, sem ressecar as extensões.</p>
-            <div class="product-price">R$ 89,90</div>
+            <h3>Loiro Platinado Brasileiro</h3>
+            <p></p>
+            <div class="product-price"></div>
             <div class="product-actions">
-<button class="btn-primary add-to-cart"
-  data-id="shampoo-mega-hair"
-  data-name="Shampoo Mega Hair"
-  data-price="89.90"
-  data-image="cabelos/loiro-platinado.jpeg">Adicionar ao carrinho</button>
+              <button class="btn-primary add-to-cart" data-id="shampoo-mega-hair" data-name="Shampoo Mega Hair"
+                data-price="89.90" data-image="cabelos/loiro-platinado.jpeg">Adicionar ao carrinho</button>
             </div>
           </div>
         </article>
@@ -159,15 +192,12 @@
           <a class="product-image" style="background-image:url('cabelos/cabelo-marrom.jpeg');"
             aria-label="Máscara Hidratante"></a>
           <div class="product-info">
-            <h3>Cabelo Marrom</h3>
-            <p>Nutrição intensa para fios com mega hair.</p>
-            <div class="product-price">R$ 119,90</div>
+            <h3>Cabelo Brasileiro Mocha Mousse</h3>
+            <p></p>
+            <div class="product-price"></div>
             <div class="product-actions">
-             <button class="btn-primary add-to-cart"
-  data-id="mascara-hidratante"
-  data-name="Máscara Hidratante"
-  data-price="119.90"
-  data-image="cabelos/cabelo-marrom.jpeg">Adicionar ao carrinho</button>
+              <button class="btn-primary add-to-cart" data-id="mascara-hidratante" data-name="Máscara Hidratante"
+                data-price="119.90" data-image="cabelos/cabelo-marrom.jpeg">Adicionar ao carrinho</button>
             </div>
           </div>
         </article>
@@ -177,15 +207,12 @@
           <a class="product-image" style="background-image:url('cabelos/cabelo-tela.jpeg');"
             aria-label="Leave-in Protetor"></a>
           <div class="product-info">
-            <h3>Cabelo Tela</h3>
-            <p>Proteção térmica e controle de frizz.</p>
-            <div class="product-price">R$ 74,90</div>
+            <h3>Cabelo Brasileiro Natural</h3>
+            <p></p>
+            <div class="product-price"></div>
             <div class="product-actions">
-              <button class="btn-primary add-to-cart"
-  data-id="leave-in-protetor"
-  data-name="Leave-in Protetor"
-  data-price="74.90"
-  data-image="cabelos/cabelo-tela.jpeg">Adicionar ao carrinho</button>
+              <button class="btn-primary add-to-cart" data-id="leave-in-protetor" data-name="Leave-in Protetor"
+                data-price="74.90" data-image="cabelos/cabelo-tela.jpeg">Adicionar ao carrinho</button>
             </div>
           </div>
         </article>
@@ -195,55 +222,62 @@
           <a class="product-image" style="background-image:url('cabelos/loiro-natural.jpeg');"
             aria-label="Óleo Reparador"></a>
           <div class="product-info">
-            <h3>Loiro Natural</h3>
-            <p>Brilho imediato e pontas seladas.</p>
-            <div class="product-price">R$ 99,90</div>
+            <h3>Cabelo Vietnamita</h3>
+            <p></p>
+            <div class="product-price"></div>
             <div class="product-actions">
-              <button class="btn-primary add-to-cart"
-  data-id="oleo-reparador"
-  data-name="Óleo Reparador"
-  data-price="99.90"
-  data-image="cabelos/loiro-natural.jpeg">Adicionar ao carrinho</button>
+              <button class="btn-primary add-to-cart" data-id="oleo-reparador" data-name="Óleo Reparador"
+                data-price="99.90" data-image="cabelos/loiro-natural.jpeg">Adicionar ao carrinho</button>
             </div>
           </div>
         </article>
 
         <!-- Card 5 -->
         <article class="product-card">
-          <a class="product-image" style="background-image:url('Imagens/produto5.jpg');"
+          <a class="product-image" style="background-image:url('cabelos/cabelo-cacheado.JPG');"
             aria-label="Condicionador Suave"></a>
           <div class="product-info">
-            <h3>Condicionador Suave</h3>
-            <p>Desembaraço leve e maciez.</p>
-            <div class="product-price">R$ 84,90</div>
+            <h3>Cabelo Natural Cacheado</h3>
+            <p></p>
+            <div class="product-price"></div>
             <div class="product-actions">
-              <button class="btn-primary add-to-cart"
-  data-id="condicionador-suave"
-  data-name="Condicionador Suave"
-  data-price="84.90"
-  data-image="Imagens/produto5.jpg">Adicionar ao carrinho</button>
+              <button class="btn-primary add-to-cart" data-id="condicionador-suave" data-name="Condicionador Suave"
+                data-price="84.90" data-image="Imagens/produto5.jpg">Adicionar ao carrinho</button>
             </div>
           </div>
         </article>
 
         <!-- Card 6 -->
         <article class="product-card">
-          <a class="product-image" style="background-image:url('Imagens/produto6.jpg');"
+          <a class="product-image" style="background-image:url('cabelos/cabelo-ondulado.JPG');"
             aria-label="Escova Desembaraçante"></a>
           <div class="product-info">
-            <h3>Escova Desembaraçante</h3>
-            <p>Cerdas flexíveis que não puxam o mega.</p>
-            <div class="product-price">R$ 59,90</div>
+            <h3>Cabelo Ondulado Brasileiro</h3>
+            <p></p>
+            <div class="product-price"></div>
             <div class="product-actions">
-              <button class="btn-primary add-to-cart"
-  data-id="escova-desembaraçante"
-  data-name="Escova Desembaraçante"
-  data-price="59.90"
-  data-image="Imagens/produto6.jpg">Adicionar ao carrinho</button>
+              <button class="btn-primary add-to-cart" data-id="escova-desembaraçante" data-name="Escova Desembaraçante"
+                data-price="59.90" data-image="Imagens/produto6.jpg">Adicionar ao carrinho</button>
 
             </div>
           </div>
         </article>
+
+        <!-- Card 7 -->
+        <article class="product-card">
+          <a class="product-image" style="background-image:url('cabelos/cabelo-permanente.JPG');"
+            aria-label="Condicionador Suave"></a>
+          <div class="product-info">
+            <h3>Cabelo Brasileiro Permanente</h3>
+            <p></p>
+            <div class="product-price"></div>
+            <div class="product-actions">
+              <button class="btn-primary add-to-cart" data-id="condicionador-suave" data-name="Condicionador Suave"
+                data-price="84.90" data-image="Imagens/produto5.jpg">Adicionar ao carrinho</button>
+            </div>
+          </div>
+        </article>
+
       </div>
     </div>
   </main>
@@ -260,114 +294,120 @@
 
   <!-- modal do carrinho -->
 
-<div id="cart-modal" class="cart-modal" aria-hidden="true" role="dialog" aria-label="Carrinho de compras">
-  <div class="cart-overlay" data-close="true" aria-hidden="true"></div>
+  <div id="cart-modal" class="cart-modal" aria-hidden="true" role="dialog" aria-label="Carrinho de compras">
+    <div class="cart-overlay" data-close="true" aria-hidden="true"></div>
 
-  <!-- Painel lateral elegante (aparece da direita em desktop; fullscreen em mobile) -->
-  <aside class="cart-panel" role="document" aria-labelledby="cart-title">
-    <header class="cart-header">
-      <div class="cart-title">
-        <!-- ícone simples como marca -->
-        <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path fill="currentColor" d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16 14l.84-2H18V9H8.42l-.68-2H4v2h2l2.6 7.59-.92 1.67C7.25 18.53 7 19.24 7 20h10v-6H8.42z"></path>
-        </svg>
-        <div>
-          <h3 id="cart-title">Seu carrinho</h3>
-          <span class="cart-items-badge" aria-live="polite" aria-atomic="true">0 itens</span>
+    <!-- Painel lateral elegante (aparece da direita em desktop; fullscreen em mobile) -->
+    <aside class="cart-panel" role="document" aria-labelledby="cart-title">
+      <header class="cart-header">
+        <div class="cart-title">
+          <!-- ícone simples como marca -->
+          <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor"
+              d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16 14l.84-2H18V9H8.42l-.68-2H4v2h2l2.6 7.59-.92 1.67C7.25 18.53 7 19.24 7 20h10v-6H8.42z">
+            </path>
+          </svg>
+          <div>
+            <h3 id="cart-title">Seu carrinho</h3>
+            <span class="cart-items-badge" aria-live="polite" aria-atomic="true">0 itens</span>
+          </div>
+        </div>
+
+        <div class="cart-actions-header">
+          <button class="cart-clear small" type="button" title="Limpar carrinho">Limpar</button>
+          <button class="cart-close" aria-label="Fechar carrinho">&times;</button>
+        </div>
+      </header>
+
+      <div class="cart-body" tabindex="0">
+        <!-- Volte a ter o container UL: o JS precisa dele para renderizar os itens -->
+        <ul class="cart-items" aria-live="polite" aria-relevant="additions removals"></ul>
+
+
+
+
+        <div class="cart-empty" role="status" aria-hidden="false">
+          <!-- SVG simples para vazio (sem assets externos) -->
+          <svg width="84" height="64" viewBox="0 0 84 64" aria-hidden="true" focusable="false">
+            <rect x="4" y="12" width="76" height="40" rx="6" fill="none" stroke="rgba(255,255,255,0.06)"
+              stroke-width="2" />
+            <path d="M20 24h44" stroke="rgba(255,255,255,0.04)" stroke-width="2" stroke-linecap="round" />
+            <circle cx="30" cy="40" r="4" fill="rgba(255,255,255,0.06)" />
+            <circle cx="54" cy="40" r="4" fill="rgba(255,255,255,0.06)" />
+          </svg>
+          <p class="muted-small">Seu carrinho está vazio.</p>
+          <button class="btn-secondary cart-continue">Ver produtos</button>
         </div>
       </div>
 
-      <div class="cart-actions-header">
-        <button class="cart-clear small" type="button" title="Limpar carrinho">Limpar</button>
-        <button class="cart-close" aria-label="Fechar carrinho">&times;</button>
-      </div>
-    </header>
-
-    <div class="cart-body" tabindex="0">
-     <!-- Volte a ter o container UL: o JS precisa dele para renderizar os itens -->
-<ul class="cart-items" aria-live="polite" aria-relevant="additions removals"></ul>
-
-
-      
-
-      <div class="cart-empty" role="status" aria-hidden="false">
-        <!-- SVG simples para vazio (sem assets externos) -->
-        <svg width="84" height="64" viewBox="0 0 84 64" aria-hidden="true" focusable="false">
-          <rect x="4" y="12" width="76" height="40" rx="6" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2"/>
-          <path d="M20 24h44" stroke="rgba(255,255,255,0.04)" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="30" cy="40" r="4" fill="rgba(255,255,255,0.06)"/>
-          <circle cx="54" cy="40" r="4" fill="rgba(255,255,255,0.06)"/>
-        </svg>
-        <p class="muted-small">Seu carrinho está vazio.</p>
-        <button class="btn-secondary cart-continue">Ver produtos</button>
-      </div>
-    </div>
-
-    <footer class="cart-footer">
-      <div class="cart-totals">
-        <div class="totals-left">
-          <div class="label">Subtotal</div>
-          <div class="small-muted">Frete calculado no WhatsApp</div>
+      <footer class="cart-footer">
+        <div class="cart-totals">
+          <div class="totals-left">
+            <div class="label">Subtotal</div>
+            <div class="small-muted">Frete calculado no WhatsApp</div>
+          </div>
+          <div class="cart-subtotal">R$ 0,00</div>
         </div>
-        <div class="cart-subtotal">R$ 0,00</div>
-      </div>
 
-      <div class="cart-footer-actions">
-        <button class="btn-outline cart-continue">Continuar comprando</button>
-        <button class="btn-primary checkout-btn" disabled>Finalizar compra</button>
-      </div>
-    </footer>
-  </aside>
-</div>
+        <div class="cart-footer-actions">
+          <button class="btn-outline cart-continue">Continuar comprando</button>
+          <button class="btn-primary checkout-btn" disabled>Finalizar compra</button>
+        </div>
+      </footer>
+    </aside>
+  </div>
 
 
   <!-- toast / popup breve ao adicionar ao carrinho -->
   <div id="toast" class="toast" aria-hidden="true" role="status"></div>
 
   <!-- Modal de introdução da Loja (substituir pelo trecho abaixo) -->
-<div id="store-intro" class="intro-modal" aria-hidden="true" role="dialog" aria-labelledby="store-intro-title" style="display:none;">
-  <div class="intro-overlay" data-close="true" tabindex="-1"></div>
+  <div id="store-intro" class="intro-modal" aria-hidden="true" role="dialog" aria-labelledby="store-intro-title"
+    style="display:none;">
+    <div class="intro-overlay" data-close="true" tabindex="-1"></div>
 
-  <div class="intro-panel" role="document" aria-modal="true">
-    <div class="intro-head">
-      <div class="intro-icon" aria-hidden="true">
-        <!-- simples ícone circular -->
-        <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle cx="12" cy="12" r="12" fill="#f3ddbb"/>
-          <path d="M7 13l3 3 7-7" stroke="#6a4c2b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        </svg>
+    <div class="intro-panel" role="document" aria-modal="true">
+      <div class="intro-head">
+        <div class="intro-icon" aria-hidden="true">
+          <!-- simples ícone circular -->
+          <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="12" fill="#f3ddbb" />
+            <path d="M7 13l3 3 7-7" stroke="#6a4c2b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+              fill="none" />
+          </svg>
+        </div>
+
+        <div class="intro-head-text">
+          <h3 id="store-intro-title">Como finalizar sua compra</h3>
+          <p class="intro-sub">Rápido: vamos montar seu pedido e abrir no WhatsApp.</p>
+        </div>
+
+        <button type="button" class="intro-close" aria-label="Fechar">&times;</button>
       </div>
 
-      <div class="intro-head-text">
-        <h3 id="store-intro-title">Como finalizar sua compra</h3>
-        <p class="intro-sub">Rápido: vamos montar seu pedido e abrir no WhatsApp.</p>
+      <div class="intro-body">
+        <p>Adicione produtos ao carrinho e toque em “Finalizar compra”. Nós abrimos o WhatsApp com seu pedido pronto
+          para envio.</p>
+        <ul class="intro-steps">
+          <li><strong>1.</strong> Selecione e adicione ao carrinho.</li>
+          <li><strong>2.</strong> Ajuste quantidades, se precisar.</li>
+          <li><strong>3.</strong> Finalize e confirme no WhatsApp.</li>
+        </ul>
       </div>
 
-      <button type="button" class="intro-close" aria-label="Fechar">&times;</button>
-    </div>
-
-    <div class="intro-body">
-      <p>Adicione produtos ao carrinho e toque em “Finalizar compra”. Nós abrimos o WhatsApp com seu pedido pronto para envio.</p>
-      <ul class="intro-steps">
-        <li><strong>1.</strong> Selecione e adicione ao carrinho.</li>
-        <li><strong>2.</strong> Ajuste quantidades, se precisar.</li>
-        <li><strong>3.</strong> Finalize e confirme no WhatsApp.</li>
-      </ul>
-    </div>
-
-    <div class="intro-actions">
-      <button type="button" class="btn-primary" data-intro-continue>Entendi, vamos lá</button>
-      <button type="button" class="btn-secondary" data-close="true">Ver produtos</button>
+      <div class="intro-actions">
+        <button type="button" class="btn-primary" data-intro-continue>Entendi, vamos lá</button>
+        <button type="button" class="btn-secondary" data-close="true">Ver produtos</button>
+      </div>
     </div>
   </div>
-</div>
 
 
   <script defer src="scripts.js"></script>
 
   <!-- Spinner helper: cria/insere spinner custom se o input aparecer sozinho no DOM -->
   <script>
-    (function(){
+    (function () {
       'use strict';
 
       // Cria botões de setas (retorna fragmento)
@@ -413,13 +453,13 @@
       }
 
       // Lida com os clicks das setas (delegation)
-      document.addEventListener('click', function(e){
+      document.addEventListener('click', function (e) {
         var up = e.target.closest('.spin-up');
         var down = e.target.closest('.spin-down');
         if (!up && !down) return;
         e.preventDefault();
 
-        var wrapper = (up||down).closest('.qty-controls');
+        var wrapper = (up || down).closest('.qty-controls');
         var input = wrapper && wrapper.querySelector('input[type="number"]');
         if (!input) return;
 
@@ -436,7 +476,7 @@
       });
 
       // Keyboard handling for focused qty-input
-      document.addEventListener('keydown', function(e){
+      document.addEventListener('keydown', function (e) {
         var el = document.activeElement;
         if (!el || !el.matches || !el.matches('input[type="number"].qty-input')) return;
         if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
@@ -456,7 +496,7 @@
       // Processa inputs já existentes no DOM
       function processExisting() {
         var inputs = document.querySelectorAll('input[type="number"]');
-        inputs.forEach(function(inp){
+        inputs.forEach(function (inp) {
           // adiciona classe padrao para consistencia visual (se desejar)
           if (!inp.classList.contains('qty-input')) inp.classList.add('qty-input');
           ensureWrapperAndSpinner(inp);
@@ -464,30 +504,30 @@
       }
 
       // Observador para inputs inseridos dinamicamente (ex.: seu scripts.js monta o li do carrinho)
-      var mo = new MutationObserver(function(mutations){
-        mutations.forEach(function(m){
+      var mo = new MutationObserver(function (mutations) {
+        mutations.forEach(function (m) {
           if (m.addedNodes && m.addedNodes.length) {
-            m.addedNodes.forEach(function(node){
+            m.addedNodes.forEach(function (node) {
               if (node.nodeType !== 1) return;
               if (node.matches && node.matches('input[type="number"]')) {
                 if (!node.classList.contains('qty-input')) node.classList.add('qty-input');
                 ensureWrapperAndSpinner(node);
               } else if (node.querySelectorAll) {
                 var nested = node.querySelectorAll('input[type="number"]');
-                nested.forEach(function(inp){ if (!inp.classList.contains('qty-input')) inp.classList.add('qty-input'); ensureWrapperAndSpinner(inp); });
+                nested.forEach(function (inp) { if (!inp.classList.contains('qty-input')) inp.classList.add('qty-input'); ensureWrapperAndSpinner(inp); });
               }
             });
           }
         });
       });
 
-      document.addEventListener('DOMContentLoaded', function(){
+      document.addEventListener('DOMContentLoaded', function () {
         processExisting();
         mo.observe(document.body, { childList: true, subtree: true });
       });
 
       // também tentar processar após window.load (caso scripts atrasados)
-      window.addEventListener('load', function(){ processExisting(); });
+      window.addEventListener('load', function () { processExisting(); });
 
     })();
   </script>
